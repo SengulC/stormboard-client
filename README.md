@@ -1,4 +1,4 @@
-# GUAI 1.0
+# GUAI 0.5
 
 Very basic prototype for the 'GUAI'.
 
