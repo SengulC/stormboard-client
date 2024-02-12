@@ -4,7 +4,7 @@ import { create } from 'zustand';
  
 export const useStore = create((set, get) => ({
   nodes: [
-    { id: 'a', data: { label: 'a' }, position: { x: 0, y: 0 } },
+    { id: 'a', type: 'postIt', data: { label: 'a' }, position: { x: 0, y: 0 } },
     { id: 'b', data: { label: 'b' }, position: { x: 50, y: 50 } },
     { id: 'c', data: { label: 'c' }, position: { x: -50, y: 100 } }
   ],

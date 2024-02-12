@@ -3,7 +3,10 @@ import ReactFlow, { Background } from 'reactflow';
 import { shallow } from 'zustand/shallow';
  
 import { useStore } from './store';
- 
+import PostItNode from './nodes/PostItNode.jsx';
+
+import './index.css'
+
 const selector = (store) => ({
   nodes: store.nodes,
   edges: store.edges,
@@ -12,6 +15,8 @@ const selector = (store) => ({
   addEdge: store.addEdge,
 });
  
+const nodeTypes = { postIt: PostItNode };
+
 export default function App() {
   const store = useStore(selector, shallow);
  
@@ -22,6 +27,7 @@ export default function App() {
       onNodesChange={store.onNodesChange}
       onEdgesChange={store.onEdgesChange}
       onConnect={store.addEdge}
+      nodeTypes={nodeTypes}
     >
       <Background />
     </ReactFlow>
