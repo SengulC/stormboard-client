@@ -1,8 +1,10 @@
-# React + Vite
+# GUAI 1.0
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Very basic prototype for the 'GUAI'.
 
-Currently, two official plugins are available:
+Utilizing Vite template generated via: ``npm create vite@latest -- --template react``
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Utilizing starter Reactflow code from: 
+- https://reactflow.dev/learn/tutorials/react-flow-and-the-web-audio-api (scaffolding)
+- https://reactflow.dev/learn/customization/custom-nodes (PostItNode)
+
