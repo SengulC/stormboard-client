@@ -1,10 +1,8 @@
 import React from 'react';
 import ReactFlow, { Background } from 'reactflow';
 import { shallow } from 'zustand/shallow';
- 
 import { useStore } from './store';
 import PostItNode from './nodes/PostItNode.jsx';
-
 import './index.css'
 
 const selector = (store) => ({
