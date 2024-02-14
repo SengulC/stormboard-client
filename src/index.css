@@ -1,19 +1,5 @@
-.post-it-node {
-  height: 50px;
-  border: 1px solid #eee;
-  padding: 5px;
-  border-radius: 5px;
-  background: white;
-}
-
-.post-it-node label {
-  display: block;
-  color: #777;
-  font-size: 12px;
-}
-
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -25,6 +11,29 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.post-it-node {
+  padding: 10px;
+  padding-top: 30px;
+  border-radius: 5px;
+  background-color: peachpuff;
+  resize: both;
+}
+
+.post-it-text {
+  padding: 10px;
+  border-radius: 5px;
+  background: palegoldenrod;
+  color: black;
+}
+
+.button {
+  padding: 10px;
+  border-radius: 10px;
+  background-color: peachpuff;
+  border: 10em black;
+  color: black;
 }
 
 a {

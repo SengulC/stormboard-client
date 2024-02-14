@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 import { Handle, Position } from 'reactflow';
+import '../index.css'
 
 function PostIt({ data, isConnectable }) {
   const onChange = useCallback((evt) => {
@@ -7,11 +8,10 @@ function PostIt({ data, isConnectable }) {
   }, []);
 
   return (
-    <div className="post-it-node">
+    <div className='post-it-node'>
       <Handle type="target" position={Position.Top} isConnectable={isConnectable} />
       <div>
-        <p>Text:</p>
-        <input name="text" onChange={onChange} className="nodrag" />
+        <textarea className='nodrag post-it-text' name="text" onChange={onChange} />
       </div>
       <Handle type="source" position={Position.Bottom} isConnectable={isConnectable} />
     </div>

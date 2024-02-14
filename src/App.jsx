@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactFlow, { Background, Panel } from 'reactflow';
 import { shallow } from 'zustand/shallow';
-import { nanoid } from 'nanoid';
 import { useStore } from './store';
 import PostItNode from './nodes/PostItNode.jsx';
 import './index.css'
@@ -31,7 +30,7 @@ export default function App() {
       nodeTypes={nodeTypes}
     >
       <Panel>
-        <button onClick={addNode}>Add Node</button>
+        <button className="button" onClick={addNode}>Add Node</button>
       </Panel>
       <Background />
     </ReactFlow>

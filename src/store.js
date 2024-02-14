@@ -1,7 +1,6 @@
 import { applyNodeChanges, applyEdgeChanges } from 'reactflow';
 import { nanoid } from 'nanoid';
 import { create } from 'zustand';
-import PostItNode from './nodes/PostItNode.jsx';
  
 export const useStore = create((set, get) => ({
   nodes: [
