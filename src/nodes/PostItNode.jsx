@@ -3,7 +3,7 @@ import { Handle, Position } from 'reactflow';
 
 function PostIt({ data, isConnectable }) {
   const onChange = useCallback((evt) => {
-    console.log(evt.target.value);
+    // console.log('changing node... ' + evt.target.value);
   }, []);
 
   return (
