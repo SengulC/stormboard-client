@@ -5,7 +5,6 @@ import PostItNode from './nodes/PostItNode.jsx';
  
 export const useStore = create((set, get) => ({
   nodes: [
-    { id: 'a', type: 'postIt', data: { label: 'a' }, position: { x: 0, y: 0 } },
     { id: 'b', type: 'postIt', data: { label: 'b' }, position: { x: 50, y: 50 } },
     { id: 'c', type: 'postIt', data: { label: 'c' }, position: { x: -50, y: 100 } }
   ],
@@ -30,8 +29,7 @@ export const useStore = create((set, get) => ({
     set({ edges: [edge, ...get().edges] });
   },
 
-  addNode(data) {
-    var isConnectable = true;
+  addNode(data, isConnectable) {
     var id = nanoid(6);
     const node = { id: id, type: 'postIt', data: { label: 'new text' }, position: { x: 0, y: 0 } };
     console.log('adding node:' + node)

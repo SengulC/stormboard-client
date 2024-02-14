@@ -10,10 +10,10 @@ function PostIt({ data, isConnectable }) {
     <div className="post-it-node">
       <Handle type="target" position={Position.Top} isConnectable={isConnectable} />
       <div>
-        <label htmlFor="text">Text:</label>
-        <input id="text" name="text" onChange={onChange} className="nodrag" />
+        <p>Text:</p>
+        <input name="text" onChange={onChange} className="nodrag" />
       </div>
-      <Handle type="source" position={Position.Bottom} id="b" isConnectable={isConnectable} />
+      <Handle type="source" position={Position.Bottom} isConnectable={isConnectable} />
     </div>
   );
 }
