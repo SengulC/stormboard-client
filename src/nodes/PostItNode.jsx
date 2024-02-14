@@ -11,7 +11,7 @@ function PostIt({ data, isConnectable }) {
     <div className='post-it-node'>
       <Handle type="target" position={Position.Top} isConnectable={isConnectable} />
       <div>
-        <textarea className='nodrag post-it-text' name="text" onChange={onChange} />
+        <div className='nodrag post-it-text' name="text" contentEditable onChange={onChange} />
       </div>
       <Handle type="source" position={Position.Bottom} isConnectable={isConnectable} />
     </div>

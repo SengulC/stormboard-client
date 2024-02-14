@@ -19,6 +19,8 @@
   border-radius: 5px;
   background-color: peachpuff;
   resize: both;
+  height: auto;
+  width: auto;
 }
 
 .post-it-text {
@@ -26,12 +28,15 @@
   border-radius: 5px;
   background: palegoldenrod;
   color: black;
+  width: 10em;
+  min-height: 5em;
+  overflow: auto;
 }
 
 .button {
   padding: 10px;
   border-radius: 10px;
-  background-color: peachpuff;
+  background-color: paleturquoise;
   border: 10em black;
   color: black;
 }
