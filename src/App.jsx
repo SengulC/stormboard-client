@@ -3,6 +3,7 @@ import ReactFlow, { Background, Panel } from 'reactflow';
 import { shallow } from 'zustand/shallow';
 import { useStore } from './store';
 import PostItNode from './nodes/PostItNode.jsx';
+import ReactDOM from 'react-dom/client';
 import './index.css'
 
 const selector = (store) => ({
@@ -30,7 +31,7 @@ export default function App() {
       nodeTypes={nodeTypes}
     >
       <Panel>
-        <button className="button" onClick={addNode}>Add Node</button>
+        <button className="add-node-button" onClick={addNode}>Add Node</button>
       </Panel>
       <Background />
     </ReactFlow>
