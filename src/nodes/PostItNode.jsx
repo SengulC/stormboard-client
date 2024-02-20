@@ -1,7 +1,7 @@
 import { useCallback, useRef } from 'react';
 import { Handle, Position } from 'reactflow';
 import '../index.css'
-import ReactDOM from 'react-dom/client';
+import '../openai-test'
 
 function PostIt({ data, isConnectable }) {
   const onChange = useCallback((evt) => {
@@ -10,8 +10,9 @@ function PostIt({ data, isConnectable }) {
 
   const inputRef = useRef(null);
 
-  function artificial() {
-    inputRef.current.innerHTML = "This is AI generated text.";
+  async function artificial() {
+    // let result = await callPrompt("football");
+    inputRef.current.innerHTML = "result";
   }
 
   return (
