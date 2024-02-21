@@ -46,18 +46,18 @@ const nodeTypes = { postIt: PostItNode };
 //   );
 // }
 
-// export default function App() {
-//   const [message, setMessage] = useState("");
+export default function App() {
+  const [message, setMessage] = useState("");
 
-//   useEffect(() => {
-//     fetch("http://localhost:8000/message")
-//       .then((res) => res.json())
-//       .then((data) => setMessage(data.message));
-//   }, []);
+  useEffect(() => {
+    fetch("http://localhost:8000/message")
+      .then((res) => res.json())
+      .then((data) => setMessage(data.message));
+  }, []);
 
-//   return (
-//     <div className="App">
-//       <h1>{message}</h1>
-//     </div>
-//   );
-// }
+  return (
+    <div className="App">
+      <h1>{message}</h1>
+    </div>
+  );
+}
