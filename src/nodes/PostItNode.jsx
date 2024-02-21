@@ -1,4 +1,4 @@
-import { useCallback, useRef } from 'react';
+import { useCallback, useRef, useState, useEffect} from 'react';
 import { Handle, Position } from 'reactflow';
 import '../index.css'
 import '../openai-test'
@@ -10,9 +10,17 @@ function PostIt({ data, isConnectable }) {
 
   const inputRef = useRef(null);
 
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    fetch("http://localhost:8000/message")
+      .then((res) => res.json())
+      .then((data) => setMessage(data.message));
+  }, []);
+
   async function artificial() {
     // let result = await callPrompt("football");
-    inputRef.current.innerHTML = "result";
+    inputRef.current.innerHTML = message;
   }
 
   return (
