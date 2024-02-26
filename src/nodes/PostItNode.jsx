@@ -1,29 +1,35 @@
-import { useCallback, useRef } from 'react';
+import { useCallback, useRef, useState, useEffect} from 'react';
 import { Handle, Position } from 'reactflow';
 import '../index.css'
-import ReactDOM from 'react-dom/client';
+import '../openai-test'
+import axios from 'axios';
 
 function PostIt({ data, isConnectable }) {
-  const onChange = useCallback((evt) => {
-    // console.log('changing node... ' + evt.target.value);
-  }, []);
-
   const inputRef = useRef(null);
+  const [prompt, setPrompt] = useState("");
+  const [response, setResponse] = useState("");
 
-  function artificial() {
-    inputRef.current.innerHTML = "This is AI generated text.";
-  }
+  const artificial = (e) => {
+    e.preventDefault();
+
+    axios.post("http://localhost:8000/gpt", {prompt})
+    .then((res) => {
+      setResponse(res.data);
+      setPrompt(res.data);
+    })
+    .catch((err => {
+      console.error(err);
+    }))
+  };
 
   return (
     <div className='post-it-node'>
       <Handle type="target" position={Position.Top} isConnectable={isConnectable} />
-        <div ref={inputRef} className='nodrag post-it-text' name="text" contentEditable onChange={onChange} />
-        <button onClick={artificial}> Click </button>
+        <textarea ref={inputRef} className='nodrag post-it-text' name="text" value={prompt} onChange={(e) => setPrompt(e.target.value)} />
+        <button onClick={artificial}> Make-Opposite  </button>
       <Handle type="source" position={Position.Bottom} isConnectable={isConnectable} />
     </div>
   );
 }
-
-
 
 export default PostIt;
