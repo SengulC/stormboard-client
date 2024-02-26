@@ -12,7 +12,10 @@ const selector = (store) => ({
   onNodesChange: store.onNodesChange,
   onEdgesChange: store.onEdgesChange,
   addEdge: store.addEdge,
+  onNodeClick: store.onNodeClick,
   addNode: store.addNode,
+  selectedNodes: store.selectedNodes,
+  updateNodeLabel: store.updateNodeLabel,
 });
 
 const nodeTypes = { postIt: PostItNode };
@@ -20,14 +23,19 @@ const nodeTypes = { postIt: PostItNode };
 export default function App() {
   const store = useStore(selector, shallow);
   const addNode = useStore(state => state.addNode);
-  // const [message, setMessage] = useState("");
+  
+  // credit
+  function artificial() {
+    // Loop through each selected node
+    store.selectedNodes.forEach(selectedNode => {
+      const nodeId = selectedNode.target.querySelector('[data-nodeid]').getAttribute("data-nodeid");
+      // Get the current textarea value for this node
+      const currentTextareaValue = selectedNode.target.querySelector('textarea').value;
+      // Now you can update the textarea value for this node by updating the label in the nodes array in your store
+      store.updateNodeLabel(nodeId, currentTextareaValue + " changed");
+    });
+  }
 
-  // useEffect(() => {
-  //   fetch("http://localhost:8000/message")
-  //     .then((res) => res.json())
-  //     .then((data) => setMessage(data.message));
-  // }, []);
-    
   return (
     <ReactFlow
       nodes={store.nodes}
@@ -35,29 +43,18 @@ export default function App() {
       onNodesChange={store.onNodesChange}
       onEdgesChange={store.onEdgesChange}
       onConnect={store.addEdge}
+      onNodeClick={store.onNodeClick}
+      // updateNodeLabel={store.updateNodeLabel}
       nodeTypes={nodeTypes}
     >
       <Panel>
         <button className="add-node-button" onClick={addNode}>Add Node</button>
-        {/* <h1>{message}</h1> */}
+        <hr></hr>
+        <div className='menu'>
+          <button onClick={artificial} className='add-node-button'> Make-Opposite </button>
+        </div>
       </Panel>
       <Background />
     </ReactFlow>
   );
 }
-
-// export default function App() {
-//   const [message, setMessage] = useState("");
-
-//   useEffect(() => {
-//     fetch("http://localhost:8000/message")
-//       .then((res) => res.json())
-//       .then((data) => setMessage(data.message));
-//   }, []);
-
-//   return (
-//     <div className="App">
-//       <h1>{message}</h1>
-//     </div>
-//   );
-// }

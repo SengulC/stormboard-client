@@ -13,6 +13,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.menu {
+  background-color: peachpuff;
+  padding: 10px;
+  border-radius: 5px;
+}
+
 .post-it-node {
   padding: 10px;
   padding-top: 30px;
@@ -21,6 +27,11 @@
   resize: both;
   height: auto;
   width: auto;
+}
+
+.post-it-node::selection {
+  color: yellow;
+  outline: red;
 }
 
 .post-it-text {

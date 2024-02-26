@@ -3,10 +3,11 @@ import { Handle, Position } from 'reactflow';
 import '../index.css'
 import '../openai-test'
 import axios from 'axios';
+import { nanoid } from 'nanoid';
 
 function PostIt({ data, isConnectable }) {
   const inputRef = useRef(null);
-  const [prompt, setPrompt] = useState("");
+  const [prompt, setPrompt] = useState(data.label);
   const [response, setResponse] = useState("");
 
   const artificial = (e) => {
@@ -25,8 +26,8 @@ function PostIt({ data, isConnectable }) {
   return (
     <div className='post-it-node'>
       <Handle type="target" position={Position.Top} isConnectable={isConnectable} />
-        <textarea ref={inputRef} className='nodrag post-it-text' name="text" value={prompt} onChange={(e) => setPrompt(e.target.value)} />
-        <button onClick={artificial}> Make-Opposite  </button>
+        <textarea id={nanoid(6)} ref={inputRef} className='nodrag post-it-text' name="text" value={prompt} onChange={(e) => setPrompt(e.target.value)} />
+        <button onClick={artificial}> Make-Opposite </button>
       <Handle type="source" position={Position.Bottom} isConnectable={isConnectable} />
     </div>
   );
