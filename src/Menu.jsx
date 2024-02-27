@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useReactFlow } from "reactflow";
 import './index.css'
+import axios from "axios";
 
 export function Menu({ node, onClose }) {
   const { setNodes } = useReactFlow();
@@ -27,18 +28,17 @@ export function Menu({ node, onClose }) {
   }, [label, setNodes]);
 
     const artificial = (e) => {
-    setLabel(label + " change");
-    // e.preventDefault();
+        // setLabel(label + " change");
+        e.preventDefault();
 
-    // axios.post("http://localhost:8000/gpt", {prompt})
-    // .then((res) => {
-    //   setResponse(res.data);
-    //   setPrompt(res.data);
-    // })
-    // .catch((err => {
-    //   console.error(err);
-    // }))
-  };
+        axios.post("http://localhost:8000/gpt", {label})
+        .then((res) => {
+            setLabel(res.data);
+        })
+        .catch((err => {
+            console.error(err);
+        }))
+    };
 
   return (
     <aside className="menu">

@@ -5,12 +5,12 @@ import '../openai-test'
 import { nanoid } from 'nanoid';
 
 function PostIt({ data, isConnectable }) {
-  const [prompt, setPrompt] = useState(data.label);
+  // const [prompt, setPrompt] = useState(data.label);
 
-  function trigger(e) {
-    setPrompt(e.target.value);
-    data.label=e.target.value;
-  }
+  // function trigger(e) {
+  //   setPrompt(e.target.value);
+  //   data.label=e.target.value;
+  // }
   
   return (
     <div className='post-it-node'>

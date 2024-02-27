@@ -37,10 +37,11 @@ app.use(cors());
 // app.use(express.json());
 
 app.post("/gpt", async (req, res) => {
-  const {prompt} = req.body;
+  const prompt = req.body.label;
   let result = await callPrompt(prompt);
-  // let result = makeid(5);
+  // let result = makeid(5) + " " + prompt;
   result = result.message.content;
+  console.log("called gpt with prompt: " + prompt + "got result:" + result);
   res.send(result);
 });
 
