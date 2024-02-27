@@ -33,6 +33,7 @@ export default function App() {
       onConnect={store.addEdge}
       onNodeDoubleClick={(_, node) => {
         setCurrentNode(node);
+        console.log('curr node is: ');
         console.log(node);
       }}
       nodeTypes={nodeTypes}

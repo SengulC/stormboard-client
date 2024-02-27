@@ -21,14 +21,12 @@ export function Menu({ node, onClose }) {
             }
           };
         }
-
         return n;
       })
     );
   }, [label, setNodes]);
 
     const artificial = (e) => {
-        // setLabel(label + " change");
         e.preventDefault();
 
         axios.post("http://localhost:8000/gpt", {label})
@@ -45,16 +43,10 @@ export function Menu({ node, onClose }) {
       <div className='close-menu' onClick={() => onClose?.()}> X </div>
       <h1> Menu </h1>
       <div>
-        <h2>Trigger a change in the node</h2>
-        <h3>Change post-it</h3>
-        <input
-          value={label}
-          type="text"
-          onChange={(e) => {
-            setLabel(e.currentTarget.value);
-          }}
-        />
-        <h3>Supercharge post-it</h3>
+        <h3>Trigger a change in the node</h3>
+        <h4>Change post-it</h4>
+        <input value={node.data.label} type="text" onChange={(e) => {setLabel(e.currentTarget.value);}}/>
+        <h4>Supercharge post-it</h4>
         <button onClick={artificial}> Make-Opposite </button>
       </div>
     </aside>

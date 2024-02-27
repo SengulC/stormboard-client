@@ -34,6 +34,15 @@
   cursor: pointer;
 }
 
+.menu > input, button {
+  padding: 10px;
+  border-radius: 10px;
+  background-color: paleturquoise;
+  border: 10em black;
+  color: black;
+  cursor: pointer;
+}
+
 .post-it-node {
   padding: 10px;
   padding-top: 30px;
