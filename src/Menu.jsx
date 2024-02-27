@@ -26,10 +26,11 @@ export function Menu({ node, onClose }) {
     );
   }, [label, setNodes]);
 
-    const artificial = (e) => {
-        e.preventDefault();
+    function artificial (prompt) {
+        // e.preventDefault();
+        console.log(prompt);
 
-        axios.post("http://localhost:8000/gpt", {label})
+        axios.post("http://localhost:8000/gpt", {label, prompt})
         .then((res) => {
             setLabel(res.data);
         })
@@ -45,9 +46,13 @@ export function Menu({ node, onClose }) {
       <div>
         <h3>Trigger a change in the node</h3>
         <h4>Change post-it</h4>
-        <input value={node.data.label} type="text" onChange={(e) => {setLabel(e.currentTarget.value);}}/>
+        <input value={/*node.data.*/label} type="text" onChange={(e) => {setLabel(e.currentTarget.value);}}/>
         <h4>Supercharge post-it</h4>
-        <button onClick={artificial}> Make-Opposite </button>
+        <ul className="art-buttons">
+        <button name="opposite" onClick={e => artificial(e.target.name)}> Make-Opposite </button>
+        <button name="summarize" onClick={e => artificial(e.target.name)}> Summarize </button>
+        <button name="expand" onClick={e => artificial(e.target.name)}> Expand </button>
+        </ul>
       </div>
     </aside>
   );

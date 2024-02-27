@@ -43,6 +43,16 @@
   cursor: pointer;
 }
 
+.art-buttons {
+  display: grid;
+  row-gap: 2em;
+}
+
+.art-buttons > button {
+  width: 10em;
+}
+
+
 .post-it-node {
   padding: 10px;
   padding-top: 30px;

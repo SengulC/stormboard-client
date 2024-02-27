@@ -21,13 +21,29 @@ function makeid(length) {
   return result;
 }
 
-async function callPrompt(prompt) {
-  let content = "Come up with an object that's the opposite of: " + prompt;
+async function callPrompt(prompt, input) {
+  let prePrompt;
+  switch(prompt) {
+    case 'opposite': 
+      prePrompt = "Come up with an object that's the opposite of: ";
+      break;
+    case 'summarize': 
+      prePrompt = "Summarize: ";
+      break;
+    case 'expand': 
+      prePrompt = "Expand up to 50 words: ";
+      break;
+    default:
+      prePrompt = "Regenerate: ";
+      break;
+  }
+  
+  let content = prePrompt + " " + input;
+
   const completion = await openai.chat.completions.create({
     messages: [{ role: "system", content: content }],
     model: "gpt-3.5-turbo",
   });
-
   return completion.choices[0];
 }
 
@@ -37,11 +53,13 @@ app.use(cors());
 // app.use(express.json());
 
 app.post("/gpt", async (req, res) => {
-  const prompt = req.body.label;
-  // let result = await callPrompt(prompt);
-  let result = makeid(5) + " " + prompt;
-  // result = result.message.content;
-  console.log("called gpt with prompt: " + prompt + "got result:" + result);
+  console.log(req.body);
+  const input = req.body.label;
+  const prompt = req.body.prompt;
+  let result = await callPrompt(prompt, input);
+  // let result = makeid(5) + " " + input;
+  result = result.message.content;
+  console.log("called gpt with prompt: " + prompt + " " + input + " got result:" + result);
   res.send(result);
 });
 

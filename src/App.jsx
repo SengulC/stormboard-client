@@ -32,13 +32,19 @@ export default function App() {
       onEdgesChange={store.onEdgesChange}
       onConnect={store.addEdge}
       onNodeDoubleClick={(_, node) => {
-        setCurrentNode(node);
-        console.log('curr node is: ');
-        console.log(node);
+        if (currentNode) {
+          setCurrentNode(null);
+          setCurrentNode(node);
+        } else {
+          setCurrentNode(node);
+        }
+        // console.log('curr node is: ');
+        // console.log(node);
       }}
       nodeTypes={nodeTypes}
     >
       {currentNode ? (<Menu node={currentNode} onClose={() => setCurrentNode(null)} />) : null}
+      {/* condition ? exprIfTrue : exprIfFalse */}
       <Panel>
         <button className="add-node-button" onClick={addNode}>Add Node</button>
       </Panel>
