@@ -39,7 +39,9 @@ async function callPrompt(prompt, input) {
   }
   
   let content = prePrompt + " " + input;
+  return content;
 
+  // API usage
   const completion = await openai.chat.completions.create({
     messages: [{ role: "system", content: content }],
     model: "gpt-3.5-turbo",
