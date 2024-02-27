@@ -38,16 +38,12 @@ app.use(cors());
 
 app.post("/gpt", async (req, res) => {
   const prompt = req.body.label;
-  let result = await callPrompt(prompt);
-  // let result = makeid(5) + " " + prompt;
-  result = result.message.content;
+  // let result = await callPrompt(prompt);
+  let result = makeid(5) + " " + prompt;
+  // result = result.message.content;
   console.log("called gpt with prompt: " + prompt + "got result:" + result);
   res.send(result);
 });
-
-// app.get("/message", (req, res) => {
-//   res.json({ message:  result});
-// });
 
 app.listen(8000, () => {
   console.log(`Server is running on port 8000.`);
