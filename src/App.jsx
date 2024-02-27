@@ -44,7 +44,7 @@ export default function App() {
       nodeTypes={nodeTypes}
     >
       {currentNode ? (<Menu node={currentNode} onClose={() => setCurrentNode(null)} />) : null}
-      {/* condition ? exprIfTrue : exprIfFalse */}
+      {/* REDEFINE ABOVE condition ? exprIfTrue : exprIfFalse */}
       <Panel>
         <button className="add-node-button" onClick={addNode}>Add Node</button>
       </Panel>

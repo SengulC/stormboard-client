@@ -60,7 +60,7 @@ app.post("/gpt", async (req, res) => {
   const prompt = req.body.prompt;
   let result = await callPrompt(prompt, input);
   // let result = makeid(5) + " " + input;
-  result = result.message.content;
+  // result = result.message.content;
   console.log("called gpt with prompt: " + prompt + " " + input + " got result:" + result);
   res.send(result);
 });
