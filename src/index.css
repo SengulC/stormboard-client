@@ -1,5 +1,5 @@
 :root {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -72,7 +72,7 @@
   padding: 10px;
   border-radius: 5px;
   background: palegoldenrod;
-  font: Arial, Helvetica, sans-serif;
+  font:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   color: black;
   width: 10em;
   min-height: 5em;

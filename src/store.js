@@ -5,7 +5,7 @@ import { create } from 'zustand';
 export const useStore = create((set, get) => ({
   nodes: [
     { id: 'b', type: 'postIt', data: { label: 'After school clubs' }, position: { x: 150, y: 150 } },
-    { id: 'c', type: 'postIt', data: { label: 'House competitions' }, position: { x: 150, y: 300 } }
+    { id: 'c', type: 'postIt', data: { label: 'House competitions' }, position: { x: 200, y: 300 } }
   ],
   edges: [],
   selectedNodes: [],
@@ -31,7 +31,9 @@ export const useStore = create((set, get) => ({
 
   addNode(data, isConnectable) {
     var id = nanoid(6);
-    const node = { id: id, type: 'postIt', data: { label: '' }, position: { x: 0, y: 0 } };
+    let xPos = Math.random() * (1000 - 20) + 20;;
+    let yPos = Math.random() * (600 - 20) + 20;;
+    const node = { id: id, type: 'postIt', data: { label: '' }, position: { x: xPos, y: yPos } };
     console.log('adding node:' + node)
     set({ nodes: [node, ...get().nodes] });
   },
