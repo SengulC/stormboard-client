@@ -44,7 +44,8 @@ export default function App() {
       nodeTypes={nodeTypes}
     >
       {currentNode ? (<Menu node={currentNode} onClose={() => setCurrentNode(null)} />) : null}
-      {/* REDEFINE ABOVE condition ? exprIfTrue : exprIfFalse */}
+      {/* REDEFINE ABOVE so that menu is rendered regardless of null-check: condition ? exprIfTrue : exprIfFalse */}
+      {/* instead, change menu.jsx rendering somehow? */}
       <Panel>
         <button className="add-node-button" onClick={addNode}>Add Node</button>
       </Panel>
