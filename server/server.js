@@ -28,10 +28,13 @@ async function callPrompt(prompt, input) {
       prePrompt = "Come up with an object that's the opposite of: ";
       break;
     case 'summarize': 
-      prePrompt = "Summarize: ";
+      prePrompt = "Summarize down to half the word-count: ";
       break;
     case 'expand': 
       prePrompt = "Expand up to 50 words: ";
+      break;
+    case 'surprise': 
+      prePrompt = "Respond in no longer than 10 words. Surprise me with a random concept, drawing inspiration from: ";
       break;
     default:
       prePrompt = "Regenerate: ";
@@ -39,7 +42,7 @@ async function callPrompt(prompt, input) {
   }
   
   let content = prePrompt + " " + input;
-  return content;
+  // return content;
 
   // API usage
   const completion = await openai.chat.completions.create({
@@ -59,8 +62,7 @@ app.post("/gpt", async (req, res) => {
   const input = req.body.label;
   const prompt = req.body.prompt;
   let result = await callPrompt(prompt, input);
-  // let result = makeid(5) + " " + input;
-  // result = result.message.content;
+  result = result.message.content; // UNCOMMENT ME FOR API USAGE
   console.log("called gpt with prompt: " + prompt + " " + input + " got result:" + result);
   res.send(result);
 });

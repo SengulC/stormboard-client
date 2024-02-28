@@ -52,6 +52,7 @@ export function Menu({ node, onClose }) {
         <button name="opposite" onClick={e => artificial(e.target.name)}> Make-Opposite </button>
         <button name="summarize" onClick={e => artificial(e.target.name)}> Summarize </button>
         <button name="expand" onClick={e => artificial(e.target.name)}> Expand </button>
+        <button name="surprise" onClick={e => artificial(e.target.name)}> Surprise Me! </button>
         </ul>
       </div>
     </aside>
