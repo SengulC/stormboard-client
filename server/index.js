@@ -3,10 +3,10 @@ import cors from "cors";
 import OpenAI from "openai";
 import bodyParser from "body-parser";
 
-const key = process.env.VITE_OPENAI_KEY;
-const openai = new OpenAI({
-  apiKey: key
-});
+// const key = process.env.VITE_OPENAI_KEY;
+// const openai = new OpenAI({
+//   apiKey: key
+// });
 
 //https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript
 function makeid(length) {
@@ -45,11 +45,11 @@ async function callPrompt(prompt, input) {
   return content;
 
   // API usage
-  const completion = await openai.chat.completions.create({
-    messages: [{ role: "system", content: content }],
-    model: "gpt-3.5-turbo",
-  });
-  return completion.choices[0];
+  // const completion = await openai.chat.completions.create({
+  //   messages: [{ role: "system", content: content }],
+  //   model: "gpt-3.5-turbo",
+  // });
+  // return completion.choices[0];
 }
 
 const app = express();
