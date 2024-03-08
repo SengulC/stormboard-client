@@ -42,7 +42,7 @@ async function callPrompt(prompt, input) {
   }
   
   let content = prePrompt + " " + input;
-  // return content;
+  return content;
 
   // API usage
   const completion = await openai.chat.completions.create({
@@ -62,7 +62,7 @@ app.post("/gpt", async (req, res) => {
   const input = req.body.label;
   const prompt = req.body.prompt;
   let result = await callPrompt(prompt, input);
-  result = result.message.content; // UNCOMMENT ME FOR API USAGE
+  // result = result.message.content; // UNCOMMENT ME FOR API USAGE
   console.log("called gpt with prompt: " + prompt + " " + input + " got result:" + result);
   res.send(result);
 });
