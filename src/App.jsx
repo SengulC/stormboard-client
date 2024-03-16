@@ -32,20 +32,11 @@ export default function App() {
       onEdgesChange={store.onEdgesChange}
       onConnect={store.addEdge}
       onNodeDoubleClick={(_, node) => {
-        if (currentNode) {
-          setCurrentNode(null);
-          setCurrentNode(node);
-        } else {
-          setCurrentNode(node);
-        }
-        // console.log('curr node is: ');
-        // console.log(node);
+        setCurrentNode(node);
       }}
       nodeTypes={nodeTypes}
     >
-      {currentNode ? (<Menu node={currentNode} onClose={() => setCurrentNode(null)} />) : null}
-      {/* REDEFINE ABOVE so that menu is rendered regardless of null-check: condition ? exprIfTrue : exprIfFalse */}
-      {/* instead, change menu.jsx rendering somehow? */}
+      <Menu node={currentNode} onClose={() => setCurrentNode(null)} />
       <Panel>
         <button className="add-node-button" onClick={addNode}>Add Node</button>
       </Panel>

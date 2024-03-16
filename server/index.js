@@ -59,7 +59,7 @@ app.use(cors());
 
 app.post("/gpt", async (req, res) => {
   console.log(req.body);
-  const input = req.body.label;
+  const input = req.body.nodelabel;
   const prompt = req.body.prompt;
   let result = await callPrompt(prompt, input);
   // result = result.message.content; // UNCOMMENT ME FOR API USAGE
