@@ -49,12 +49,12 @@ export function Menu({ node, onClose }) {
 
   return (
     <aside className="menu">
-      <div className='close-menu' onClick={() => onClose?.()}> X </div>
+      <div className='close-menu' onClick={() => onClose?.()}> X (deselect node) </div>
       <h1> Menu </h1>
       <div>
         <h3>Trigger a change in the node</h3>
         <h3>Current node</h3>
-        <div> {node.data.label} </div>
+        <div className="curr-node"> {node.data.label} </div>
         <h4>Supercharge post-it</h4>
         <ul className="art-buttons">
         <button name="opposite" onClick={e => artificial(node, e.target.name)}> Make-Opposite </button>
