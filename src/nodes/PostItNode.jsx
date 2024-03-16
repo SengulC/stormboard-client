@@ -8,7 +8,7 @@ function PostIt({ data, isConnectable }) {
   const [prompt, setPrompt] = useState(data.label);
 
   function trigger(e) {
-    // setPrompt(e.target.value);
+    setPrompt(e.target.value);
     data.label=e.target.value;
     return;
   }
