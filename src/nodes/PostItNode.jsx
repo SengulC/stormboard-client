@@ -3,9 +3,11 @@ import { Handle, Position } from 'reactflow';
 import '../index.css'
 import '../openai-test'
 import { nanoid } from 'nanoid';
+import { useStore } from '../store';
 
 function PostIt({ data, isConnectable }) {
   const [prompt, setPrompt] = useState(data.label);
+  const updateNodeLabel = useStore(state => state.updateNodeLabel);
 
   function trigger(e) {
     setPrompt(e.target.value);
@@ -16,7 +18,6 @@ function PostIt({ data, isConnectable }) {
   return (
     <div className='post-it-node'>
       <Handle type="target" position={Position.Top} isConnectable={isConnectable} />
-        {/* <textarea id={nanoid(6)} className='nodrag post-it-text' name="text" value={data.label} onChange={(e) => data.label=e.target.value} /> */}
         <textarea id={nanoid(6)} className='nodrag post-it-text' name="text" value={data.label} onChange={(e) => trigger(e)} />
         <Handle type="source" position={Position.Bottom} isConnectable={isConnectable} />
     </div>
