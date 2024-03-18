@@ -24,6 +24,10 @@ export default function App() {
   const addNode = useStore(state => state.addNode);
   const [currentNode, setCurrentNode] = useState(null);
 
+  // function changeBrief() {
+    
+  // }
+
   return (
     <ReactFlow
       nodes={store.nodes}
@@ -38,10 +42,11 @@ export default function App() {
     >
       <Menu node={currentNode} onClose={() => setCurrentNode(null)} />
       <Panel>
+        {/* <input name="brief" onchange={changeBrief} value={brief} size="50" placeholder='Write your design brief here '></input> */}
+        <hr></hr>
         <button className="add-node-button" onClick={addNode}>Add Node</button>
       </Panel>
       <Background />
     </ReactFlow>
-
   );
 }

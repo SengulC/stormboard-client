@@ -19,6 +19,7 @@
   padding: 10px;
   border-radius: 5px;
   background-color: palegoldenrod;
+  width: fit-content;
 }
 
 .menu {

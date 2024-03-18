@@ -54,7 +54,7 @@ export function Menu({ node, onClose }) {
       <div>
         <h3>Trigger a change in the node</h3>
         <h3>Current node</h3>
-        <div className="curr-node"> {node.data.label} </div>
+        <div className="curr-node"> {node.data.label || "Select a node to edit."} </div>
         <h4>Supercharge post-it</h4>
         <ul className="art-buttons">
         <button name="opposite" onClick={e => artificial(node, e.target.name)}> Make-Opposite </button>
