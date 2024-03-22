@@ -13,8 +13,33 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.curr-node {
+  border-style: solid;
+  border-width: 0.5px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: palegoldenrod;
+  width: fit-content;
+}
+
+.panel {
+  z-index: 99;
+  position: absolute;
+  left: 0;
+  padding: 1rem;
+  padding-top: 2rem;
+  background-color: peachpuff;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border-left: 1px solid #000;
+  align-items: center;
+  border-radius: 5px;
+}
+
 .menu {
-  width: 40vw;
+  width: 25em;
   z-index: 99;
   position: absolute;
   right: 0;
@@ -28,6 +53,8 @@
   flex-direction: column;
   gap: 1rem;
   border-left: 1px solid #000;
+  align-items: center;
+  border-radius: 5px;
 }
 
 .menu .close-menu {
@@ -52,8 +79,8 @@
   width: 10em;
 }
 
-
 .post-it-node {
+  border-color: #213547;
   padding: 10px;
   padding-top: 30px;
   border-radius: 5px;

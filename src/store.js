@@ -9,6 +9,7 @@ export const useStore = create((set, get) => ({
   ],
   edges: [],
   selectedNodes: [],
+  brief: '',
  
   onNodesChange(changes) {
     set({
@@ -34,7 +35,6 @@ export const useStore = create((set, get) => ({
     let xPos = Math.random() * (1000 - 20) + 20;;
     let yPos = Math.random() * (600 - 20) + 20;;
     const node = { id: id, type: 'postIt', data: { label: '' }, position: { x: xPos, y: yPos } };
-    console.log('adding node:' + node)
     set({ nodes: [node, ...get().nodes] });
   },
 
@@ -52,12 +52,17 @@ export const useStore = create((set, get) => ({
     set({
       nodes: get().nodes.map((node) => {
         if (node.id === nodeId) {
-          // it's important to create a new object here, to inform React Flow about the cahnges
           node.data = { label };
         }
         return node;
       }),
     });
   },
+
+  updateBrief(newBrief) {
+    set( {brief: newBrief} );
+    // console.log("updating brief to:" + newBrief);
+    return;
+  }
 }));
 
