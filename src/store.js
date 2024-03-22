@@ -61,6 +61,8 @@ export const useStore = create((set, get) => ({
 
   updateBrief(newBrief) {
     set( {brief: newBrief} );
+    // console.log("updating brief to:" + newBrief);
+    return;
   }
 }));
 

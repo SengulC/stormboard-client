@@ -8,6 +8,7 @@ import { useStore } from './store';
 export function Menu({ node, deselect }) {
   const { setNodes } = useReactFlow();
   const updateNodeLabel = useStore(state => state.updateNodeLabel);
+  const brief = useStore(state => state.brief);
 
   node = node ? node : {'id': 'x', 'data':{'label': ''}};
   // console.log(node);
@@ -31,10 +32,10 @@ export function Menu({ node, deselect }) {
     );
   }, [label, setNodes]);
 
-  function artificial (node, prompt) {
+  function artificial (node, prompt, brief) {
     // e.preventDefault();
     const nodelabel = node.data.label;
-    axios.post("http://localhost:8000/buttons", {nodelabel, prompt}) // the var names here matter! nodelabel and prompt are referred to in index.js
+    axios.post("http://localhost:8000/buttons", {nodelabel, prompt, brief}) // the var names here matter! nodelabel and prompt are referred to in index.js
     .then((res) => {
         setLabel(res.data);
         console.log(label);
@@ -55,10 +56,10 @@ export function Menu({ node, deselect }) {
         <div className="curr-node"> {node.data.label || "Select a node to edit."} </div>
         <h4>Supercharge post-it</h4>
         <ul className="art-buttons">
-        <button name="opposite" onClick={e => artificial(node, e.target.name)}> Make-Opposite </button>
-        <button name="summarize" onClick={e => artificial(node, e.target.name)}> Summarize </button>
-        <button name="expand" onClick={e => artificial(node, e.target.name)}> Expand </button>
-        <button name="surprise" onClick={e => artificial(node, e.target.name)}> Surprise Me! </button>
+        <button name="opposite" onClick={e => artificial(node, e.target.name, brief)}> Make-Opposite </button>
+        <button name="summarize" onClick={e => artificial(node, e.target.name, brief)}> Summarize </button>
+        <button name="expand" onClick={e => artificial(node, e.target.name, brief)}> Expand </button>
+        <button name="surprise" onClick={e => artificial(node, e.target.name, brief)}> Surprise Me! </button>
         </ul>
       </div>
     </aside>

@@ -30,6 +30,7 @@ export default function App() {
 
   function changeBrief(value) {
     setBrief(value);
+    updateBrief(brief);
   }
 
   return (
@@ -47,7 +48,7 @@ export default function App() {
       <Menu node={currentNode} deselect={() => setCurrentNode(null)} />
       <Panel className='panel'>
         <form>
-        <input name="brief" onSubmit={(e) => updateBrief(brief)} onChange={(e) => setBrief(e.target.value)} value={brief} size="50" placeholder='Write your design brief here '></input>
+        <input name="brief" onChange={(e) => changeBrief(e.target.value)} value={brief} size="50" placeholder='Write your design brief here '></input>
         </form>
         <hr></hr>
         <button className="add-node-button" onClick={addNode}>Add Node</button>

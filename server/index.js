@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import OpenAI from "openai";
 import bodyParser from "body-parser";
+import { useStore } from '../src/store.js';
 
 const key = process.env.VITE_OPENAI_KEY;
 const openai = new OpenAI({
@@ -21,7 +22,16 @@ function makeid(length) {
   return result;
 }
 
-async function callButtonPrompt(prompt, input) {
+function getBrief() {
+  console.log("before")
+  const brief = useStore(state => state.brief);
+  console.log("after")
+  return brief;
+}
+
+async function callButtonPrompt(prompt, input, brief) {
+  // const brief = getBrief();
+
   let prePrompt;
   switch(prompt) {
     case 'opposite': 
@@ -55,10 +65,10 @@ async function callButtonPrompt(prompt, input) {
   
   Respond in a single sentence, describing the product, no longer than 30 words. Do not add beginners like "Create/Design/Develop etc"
 
-  The design brief is: ""`  
+  The design brief is: ${brief}`  
   const completion = await openai.chat.completions.create({
-    messages: /*[{ role: "system", content: instruction},*/
-               [{role: "user", content: content}],
+    messages: [{ role: "system", content: instruction},
+               {role: "user", content: content}],
     model: "gpt-3.5-turbo",
   });
   return completion.choices[0];
@@ -70,12 +80,12 @@ app.use(cors());
 // app.use(express.json());
 
 app.post("/buttons", async (req, res) => {
-  console.log(req.body);
   const input = req.body.nodelabel;
   const prompt = req.body.prompt;
-  let result = await callButtonPrompt(prompt, input);
+  const brief = req.body.brief;
+  let result = await callButtonPrompt(prompt, input, brief);
   result = result.message.content; // UNCOMMENT ME FOR API USAGE
-  console.log("called gpt with prompt: " + prompt + " " + input + " got result:" + result);
+  console.log("Called gpt with brief: " + brief + ", and prompt: " + prompt + ": " + input + ". Got result: " + result);
   res.send(result);
 });
 
