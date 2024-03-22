@@ -40,9 +40,10 @@ export default function App() {
       }}
       nodeTypes={nodeTypes}
     >
-      <Menu node={currentNode} onClose={() => setCurrentNode(null)} />
-      <Panel>
+      <Menu node={currentNode} deselect={() => setCurrentNode(null)} />
+      <Panel className='panel'>
         {/* <input name="brief" onchange={changeBrief} value={brief} size="50" placeholder='Write your design brief here '></input> */}
+        <input></input>
         <hr></hr>
         <button className="add-node-button" onClick={addNode}>Add Node</button>
       </Panel>

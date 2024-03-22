@@ -5,7 +5,7 @@ import './index.css'
 import axios from "axios";
 import { useStore } from './store';
 
-export function Menu({ node, onClose }) {
+export function Menu({ node, deselect }) {
   const { setNodes } = useReactFlow();
   const updateNodeLabel = useStore(state => state.updateNodeLabel);
 
@@ -34,13 +34,11 @@ export function Menu({ node, onClose }) {
   function artificial (node, prompt) {
     // e.preventDefault();
     const nodelabel = node.data.label;
-    axios.post("http://localhost:8000/gpt", {nodelabel, prompt}) // the var names here matter! nodelabel and prompt are referred to in index.js
+    axios.post("http://localhost:8000/buttons", {nodelabel, prompt}) // the var names here matter! nodelabel and prompt are referred to in index.js
     .then((res) => {
         setLabel(res.data);
         console.log(label);
         updateNodeLabel(node.id, res.data);
-        // DOESNT PROPERLY UPDATE NODE LABEL?
-        // need to send data to post it node too
     })
     .catch((err => {
         console.error(err);
@@ -49,7 +47,7 @@ export function Menu({ node, onClose }) {
 
   return (
     <aside className="menu">
-      <div className='close-menu' onClick={() => onClose?.()}> X (deselect node) </div>
+      <div className='close-menu' onClick={() => deselect?.()}> X (deselect node) </div>
       <h1> Menu </h1>
       <div>
         <h3>Trigger a change in the node</h3>
