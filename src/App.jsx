@@ -23,8 +23,10 @@ export default function App() {
   const store = useStore(selector, shallow);
   const addNode = useStore(state => state.addNode);
   const updateBrief = useStore(state => state.updateBrief);
-  const [currentNode, setCurrentNode] = useState(null);
-  const [brief, setBrief] = useState("");
+  // useEffect(() => { {
+    const [currentNode, setCurrentNode] = useState(null);
+    const [brief, setBrief] = useState("");
+  // }});
 
   function changeBrief(value) {
     setBrief(value);
@@ -45,7 +47,7 @@ export default function App() {
       <Menu node={currentNode} deselect={() => setCurrentNode(null)} />
       <Panel className='panel'>
         <form>
-        <input name="brief" onSubmit={updateBrief(brief)} onChange={(e) => setBrief(e.target.value)} value={brief} size="50" placeholder='Write your design brief here '></input>
+        <input name="brief" onSubmit={(e) => updateBrief(brief)} onChange={(e) => setBrief(e.target.value)} value={brief} size="50" placeholder='Write your design brief here '></input>
         </form>
         <hr></hr>
         <button className="add-node-button" onClick={addNode}>Add Node</button>

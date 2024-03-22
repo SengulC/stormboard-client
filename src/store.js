@@ -34,7 +34,7 @@ export const useStore = create((set, get) => ({
     var id = nanoid(6);
     let xPos = Math.random() * (1000 - 20) + 20;;
     let yPos = Math.random() * (600 - 20) + 20;;
-    const node = { id: id, type: 'postIt', data: { label: get().brief }, position: { x: xPos, y: yPos } };
+    const node = { id: id, type: 'postIt', data: { label: '' }, position: { x: xPos, y: yPos } };
     set({ nodes: [node, ...get().nodes] });
   },
 
