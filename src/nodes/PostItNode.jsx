@@ -16,7 +16,7 @@ function PostIt({ data, isConnectable }) {
   }
   
   return (
-    <div className='post-it-node'>
+    <div style={{'backgroundColor': data.color}} className='post-it-node'>
       <Handle type="target" position={Position.Top} isConnectable={isConnectable} />
         <textarea id={nanoid(6)} className='nodrag post-it-text' name="text" value={data.label} onChange={(e) => trigger(e)} />
         <Handle type="source" position={Position.Bottom} isConnectable={isConnectable} />

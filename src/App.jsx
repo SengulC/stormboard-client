@@ -51,8 +51,8 @@ export default function App() {
         <input name="brief" onChange={(e) => changeBrief(e.target.value)} value={brief} size="50" placeholder='Write your design brief here '></input>
         </form>
         <hr></hr>
-        <button className="add-node-button" onClick={(e) => addNode(false)}>Add Node</button>
-        <button className="add-node-button" onClick={(e) => addNode(true)}>Add Surprise Node</button>
+        <button className="add-node-button" onClick={(e) => addNode(false)}>Add Note</button>
+        <button className="add-node-button" onClick={(e) => addNode(true)}>Add Surprise Note</button>
       </Panel>
       <Background />
     </ReactFlow>

@@ -9,6 +9,8 @@ export function Menu({ node, deselect }) {
   const { setNodes } = useReactFlow();
   const updateNodeLabel = useStore(state => state.updateNodeLabel);
   const brief = useStore(state => state.brief);
+  const nodes = useStore(state => state.nodes);
+  const rearrangeNodes = useStore(state => state.rearrangeNodes);
 
   node = node ? node : {'id': 'x', 'data':{'label': ''}};
   // console.log(node);
@@ -32,14 +34,18 @@ export function Menu({ node, deselect }) {
     );
   }, [label, setNodes]);
 
-  function artificial (node, prompt, brief) {
+  function artificial (node, prompt, brief, nodes) {
     // e.preventDefault();
     const nodelabel = node.data.label;
-    axios.post("http://localhost:8000/buttons", {nodelabel, prompt, brief}) // the var names here matter! nodelabel and prompt are referred to in index.js
+    axios.post("http://localhost:8000/buttons", {nodelabel, prompt, brief, nodes}) // the var names here matter! nodelabel and prompt are referred to in index.js
     .then((res) => {
         setLabel(res.data);
         console.log(label);
         updateNodeLabel(node.id, res.data);
+        if (prompt == "group") {
+          console.log("ABT TO REARRANGE");
+          rearrangeNodes(res.data);
+        }
     })
     .catch((err => {
         console.error(err);
@@ -51,15 +57,15 @@ export function Menu({ node, deselect }) {
       <div className='close-menu' onClick={() => deselect?.()}> X (deselect node) </div>
       <h1> Menu </h1>
       <div>
-        <h3>Trigger a change in the node</h3>
-        <h3>Current node</h3>
+        <h4>Current note</h4>
         <div className="curr-node"> {node.data.label || "Select a node to edit."} </div>
-        <h4>Supercharge post-it</h4>
+        <h4>Supercharge Post-its</h4>
         <ul className="art-buttons">
-        <button name="opposite" onClick={e => artificial(node, e.target.name, brief)}> Make-Opposite </button>
-        <button name="summarize" onClick={e => artificial(node, e.target.name, brief)}> Summarize </button>
-        <button name="expand" onClick={e => artificial(node, e.target.name, brief)}> Expand </button>
-        <button name="surprise" onClick={e => artificial(node, e.target.name, brief)}> Surprise Me! </button>
+        <button name="opposite" onClick={e => artificial(node, e.target.name, brief, nodes)}> Make-Opposite </button>
+        <button name="summarize" onClick={e => artificial(node, e.target.name, brief, nodes)}> Summarize </button>
+        <button name="expand" onClick={e => artificial(node, e.target.name, brief, nodes)}> Expand </button>
+        <button name="surprise" onClick={e => artificial(node, e.target.name, brief, nodes)}> Surprise Me! </button>
+        <button name="group" onClick={e => artificial(node, e.target.name, brief, nodes)}> Group Em'! </button>
         </ul>
       </div>
     </aside>
