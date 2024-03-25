@@ -63,7 +63,7 @@ async function callButtonPrompt(prompt, input, brief) {
   - Regenerate; rephrase the given idea.
   - Surprise; surprise the user with a random concept, drawing inspiration from the given idea, make sure the concept is still within the context of the design brief.
   
-  Respond in a single sentence, describing the product, no longer than 20 words. Do not add beginners like "Create/Design/Develop etc"
+  Respond in a single sentence, describing the product, no longer than 20 words. Do not add beginners like "Create/Design/Develop" or "Expand:"/"Opposite:" etc.
 
   The design brief is: ${brief}`  
   const completion = await openai.chat.completions.create({
