@@ -1,7 +1,7 @@
 import React, {useState, useEffect, TextInput} from 'react';
 import ReactFlow, { Background, Panel } from 'reactflow';
 import { shallow } from 'zustand/shallow';
-import { useStore } from './store';
+import { useStore } from './store.js';
 import PostItNode from './nodes/PostItNode.jsx';
 import ReactDOM from 'react-dom/client';
 import './index.css'
