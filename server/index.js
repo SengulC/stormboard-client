@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import OpenAI from "openai";
 import bodyParser from "body-parser";
-import { useStore } from '../client/store.js';
+import { useStore } from '../src/store.js';
 
 const key = process.env.VITE_OPENAI_KEY;
 const openai = new OpenAI({

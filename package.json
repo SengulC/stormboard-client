@@ -5,9 +5,9 @@
   "homepage": ".",
   "type": "module",
   "scripts": {
-    "start-client": "node frontend.js",
+    "start": "node frontend.js",
     "dev": "vite",
-    "build": "vite build && npm install",
+    "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
