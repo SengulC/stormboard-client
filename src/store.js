@@ -38,8 +38,8 @@ export const useStore = create((set, get) => ({
 
   async addNode(surprise) {
     var id = nanoid(6);
-    let xPos = Math.random() * (1000 - 20) + 20;
-    let yPos = Math.random() * (600 - 20) + 20;
+    let xPos = Math.random() * (500 - 20) + 20;
+    let yPos = Math.random() * (300 - 20) + 20;
     let node = { id: id, type: 'postIt', data: { label: '' }, position: { x: xPos, y: yPos } };
     let label = "";
     if (surprise) {
