@@ -52,6 +52,7 @@ export default function App() {
         </form>
         <hr></hr>
         <button className="add-node-button" onClick={addNode}>Add Node</button>
+        <button className="add-node-button" onClick={(e) => addNode(true)}>Add Surprise Node</button>
       </Panel>
       <Background />
     </ReactFlow>

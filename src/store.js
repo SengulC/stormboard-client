@@ -1,6 +1,12 @@
 import { applyNodeChanges, applyEdgeChanges } from 'reactflow';
 import { nanoid } from 'nanoid';
 import { create } from 'zustand';
+import axios from "axios";
+
+async function artificial (node, prompt, brief) {
+  const nodelabel = node.data.label;
+  return await axios.post("http://localhost:8000/buttons", {nodelabel, prompt, brief}).then(response => response.data)
+};
  
 export const useStore = create((set, get) => ({
   nodes: [
@@ -30,11 +36,18 @@ export const useStore = create((set, get) => ({
     set({ edges: [edge, ...get().edges] });
   },
 
-  addNode(data, isConnectable) {
+  async addNode(surprise) {
     var id = nanoid(6);
-    let xPos = Math.random() * (1000 - 20) + 20;;
-    let yPos = Math.random() * (600 - 20) + 20;;
-    const node = { id: id, type: 'postIt', data: { label: '' }, position: { x: xPos, y: yPos } };
+    let xPos = Math.random() * (1000 - 20) + 20;
+    let yPos = Math.random() * (600 - 20) + 20;
+    let node = { id: id, type: 'postIt', data: { label: '' }, position: { x: xPos, y: yPos } };
+    let label = "";
+    if (surprise) {
+      console.log("The brief is: " + get().brief);
+      label = await artificial(node, "Surprise me!", get().brief);
+      console.log("Got back: " + label);
+    }
+    node = { id: id, type: 'postIt', data: { label: label }, position: { x: xPos, y: yPos } };
     set({ nodes: [node, ...get().nodes] });
   },
 
