@@ -5,6 +5,7 @@ import axios from "axios";
 
 async function artificial (node, prompt, brief) {
   const nodelabel = node.data.label;
+  console.log("in the freaking add surprise button artificial call and prompt is:" + prompt)
   return await axios.post("http://localhost:8000/buttons", {nodelabel, prompt, brief}).then(response => response.data)
 };
 
@@ -28,9 +29,9 @@ function generateRandomColor() {
  
 export const useStore = create((set, get) => ({
   nodes: [
-    { id: 'a', type: 'postIt', data: { label: 'In-house classes', color: 'yellow' }, position: { x: 200, y: 300 } },
-    { id: 'b', type: 'postIt', data: { label: 'After school clubs', color: 'white' }, position: { x: 390, y: 300 } },
-    { id: 'c', type: 'postIt', data: { label: 'House competitions', color: 'peachpuff' }, position: { x: 580, y: 300 } }
+    { id: 'IOxNzE', type: 'postIt', data: { label: 'In-house classes', color: 'yellow' }, position: { x: 200, y: 300 } },
+    { id: 'koPZrd', type: 'postIt', data: { label: 'After school clubs', color: 'white' }, position: { x: 390, y: 300 } },
+    { id: 'Q9tbOx', type: 'postIt', data: { label: 'House competitions', color: 'peachpuff' }, position: { x: 580, y: 300 } }
   ],
   edges: [],
   selectedNodes: [],
@@ -65,8 +66,7 @@ export const useStore = create((set, get) => ({
     let label = "";
     if (surprise) {
       console.log("The brief is: " + get().brief);
-      label = await artificial(node, "Surprise me!", get().brief);
-      console.log("Got back: " + label);
+      label = await artificial(node, 'surprise', get().brief);
     }
     node = { id: id, type: 'postIt', data: { label: label, color: 'peachpuff' }, position: { x: xPos, y: yPos } };
     set({ nodes: [node, ...get().nodes] });
@@ -87,7 +87,7 @@ export const useStore = create((set, get) => ({
     set({
       nodes: get().nodes.map((node) => {
         if (node.id === nodeId) {
-          node.data.label = { label };
+          node.data.label = label;
         }
         return node;
       }),
@@ -154,7 +154,7 @@ export const useStore = create((set, get) => ({
         // updateNodeColor(id, generateRandomColor());
       }
     }
-
+    console.log("done")
   }
 }));
 

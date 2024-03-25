@@ -4,6 +4,8 @@ import OpenAI from "openai";
 import bodyParser from "body-parser";
 import { useStore } from '../src/store.js';
 
+let first = true;
+
 const key = process.env.VITE_OPENAI_KEY;
 const openai = new OpenAI({
   apiKey: key
@@ -23,31 +25,13 @@ function makeid(length) {
 }
 
 function extractNodesData (nodes) {
-  /*
-  nodes: [
-    { id: 'b', type: 'postIt', data: { label: 'After school clubs' }, position: { x: 390, y: 300 } },
-    { id: 'c', type: 'postIt', data: { label: 'House competitions' }, position: { x: 200, y: 300 } }
-  ]
-  */
-
-  // ==>
-
-  /*
-  [ 
-    [ [IOxNzE], [koPZrd] ], 
-    [ [c_xM2Z] , [Ved8xX], [R7AN_z] ]
-  ]
-  */
-  console.log("in grouping");
   let extractedNodes = [];
   for (let node of nodes) {
     extractedNodes.push({id: node.id, text: node.data.label});
   }
-
-  // console.log(extractedNodes);
-
   return extractedNodes;
 }
+
 
 async function callButtonPrompt(prompt, input, brief, nodes) {
   let prePrompt;
@@ -66,16 +50,20 @@ async function callButtonPrompt(prompt, input, brief, nodes) {
       break;
     case 'group': 
       let nodedata = extractNodesData(nodes);
-      console.log(nodedata);
-      prePrompt = "Group: " + extractNodesData(nodes)/*+ list of all nodes*/;
+      prePrompt = `GROUP Post-its in association with one another. Given a list of the Post-its (the idea in text and their unique ID), arrange them in groups that are most similar to one another. Respond with a list of lists (using square brackets) identifying the Post-its via their unique IDs. 
+      Make sure to respond in proper formatting. E.g. 
+        [ 
+          [ "c_xM2Z", "IOxNzE" ], 
+          [ "R7AN_z" , "koPZrd" ],
+          [ "5UZhRp" , "Ved8xX", "Q9tbOx" ] 
+        ]` + "GROUP: " + JSON.stringify(nodedata)/*+ list of all nodes*/;
       break;
     default:
-      prePrompt = "Regenerate: ";
+      prePrompt = "Do not respond in longer than 20 words. Come up with a random product idea: ";
       break;
   }
   
   let content = prePrompt + " " + input;
-  return content;
 
   // API usage
   const instruction = `You are a Post-it note brainstorming assistant. You will be given a design brief and asked to assist with ideas that may come about in the given context. You will be asked to edit pre-existing or create new ideas. These are how you will be asked to edit:
@@ -90,19 +78,34 @@ async function callButtonPrompt(prompt, input, brief, nodes) {
 
   You may also be asked to GROUP Post-its in association with one another. Given a list of the Post-its (the idea in text and their unique ID), arrange them in groups that are most similar to one another. Respond with a list of lists (using square brackets) identifying the Post-its via their unique IDs. 
   E.g. 
-  [
-    ["c_xM2Z", "IOxNzE"], 
-    ["R7AN_z", "koPZrd"],
-    ["5UZhRp", "Ved8xX", "Q9tbOx"]
-  ]
+    [ 
+      [ "c_xM2Z", "IOxNzE" ], 
+      [ "R7AN_z" , "koPZrd" ],
+      [ "5UZhRp" , "Ved8xX", "Q9tbOx" ] 
+    ]
 
-  The design brief is: ${brief}`  
-  const completion = await openai.chat.completions.create({
-    messages: [{ role: "system", content: instruction},
-               {role: "user", content: content}],
-    model: "gpt-3.5-turbo",
-  });
-  return completion.choices[0];
+  The design brief is: ${brief}.`
+
+  if (first) {
+    first = false;
+    const completion = await openai.chat.completions.create({
+      messages: [{ role: "system", content: instruction},
+                 {role: "user", content: content}],
+      model: "gpt-4",
+    });
+    console.log("Sent init instructions. Called gpt with brief: " + brief + ", and: " + content);
+    console.log("Got back: " + JSON.stringify(completion.choices[0]));
+    return completion.choices[0];
+  } else {
+    // maybe add brief
+    const completion = await openai.chat.completions.create({
+      messages: [{role: "user", content: brief + " " + content}],
+      model: "gpt-4",
+    });
+    console.log("Called gpt with: " + brief + " " + content);
+    console.log("Got back: " + JSON.stringify(completion.choices[0]));
+    return completion.choices[0];
+  }
 }
 
 const app = express();
@@ -117,15 +120,8 @@ app.post("/buttons", async (req, res) => {
   const brief = req.body.brief;
   const nodes = req.body.nodes;
   let result = await callButtonPrompt(prompt, input, brief, nodes);
-  if (prompt == "group") {
-    result = [
-      ["a", "b"], 
-      ["c"]
-  ]
-  }
-  // rearrangeNodes(result);
-  // result = result.message.content; // UNCOMMENT ME FOR API USAGE
-  // console.log("Called gpt with brief: " + brief + ", and prompt: " + prompt + ": " + input + "and nodes are: " + nodes + ". Got result: " + result);
+  result = result.message.content; // UNCOMMENT ME FOR API USAGE
+  // console.log("Called gpt with brief: " + brief + ", and prompt: " + prompt + ": " + input + ". Got result: " + result);
   res.send(result);
 });
 
