@@ -39,12 +39,12 @@ export function Menu({ node, deselect }) {
     const nodelabel = node.data.label;
     axios.post("http://localhost:8000/buttons", {nodelabel, prompt, brief, nodes}) // the var names here matter! nodelabel and prompt are referred to in index.js
     .then((res) => {
-        setLabel(res.data);
-        console.log(label);
-        updateNodeLabel(node.id, res.data);
         if (prompt == "group") {
           console.log("ABT TO REARRANGE");
           rearrangeNodes(res.data);
+        } else {
+          setLabel(res.data);
+          updateNodeLabel(node.id, res.data);
         }
     })
     .catch((err => {

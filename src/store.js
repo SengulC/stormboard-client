@@ -5,7 +5,6 @@ import axios from "axios";
 
 async function artificial (node, prompt, brief) {
   const nodelabel = node.data.label;
-  console.log("in the freaking add surprise button artificial call and prompt is:" + prompt)
   return await axios.post("http://localhost:8000/buttons", {nodelabel, prompt, brief}).then(response => response.data)
 };
 
@@ -138,7 +137,6 @@ export const useStore = create((set, get) => ({
 
     // const updateNodeColor = useStore(state => state.updateNodeColor);
     // loop thru groupings given by GPT then update the color of those in the SAME group to the SAME random color.
-    console.log("IN REARRANGING");
     for (let group of order) {
       let color = generateRandomColor();
       for (let id of group) {
@@ -146,7 +144,6 @@ export const useStore = create((set, get) => ({
           nodes: get().nodes.map((node) => {
             if (node.id === id) {
               node.data.color = color;
-              console.log("CHANGED COLOR");
             }
             return node;
           }),
@@ -154,7 +151,6 @@ export const useStore = create((set, get) => ({
         // updateNodeColor(id, generateRandomColor());
       }
     }
-    console.log("done")
   }
 }));
 

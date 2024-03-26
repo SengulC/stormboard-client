@@ -37,46 +37,44 @@ async function callButtonPrompt(prompt, input, brief, nodes) {
   let prePrompt;
   switch(prompt) {
     case 'opposite': 
-      prePrompt = "Make opposite: ";
+      prePrompt = "Respond in 1 concise sentence (max 10 words). " +  "The brief is: " + brief + ". Make opposite: ";
       break;
     case 'summarize': 
-      prePrompt = "Summarize: ";
+      prePrompt = "Respond in 1 concise sentence (max 10 words). " +  "The brief is: " + brief + ". Summarize: ";
       break;
     case 'expand': 
-      prePrompt = "Expand: ";
+      prePrompt = "Respond in 1 concise sentence (max 10 words). " +  "The brief is: " + brief + ". Expand: ";
       break;
     case 'surprise': 
-      prePrompt = "Surprise me, drawing inspiration from: ";
+      prePrompt = "Respond in 1 concise sentence (max 10 words). " +  "The brief is: " + brief + ". Surprise me, drawing inspiration from: ";
       break;
     case 'group': 
       let nodedata = extractNodesData(nodes);
-      prePrompt = `GROUP Post-its in association with one another. Given a list of the Post-its (the idea in text and their unique ID), arrange them in groups that are most similar to one another. Respond with a list of lists (using square brackets) identifying the Post-its via their unique IDs. 
-      Make sure to respond in proper formatting. E.g. 
+      prePrompt = `GROUP ideas in association with one another. Given a list of the concepts (the idea itself in text and their unique ID), arrange them in groups that are most similar to one another. Respond with a list of lists (using square brackets) identifying the ideas via their unique IDs. 
+      E.g. 
         [ 
           [ "c_xM2Z", "IOxNzE" ], 
           [ "R7AN_z" , "koPZrd" ],
           [ "5UZhRp" , "Ved8xX", "Q9tbOx" ] 
-        ]` + "GROUP: " + JSON.stringify(nodedata)/*+ list of all nodes*/;
+        ]` + JSON.stringify(nodedata);
       break;
     default:
-      prePrompt = "Do not respond in longer than 20 words. Come up with a random product idea: ";
+      prePrompt = "Respond in 1 concise sentence (max 10 words). " +  "The brief is: " + brief + ". Come up with a random product idea: ";
       break;
   }
   
   let content = prePrompt + " " + input;
 
   // API usage
-  const instruction = `You are a Post-it note brainstorming assistant. You will be given a design brief and asked to assist with ideas that may come about in the given context. You will be asked to edit pre-existing or create new ideas. These are how you will be asked to edit:
+  const instruction = `You are a brainstorming assistant. You will be given a design brief and will be asked to assist with ideas in the given context. You will be asked to edit user-created ideas or create new ideas. These are how you will be asked to edit:
 
   - Expand; elaborate on the given idea, making sure to stay within the overall context.
   - Summarize; draw out core components of the given idea and express concisely.
   - Make Opposite; come up with an object or concept that is the polar opposite of the given idea.
   - Regenerate; rephrase the given idea.
-  - Surprise; surprise the user with a random concept, drawing inspiration from the given idea, make sure the concept is still within the context of the design brief.
-  
-  Respond in a single sentence, describing the product, no longer than 20 words. Do not add beginners like "Create/Design/Develop" or "Expand:"/"Opposite:" etc.
+  - Surprise; surprise the user with a random concept, drawing inspiration from the given idea. Make sure to stay within the context of the design brief.
 
-  You may also be asked to GROUP Post-its in association with one another. Given a list of the Post-its (the idea in text and their unique ID), arrange them in groups that are most similar to one another. Respond with a list of lists (using square brackets) identifying the Post-its via their unique IDs. 
+  You will also be asked to GROUP ideas in association with one another. Given a list of the concepts (the idea itself in text and their unique ID), arrange them in groups that are most similar to one another. Respond with a list of lists (using square brackets) identifying the ideas via their unique IDs. 
   E.g. 
     [ 
       [ "c_xM2Z", "IOxNzE" ], 
@@ -84,7 +82,10 @@ async function callButtonPrompt(prompt, input, brief, nodes) {
       [ "5UZhRp" , "Ved8xX", "Q9tbOx" ] 
     ]
 
-  The design brief is: ${brief}.`
+  Except for when you're asked to GROUP, respond in ONE sentence (max 20 words) outlining the product or concept ideea, and make sure to always stay within the context.
+  Respond concisely, e.g. "A wearable AI band that adapts and composes music based on the wearer's heart rate and mood.", "A compact, voice-controlled kitchen robot that cooks, cleans and also orders groceries based on your diet and budget preferences."
+
+  The design brief is: ${brief}`
 
   if (first) {
     first = false;
@@ -97,12 +98,11 @@ async function callButtonPrompt(prompt, input, brief, nodes) {
     console.log("Got back: " + JSON.stringify(completion.choices[0]));
     return completion.choices[0];
   } else {
-    // maybe add brief
     const completion = await openai.chat.completions.create({
-      messages: [{role: "user", content: brief + " " + content}],
+      messages: [{role: "user", content: content}],
       model: "gpt-4",
     });
-    console.log("Called gpt with: " + brief + " " + content);
+    console.log("Called gpt with: " + content);
     console.log("Got back: " + JSON.stringify(completion.choices[0]));
     return completion.choices[0];
   }
@@ -121,7 +121,6 @@ app.post("/buttons", async (req, res) => {
   const nodes = req.body.nodes;
   let result = await callButtonPrompt(prompt, input, brief, nodes);
   result = result.message.content; // UNCOMMENT ME FOR API USAGE
-  // console.log("Called gpt with brief: " + brief + ", and prompt: " + prompt + ": " + input + ". Got result: " + result);
   res.send(result);
 });
 
