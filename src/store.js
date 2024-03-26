@@ -9,6 +9,33 @@ async function artificial (node, prompt, brief) {
 };
 
 // chatgpt
+function getandPrintTextareaValues(list) {
+  const textareaValues = [];
+
+  // Iterate through the list of objects
+  for (let i = 0; i < list.length; i++) {
+      const target = list[i].target;
+      
+      // Check if target exists and has a textarea
+      if (target && target.getElementsByTagName('textarea').length > 0) {
+          const textarea = target.getElementsByTagName('textarea')[0];
+          const textareaValue = textarea.value;
+          textareaValues.push(textareaValue);
+      }
+  }
+
+  // Log each textarea value in the specified format
+  console.log("Textarea values:");
+  console.log("[");
+  for (let i = 0; i < textareaValues.length; i++) {
+      console.log(`  "${textareaValues[i]}"${i < textareaValues.length - 1 ? "," : ""}`);
+  }
+  console.log("]");
+
+  return textareaValues;
+}
+
+// chatgpt
 function generateRandomColor() {
   // Generate random values for R, G, and B
   var r = Math.floor(Math.random() * 256); // Random number between 0 and 255
@@ -28,9 +55,9 @@ function generateRandomColor() {
  
 export const useStore = create((set, get) => ({
   nodes: [
-    { id: 'IOxNzE', type: 'postIt', data: { label: 'In-house classes', color: 'yellow' }, position: { x: 200, y: 300 } },
-    { id: 'koPZrd', type: 'postIt', data: { label: 'After school clubs', color: 'white' }, position: { x: 390, y: 300 } },
-    { id: 'Q9tbOx', type: 'postIt', data: { label: 'House competitions', color: 'peachpuff' }, position: { x: 580, y: 300 } }
+    { id: 'IOxNzE', type: 'postIt', data: { id: 'IOxNzE', label: 'In-house classes', color: 'peachpuff' }, position: { x: 200, y: 300 } },
+    { id: 'koPZrd', type: 'postIt', data: { id: 'koPZrd', label: 'After school clubs', color: 'peachpuff' }, position: { x: 390, y: 300 } },
+    { id: 'Q9tbOx', type: 'postIt', data: { id: 'Q9tbOx', label: 'House competitions', color: 'peachpuff' }, position: { x: 580, y: 300 } }
   ],
   edges: [],
   selectedNodes: [],
@@ -61,25 +88,27 @@ export const useStore = create((set, get) => ({
     let yPos = Math.random() * (300 - 20) + 20;
     // let xPos = get().nodes[0].position.x + 190; // add to left of last post it
     // let yPos = get().nodes[0].position.y;
-    let node = { id: id, type: 'postIt', data: { label: '', color: 'peachpuff' }, position: { x: xPos, y: yPos } };
+    let node = { id: id, type: 'postIt', data: {id: id,  label: '', color: 'peachpuff' }, position: { x: xPos, y: yPos } };
     let label = "";
     if (surprise) {
       console.log("The brief is: " + get().brief);
       label = await artificial(node, 'surprise', get().brief);
     }
-    node = { id: id, type: 'postIt', data: { label: label, color: 'peachpuff' }, position: { x: xPos, y: yPos } };
+    node = { id: id, type: 'postIt', data: { id: id, label: label, color: 'peachpuff' }, position: { x: xPos, y: yPos } };
     set({ nodes: [node, ...get().nodes] });
     // console.log(get().nodes);
   },
 
   onNodeClick(node) {
-    // console.log(node.target.getAttribute("id"));
-    // console.log(node.target.getElementsByTagName('textarea')[0].value);
+    // IMPORTANT: the 'node' passed to this func is the HTML object clicked upon...
 
-    // if node not already in selectedNodes...
-    set({ selectedNodes: [node, ...get().selectedNodes] });
-    console.log(get().selectedNodes[0].target.getElementsByTagName('div')[1]);
-    console.log(get().selectedNodes[0].target.getElementsByTagName('textarea')[0].value);
+    if (!get().selectedNodes.find( currNode => currNode.target.id === node.target.id )) {
+      set({ selectedNodes: [node, ...get().selectedNodes] });
+    } else {
+      // console.log(node.target.id);
+      // console.log("clicked upon node is included in list.");
+    }
+    getandPrintTextareaValues(get().selectedNodes);
   },
 
   updateNodeLabel(nodeId, label) {
@@ -106,7 +135,6 @@ export const useStore = create((set, get) => ({
 
   updateBrief(newBrief) {
     set( {brief: newBrief} );
-    // console.log("updating brief to:" + newBrief);
     return;
   },
 
@@ -117,26 +145,7 @@ export const useStore = create((set, get) => ({
       move:
       - for # of post its divide page into that #
       - arrange post its in groups of 3 L-R (xPos) next to each other than below each other (yPos)
-      OR
-      color code:
-      - change post its color by changing nodedata
     */
-
-    // order = 
-    //   [
-    //   ["c_xM2Z", "IOxNzE"], 
-    //   ["R7AN_z", "koPZrd"],
-    //   ["5UZhRp", "Ved8xX", "Q9tbOx"]
-    //   ];
-
-    // group = ["c_xM2Z", "IOxNzE"];
-    
-    // id = "c_xM2Z";
-
-    // color code
-
-    // const updateNodeColor = useStore(state => state.updateNodeColor);
-    // loop thru groupings given by GPT then update the color of those in the SAME group to the SAME random color.
     for (let group of order) {
       let color = generateRandomColor();
       for (let id of group) {
@@ -148,7 +157,6 @@ export const useStore = create((set, get) => ({
             return node;
           }),
         });
-        // updateNodeColor(id, generateRandomColor());
       }
     }
   }

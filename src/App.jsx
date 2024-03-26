@@ -14,6 +14,7 @@ const selector = (store) => ({
   onEdgesChange: store.onEdgesChange,
   addEdge: store.addEdge,
   addNode: store.addNode,
+  onNodeClick: store.onNodeClick,
   selectedNodes: store.selectedNodes,
 });
 
@@ -40,6 +41,7 @@ export default function App() {
       onNodesChange={store.onNodesChange}
       onEdgesChange={store.onEdgesChange}
       onConnect={store.addEdge}
+      onNodeClick={store.onNodeClick}
       onNodeDoubleClick={(_, node) => {
         setCurrentNode(node);
       }}
