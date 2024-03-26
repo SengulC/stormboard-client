@@ -159,6 +159,33 @@ export const useStore = create((set, get) => ({
         });
       }
     }
+  },
+
+  onNodeDrag (evt, node) {
+    const centerX = node.position.x + node.width / 2;
+    const centerY = node.position.y + node.height / 2;
+
+    const targetNode = nodes.find(
+      (n) =>
+        centerX > n.position.x &&
+        centerX < n.position.x + n.width &&
+        centerY > n.position.y &&
+        centerY < n.position.y + n.height &&
+        n.id !== node.id
+    );
+
+    return targetNode;
+  },
+  updateParent(nodeId, targetID) {
+    set({
+      nodes: get().nodes.map((node) => {
+        if (node.id === nodeId) {
+          node.parentNode = targetID;
+          node.position = {x:50, y:90};
+        }
+        return node;
+      }),
+    });
   }
 }));
 

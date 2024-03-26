@@ -1,4 +1,4 @@
-import React, {useState, useEffect, TextInput} from 'react';
+import React, {useState, useEffect, TextInput, useRef} from 'react';
 import ReactFlow, { Background, Panel } from 'reactflow';
 import { shallow } from 'zustand/shallow';
 import { useStore } from './store';
@@ -16,6 +16,7 @@ const selector = (store) => ({
   addNode: store.addNode,
   onNodeClick: store.onNodeClick,
   selectedNodes: store.selectedNodes,
+  updateParent: store.updateParent
 });
 
 const nodeTypes = { postIt: PostItNode };
@@ -24,10 +25,13 @@ export default function App() {
   const store = useStore(selector, shallow);
   const addNode = useStore(state => state.addNode);
   const updateBrief = useStore(state => state.updateBrief);
-  // useEffect(() => { {
-    const [currentNode, setCurrentNode] = useState(null);
-    const [brief, setBrief] = useState("");
-  // }});
+  const [currentNode, setCurrentNode] = useState(null);
+  const [brief, setBrief] = useState("");
+  
+  // this ref stores the current dragged node
+  const dragRef = useRef(null);
+  // target is the node that the node is dragged over
+  const [target, setTarget] = useState(null);
 
   function changeBrief(value) {
     setBrief(value);
@@ -44,6 +48,39 @@ export default function App() {
       onNodeClick={store.onNodeClick}
       onNodeDoubleClick={(_, node) => {
         setCurrentNode(node);
+      }}
+      onNodeDragStart={(_, node) => {
+        dragRef.current = node;
+      }}
+      onNodeDrag={(_, node) => {
+        const centerX = node.position.x + node.width / 2;
+        const centerY = node.position.y + node.height / 2;
+    
+        const targetNode = store.nodes.find(
+          (n) =>
+            centerX > n.position.x &&
+            centerX < n.position.x + n.width &&
+            centerY > n.position.y &&
+            centerY < n.position.y + n.height &&
+            n.id !== node.id
+        );
+    
+        setTarget(targetNode);
+      }}
+      onNodeDragStop={(_, node) => {
+        console.log("Dragging stop")
+        // console.log(target.id)
+        // console.log(dragRef.current.id)
+        store.nodes = ({
+          nodes: store.nodes.map((n) => {
+          if (n.id === node.id && target) {
+            console.log("in if case, ids: " +n.id +" " + target.id)
+            store.updateParent(n.id, target.id)
+          }
+          })
+        })
+        setTarget(null);
+        dragRef.current = null;
       }}
       nodeTypes={nodeTypes}
     >
