@@ -50,32 +50,34 @@ export default function App() {
         setCurrentNode(node);
       }}
       onNodeDragStart={(_, node) => {
+        // called at init click and drag on a node (let's say once)
         dragRef.current = node;
       }}
       onNodeDrag={(_, node) => {
+        // continuously called as node is dragged
         const centerX = node.position.x + node.width / 2;
-        const centerY = node.position.y + node.height / 2;
-    
+        const centerY = node.position.y + node.height / 2;    
         const targetNode = store.nodes.find(
           (n) =>
             centerX > n.position.x &&
             centerX < n.position.x + n.width &&
             centerY > n.position.y &&
             centerY < n.position.y + n.height &&
-            n.id !== node.id
+            n.id !== node.id // can't be node being dragged
         );
-    
         setTarget(targetNode);
       }}
       onNodeDragStop={(_, node) => {
-        console.log("Dragging stop")
+        // console.log("Dragging stop")
         // console.log(target.id)
         // console.log(dragRef.current.id)
         store.nodes = ({
           nodes: store.nodes.map((n) => {
           if (n.id === node.id && target) {
-            console.log("in if case, ids: " +n.id +" " + target.id)
+            // if node being dragged is current iter and target exists, set dragged node's parent to target
+            // console.log("in if case, ids: " +n.id +" " + target.id)
             store.updateParent(n.id, target.id)
+          } else {
           }
           })
         })
@@ -88,12 +90,16 @@ export default function App() {
       <Panel className='panel'>
         <form>
         <input name="brief" onChange={(e) => changeBrief(e.target.value)} value={brief} size="50" placeholder='Write your design brief here '></input>
+        {/* <br></br>
+        I am creating a new <input placeholder='(what)'></input> to help <input placeholder='(who)'></input> 
+        <br></br>
+        in <input placeholder='(where)'></input> for <input placeholder='(why)'></input>. */}
         </form>
         <hr></hr>
         <button className="add-node-button" onClick={(e) => addNode(false)}>Add Note</button>
         <button className="add-node-button" onClick={(e) => addNode(true)}>Add Surprise Note</button>
       </Panel>
-      <Background />
+      <Background/>
     </ReactFlow>
   );
 }
