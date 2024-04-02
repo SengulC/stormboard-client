@@ -103,10 +103,15 @@ export const useStore = create((set, get) => ({
     // IMPORTANT: the 'node' passed to this func is the HTML object clicked upon...
 
     if (!get().selectedNodes.find( currNode => currNode.target.id === node.target.id )) {
+      // if clicked on node is NOT already in selected nodes
+
+      // write function that gets PostItNode from HTML obj so we can edit that instead...
+
       set({ selectedNodes: [node, ...get().selectedNodes] });
+      node.target.style.backgroundColor=generateRandomColor();
     } else {
-      // console.log(node.target.id);
-      // console.log("clicked upon node is included in list.");
+      node.target.style.backgroundColor="peachpuff";
+      // remove from list
     }
     getandPrintTextareaValues(get().selectedNodes);
   },

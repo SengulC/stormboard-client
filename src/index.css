@@ -79,31 +79,29 @@
   width: 10em;
 }
 
+/* div */
 .post-it-node {
   border-color: #213547;
-  padding: 10px;
-  padding-top: 30px;
-  border-radius: 5px;
   background-color: peachpuff;
   resize: both;
-  height: auto;
-  width: auto;
+  padding: 0.5em;
+}
+
+/* text area */
+.post-it-text {
+  background: transparent;
+  border-color: transparent;
+  font:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  color: black;
+  padding: 1em;
+  resize:none;
+  height: 15em;
+  width: 15em;
 }
 
 .post-it-node::selection {
   color: yellow;
   outline: red;
-}
-
-.post-it-text {
-  padding: 10px;
-  border-radius: 5px;
-  background: palegoldenrod;
-  font:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  color: black;
-  width: 10em;
-  min-height: 5em;
-  overflow: auto;
 }
 
 .add-node-button {
