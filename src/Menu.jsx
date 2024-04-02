@@ -58,15 +58,18 @@ export function Menu({ node, deselect }) {
       <h1> Menu </h1>
       <div>
         <h4>Current note</h4>
-        <div className="curr-node"> {node.data.label || "Select a node to edit."} </div>
+        <div className="post-it-node curr-node"> 
+        <textarea className="post-it-text curr-node-text" value={node.data.label || "Select a node to edit."}> </textarea>
+        </div>
         <h4>Supercharge Post-its</h4>
-        <ul className="art-buttons">
+        <div className="art-buttons">
         <button name="opposite" onClick={e => artificial(node, e.target.name, brief, nodes)}> Make-Opposite </button>
         <button name="summarize" onClick={e => artificial(node, e.target.name, brief, nodes)}> Summarize </button>
         <button name="expand" onClick={e => artificial(node, e.target.name, brief, nodes)}> Expand </button>
         <button name="surprise" onClick={e => artificial(node, e.target.name, brief, nodes)}> Surprise Me! </button>
         <button name="group" onClick={e => artificial(node, e.target.name, brief, nodes)}> Group Em'! </button>
-        </ul>
+        <br></br>
+        </div>
       </div>
     </aside>
   );

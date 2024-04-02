@@ -88,14 +88,7 @@ export default function App() {
     >
       <Menu node={currentNode} deselect={() => setCurrentNode(null)} />
       <Panel className='panel'>
-        <form>
-        <input name="brief" onChange={(e) => changeBrief(e.target.value)} value={brief} size="50" placeholder='Write your design brief here '></input>
-        {/* <br></br>
-        I am creating a new <input placeholder='(what)'></input> to help <input placeholder='(who)'></input> 
-        <br></br>
-        in <input placeholder='(where)'></input> for <input placeholder='(why)'></input>. */}
-        </form>
-        <hr></hr>
+        <input name="brief" onChange={(e) => changeBrief(e.target.value)} value={brief} size="50" placeholder='  Write your design brief here '></input>
         <button className="add-node-button" onClick={(e) => addNode(false)}>Add Note</button>
         <button className="add-node-button" onClick={(e) => addNode(true)}>Add Surprise Note</button>
       </Panel>
@@ -103,3 +96,8 @@ export default function App() {
     </ReactFlow>
   );
 }
+
+{/* <br></br>
+I am creating a new <input placeholder='(what)'></input> to help <input placeholder='(who)'></input> 
+<br></br>
+in <input placeholder='(where)'></input> for <input placeholder='(why)'></input>. */}
