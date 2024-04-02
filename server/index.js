@@ -37,16 +37,16 @@ async function callButtonPrompt(prompt, input, brief, nodes) {
   let prePrompt;
   switch(prompt) {
     case 'opposite': 
-      prePrompt = "Respond in 1 concise sentence (max 10 words). " +  "The brief is: " + brief + ". Make opposite: ";
+      prePrompt = "Respond with a single sentence product idea (max 10 words). " +  "The brief is: " + brief + ". Make opposite: ";
       break;
     case 'summarize': 
-      prePrompt = "Respond in 1 concise sentence (max 10 words). " +  "The brief is: " + brief + ". Summarize: ";
+      prePrompt = "Respond with a single sentence product idea (max 10 words). " +  "The brief is: " + brief + ". Summarize: ";
       break;
     case 'expand': 
-      prePrompt = "Respond in 1 concise sentence (max 10 words). " +  "The brief is: " + brief + ". Expand: ";
+      prePrompt = "Respond with a single sentence product idea (max 10 words). " +  "The brief is: " + brief + ". Expand: ";
       break;
     case 'surprise': 
-      prePrompt = "Respond in 1 concise sentence (max 10 words). " +  "The brief is: " + brief + ". Surprise me, drawing inspiration from: ";
+      prePrompt = "Respond with a single sentence product idea (max 10 words). " +  "The brief is: " + brief + ". Surprise me, drawing inspiration from: ";
       break;
     case 'group': 
       let nodedata = extractNodesData(nodes);
@@ -59,7 +59,7 @@ async function callButtonPrompt(prompt, input, brief, nodes) {
         ]` + JSON.stringify(nodedata);
       break;
     default:
-      prePrompt = "Respond in 1 concise sentence (max 10 words). " +  "The brief is: " + brief + ". Come up with a random product idea: ";
+      prePrompt = "Respond with a single sentence product idea (max 10 words). " +  "The brief is: " + brief + ". Come up with a random product idea: ";
       break;
   }
   
