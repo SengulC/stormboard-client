@@ -28,6 +28,7 @@ textarea::-webkit-scrollbar-thumb {
 input:focus,
 select:focus,
 textarea:focus,
+button:focus {
     outline: none;
 }
 
