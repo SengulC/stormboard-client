@@ -92,7 +92,7 @@ export default function App() {
         <button className="add-node-button" onClick={(e) => addNode(false)}>Add Note</button>
         <button className="add-node-button" onClick={(e) => addNode(true)}>Add Surprise Note</button>
       </Panel>
-      <Background/>
+      {/* <Background/> */}
     </ReactFlow>
   );
 }
