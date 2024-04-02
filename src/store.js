@@ -55,9 +55,9 @@ function generateRandomColor() {
  
 export const useStore = create((set, get) => ({
   nodes: [
-    { id: 'IOxNzE', type: 'postIt', data: { id: 'IOxNzE', label: 'In-house classes', color: 'peachpuff' }, position: { x: 200, y: 300 } },
-    { id: 'koPZrd', type: 'postIt', data: { id: 'koPZrd', label: 'After school clubs', color: 'peachpuff' }, position: { x: 390, y: 300 } },
-    { id: 'Q9tbOx', type: 'postIt', data: { id: 'Q9tbOx', label: 'House competitions', color: 'peachpuff' }, position: { x: 580, y: 300 } }
+    { id: 'IOxNzE', type: 'postIt', data: { id: 'IOxNzE', label: 'In-house classes', color: '#ffb3ba' }, position: { x: 200, y: 300 } },
+    { id: 'koPZrd', type: 'postIt', data: { id: 'koPZrd', label: 'After school clubs', color: '#ffdfba' }, position: { x: 390, y: 300 } },
+    { id: 'Q9tbOx', type: 'postIt', data: { id: 'Q9tbOx', label: 'House competitions', color: '#ffffba' }, position: { x: 580, y: 300 } }
   ],
   edges: [],
   selectedNodes: [],
@@ -88,13 +88,13 @@ export const useStore = create((set, get) => ({
     let yPos = Math.random() * (300 - 20) + 20;
     // let xPos = get().nodes[0].position.x + 190; // add to left of last post it
     // let yPos = get().nodes[0].position.y;
-    let node = { id: id, type: 'postIt', data: {id: id,  label: '', color: 'peachpuff' }, position: { x: xPos, y: yPos } };
+    let node = { id: id, type: 'postIt', data: {id: id,  label: '', color: '#bae1ff' }, position: { x: xPos, y: yPos } };
     let label = "";
     if (surprise) {
       console.log("The brief is: " + get().brief);
       label = await artificial(node, 'surprise', get().brief);
     }
-    node = { id: id, type: 'postIt', data: { id: id, label: label, color: 'peachpuff' }, position: { x: xPos, y: yPos } };
+    node = { id: id, type: 'postIt', data: { id: id, label: label, color: '#bae1ff' }, position: { x: xPos, y: yPos } };
     set({ nodes: [node, ...get().nodes] });
     // console.log(get().nodes);
   },
@@ -108,9 +108,9 @@ export const useStore = create((set, get) => ({
       // write function that gets PostItNode from HTML obj so we can edit that instead...
 
       set({ selectedNodes: [node, ...get().selectedNodes] });
-      node.target.style.backgroundColor=generateRandomColor();
+      // node.target.style.backgroundColor=generateRandomColor();
     } else {
-      node.target.style.backgroundColor="peachpuff";
+      // node.target.style.backgroundColor="peachpuff";
       // remove from list
     }
     getandPrintTextareaValues(get().selectedNodes);

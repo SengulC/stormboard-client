@@ -58,7 +58,7 @@ export function Menu({ node, deselect }) {
       <h1> Menu </h1>
       <div>
         <h4>Current note</h4>
-        <div className="post-it-node curr-node"> 
+        <div style={{'backgroundColor': node.data.color}} className="post-it-node curr-node"> 
         <textarea className="post-it-text curr-node-text" value={node.data.label || "Select a node to edit."}> </textarea>
         </div>
         <h4>Supercharge Post-its</h4>
