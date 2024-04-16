@@ -123,7 +123,7 @@ app.post("/buttons", async (req, res) => {
   result = result.message.content; // UNCOMMENT ME FOR API USAGE
   res.send(result);
 });
-
-app.listen(8000, () => {
-  console.log(`Server is running on port 8000.`);
+const port = rocess.env.PORT || 8000;
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}.`);
 });
