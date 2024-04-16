@@ -114,7 +114,6 @@ app.use(cors());
 // app.use(express.json());
 
 app.post("/buttons", async (req, res) => {
-  // const rearrangeNodes = useStore(state => state.rearrangeNodes); // can't do this unfortunately! need socket.io
   const input = req.body.nodelabel;
   const prompt = req.body.prompt;
   const brief = req.body.brief;
