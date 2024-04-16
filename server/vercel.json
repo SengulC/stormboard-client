@@ -3,7 +3,6 @@
     "routes": [{ "src": "/(.*)", "dest": "/"}],
     "functions": {
         "index.js": {
-          "runtime": "nodejs14.x",
           "includeFiles": "dist/**"
         }
       }
