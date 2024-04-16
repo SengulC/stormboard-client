@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import OpenAI from "openai";
 import bodyParser from "body-parser";
-import { useStore } from '../src/store.js';
+import { useStore } from '../../src/store.js';
 
 let first = true;
 
