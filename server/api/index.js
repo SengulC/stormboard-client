@@ -1,10 +1,9 @@
-import express from "express";
-import cors from "cors";
-import OpenAI from "openai";
-import bodyParser from "body-parser";
-import { useStore } from '../../src/store.js';
+var express = require("express");
+var cors = require("cors");
+var OpenAI = require("openai");
+var bodyParser = require("body-parser");
 
-let first = true;
+let first = true; //?
 
 const key = process.env.VITE_OPENAI_KEY;
 const openai = new OpenAI({
