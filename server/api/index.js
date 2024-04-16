@@ -123,7 +123,13 @@ app.post("/buttons", async (req, res) => {
   result = result.message.content; // UNCOMMENT ME FOR API USAGE
   res.send(result);
 });
-const port = rocess.env.PORT || 8000;
+const port = process.env.PORT || 8000;
+
+// Landing Page
+app.get('/', (req, res) => {
+  res.send('Server is running');
+});
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}.`);
 });
