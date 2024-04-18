@@ -37,7 +37,7 @@ export function Menu({ node, deselect }) {
   function artificial (node, prompt, brief, nodes) {
     // e.preventDefault();
     const nodelabel = node.data.label;
-    axios.post("https://guai-server.onrender.com/buttons", {nodelabel, prompt, brief, nodes}) // the var names here matter! nodelabel and prompt are referred to in index.js
+    axios.post("https://guai-server.onrender.com/:10000/buttons", {nodelabel, prompt, brief, nodes}) // the var names here matter! nodelabel and prompt are referred to in index.js
     .then((res) => {
         if (prompt == "group") {
           console.log("ABT TO REARRANGE");
