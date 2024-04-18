@@ -123,7 +123,7 @@ app.post("/buttons", async (req, res) => {
   res.send(result);
 });
 
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 10000;
 
 // Landing Page
 app.get('/', (req, res) => {
