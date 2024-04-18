@@ -111,8 +111,9 @@ async function callButtonPrompt(prompt, input, brief, nodes) {
 const app = express();
 app.use(bodyParser.json());
 // app.use(cors());
+const allowedOrigins = 'origin: /\.vercel\.app$/'
 const corsOptions = {
-  origin: 'origin: /\.vercel\.app$/',
+  origin: allowedOrigins,
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 
@@ -128,7 +129,7 @@ app.post("/buttons", async (req, res) => {
   res.send(result);
 });
 
-const port = process.env.PORT || 10000;
+const port = process.env.PORT || 8000;
 
 // Landing Page
 app.get('/', (req, res) => {
