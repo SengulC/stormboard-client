@@ -122,6 +122,7 @@ app.post("/buttons", async (req, res) => {
   result = result.message.content; // UNCOMMENT ME FOR API USAGE
   res.send(result);
 });
+
 const port = process.env.PORT || 8000;
 
 // Landing Page
