@@ -111,9 +111,8 @@ async function callButtonPrompt(prompt, input, brief, nodes) {
 const app = express();
 app.use(bodyParser.json());
 // app.use(cors());
-const allowedOrigins = "https://guai-client.vercel.app/";
 const corsOptions = {
-  origin: 'https://guai-client.vercel.app/',
+  origin: 'origin: /\.vercel\.app$/',
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 
