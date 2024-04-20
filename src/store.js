@@ -208,7 +208,6 @@ export const useStore = create((set, get) => ({
           if (targetID != null) {
             node.position = {x:50, y:90};
           } else {
-            node.data.label = `changed: ${node.position.x}, ${node.position.y}`;
             node.position = {x:node.position.x, y:node.position.y};
           }
         }
