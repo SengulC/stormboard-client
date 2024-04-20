@@ -5,7 +5,8 @@ import axios from "axios";
 
 async function artificial (node, prompt, brief) {
   const nodelabel = node.data.label;
-  return await axios.post("https://guai-server.onrender.com/buttons", {nodelabel, prompt, brief}).then(response => response.data)
+  // return await axios.post("https://guai-server.onrender.com/buttons", {nodelabel, prompt, brief}).then(response => response.data)
+  return await axios.post("http://localhost:8000/buttons", {nodelabel, prompt, brief}).then(response => response.data)
 };
 
 // chatgpt
