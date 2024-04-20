@@ -92,8 +92,8 @@ export default function App() {
       <Menu node={currentNode} deselect={() => setCurrentNode(null)} />
       <Panel className='panel'>
         <input name="brief" onChange={(e) => changeBrief(e.target.value)} value={brief} size="90" placeholder='  Write your design brief here '></input>
-        <button className="add-node-button" onClick={(e) => addNode(false)}>Add Note</button>
-        <button className="add-node-button" onClick={(e) => addNode(true)}>Add Surprise Note</button>
+        <button className="add-node-button" onClick={(e) => addNode(false, "")}>Add Note</button>
+        <button className="add-node-button" onClick={(e) => addNode(true, "")}>Add Surprise Note</button>
       </Panel>
       {/* <Background/> */}
     </ReactFlow>

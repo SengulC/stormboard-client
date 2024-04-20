@@ -110,7 +110,7 @@ export const useStore = create((set, get) => ({
     set({ edges: [edge, ...get().edges] });
   },
 
-  async addNode(surprise) {
+  async addNode(surprise, nodeLabel) {
     var id = nanoid(6);
     let xPos = Math.random() * (500 - 20) + 20; // random
     let yPos = Math.random() * (300 - 20) + 20;
@@ -121,6 +121,9 @@ export const useStore = create((set, get) => ({
     if (surprise) {
       console.log("The brief is: " + get().brief);
       label = await artificial(node, 'surprise', get().brief);
+    } else if (nodeLabel!="") {
+      console.log("else if case")
+      label = nodeLabel;
     }
     node = { id: id, type: 'postIt', data: { id: id, label: label, color: '#bae1ff' }, position: { x: xPos, y: yPos } };
     set({ nodes: [node, ...get().nodes] });

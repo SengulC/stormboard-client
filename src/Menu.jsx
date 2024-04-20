@@ -12,6 +12,7 @@ export function Menu({ node, deselect }) {
   const nodes = useStore(state => state.nodes);
   const rearrangeNodes = useStore(state => state.rearrangeNodes);
   const selectedNodesData = useStore(state => state.selectedNodesData);
+  const addNode = useStore(state => state.addNode);
 
   node = node ? node : {'id': 'x', 'data':{'label': ''}};
   // console.log(node);
@@ -35,7 +36,29 @@ export function Menu({ node, deselect }) {
     );
   }, [label, setNodes]);
 
+  function getSelectedNodesDataLabels(list) {
+    let labels = [];
+    for (let l of list) {
+      for (let node of l) {
+        labels.push(node.data.label);
+      }
+    }
+    console.log(labels);
+    return labels;
+  }
+
   function artificial (node, prompt, brief, nodes) {
+  if (prompt == "merge") {
+    const nodelabel = getSelectedNodesDataLabels(selectedNodesData);
+    axios.post("http://localhost:8000/buttons", {nodelabel, prompt, brief, nodes})
+    // axios.post("https://guai-server.onrender.com/buttons", {nodelabel, prompt, brief, nodes}) // the var names here matter! nodelabel and prompt are referred to in index.js
+    .then((res) => {
+      addNode(false, res.data);
+    })
+    .catch((err => {
+        console.error(err);
+    }))
+  } else {
     for (let data of selectedNodesData) {
       for (let n of data) {
         console.log("n: " + JSON.stringify(n));
@@ -56,6 +79,7 @@ export function Menu({ node, deselect }) {
         }))
       }
     }
+    }
   };
 
   return (
@@ -73,6 +97,7 @@ export function Menu({ node, deselect }) {
         <button name="opposite" onClick={e => artificial(node, e.target.name, brief, nodes)}> Make-Opposite </button>
         <button name="summarize" onClick={e => artificial(node, e.target.name, brief, nodes)}> Summarize </button>
         <button name="expand" onClick={e => artificial(node, e.target.name, brief, nodes)}> Expand </button>
+        <button name="merge" onClick={e => artificial(node, e.target.name, brief, nodes)}> Merge </button>
         <button name="surprise" onClick={e => artificial(node, e.target.name, brief, nodes)}> Surprise Me! </button>
         <button name="group" onClick={e => artificial(node, e.target.name, brief, nodes)}> Group Em'! </button>
         <br></br>

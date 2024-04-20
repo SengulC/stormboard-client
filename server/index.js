@@ -47,6 +47,9 @@ async function callButtonPrompt(prompt, input, brief, nodes) {
     case 'surprise': 
       prePrompt = "Respond with a single sentence product idea (max 10 words). " +  "The brief is: " + brief + ". Surprise me, drawing inspiration from: ";
       break;
+    case 'merge': 
+      prePrompt = "Respond with a single sentence product idea (max 10 words). " +  "The brief is: " + brief + ". Merge: ";
+      break;
     case 'group': 
       let nodedata = extractNodesData(nodes);
       prePrompt = `GROUP ideas in association with one another. Given a list of the concepts (the idea itself in text and their unique ID), arrange them in groups that are most similar to one another. Respond with a list of lists (using square brackets) identifying the ideas via their unique IDs. 
@@ -73,6 +76,7 @@ async function callButtonPrompt(prompt, input, brief, nodes) {
   - Make Opposite; come up with an object or concept that is the polar opposite of the given idea.
   - Regenerate; rephrase the given idea.
   - Surprise; surprise the user with a random concept, drawing inspiration from the given idea. Make sure to stay within the context of the design brief.
+  - Merge; given two ideas, semantically merge them to create a novel concept.
 
   You will also be asked to GROUP ideas in association with one another. Given a list of the concepts (the idea itself in text and their unique ID), arrange them in groups that are most similar to one another. Respond with a list of lists (using square brackets) identifying the ideas via their unique IDs. 
   E.g. 
