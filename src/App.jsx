@@ -15,7 +15,7 @@ const selector = (store) => ({
   addEdge: store.addEdge,
   addNode: store.addNode,
   onNodeClick: store.onNodeClick,
-  selectedNodes: store.selectedNodes,
+  selectedNodesData: store.selectedNodesData,
   updateParent: store.updateParent
 });
 

@@ -11,6 +11,7 @@ export function Menu({ node, deselect }) {
   const brief = useStore(state => state.brief);
   const nodes = useStore(state => state.nodes);
   const rearrangeNodes = useStore(state => state.rearrangeNodes);
+  const selectedNodesData = useStore(state => state.selectedNodesData);
 
   node = node ? node : {'id': 'x', 'data':{'label': ''}};
   // console.log(node);
@@ -35,21 +36,26 @@ export function Menu({ node, deselect }) {
   }, [label, setNodes]);
 
   function artificial (node, prompt, brief, nodes) {
-    const nodelabel = node.data.label;
-    axios.post("http://localhost:8000/buttons", {nodelabel, prompt, brief, nodes})
-    // axios.post("https://guai-server.onrender.com/buttons", {nodelabel, prompt, brief, nodes}) // the var names here matter! nodelabel and prompt are referred to in index.js
-    .then((res) => {
-        if (prompt == "group") {
-          console.log("ABT TO REARRANGE");
-          rearrangeNodes(res.data);
-        } else {
-          setLabel(res.data);
-          updateNodeLabel(node.id, res.data);
-        }
-    })
-    .catch((err => {
-        console.error(err);
-    }))
+    for (let data of selectedNodesData) {
+      for (let n of data) {
+        console.log("n: " + JSON.stringify(n));
+        const nodelabel = n.data.label;
+        console.log(nodelabel);
+        axios.post("http://localhost:8000/buttons", {nodelabel, prompt, brief, nodes})
+        // axios.post("https://guai-server.onrender.com/buttons", {nodelabel, prompt, brief, nodes}) // the var names here matter! nodelabel and prompt are referred to in index.js
+        .then((res) => {
+            if (prompt == "group") {
+              rearrangeNodes(res.data);
+            } else {
+              setLabel(res.data);
+              updateNodeLabel(n.id, res.data);
+            }
+        })
+        .catch((err => {
+            console.error(err);
+        }))
+      }
+    }
   };
 
   return (
@@ -57,7 +63,8 @@ export function Menu({ node, deselect }) {
       <div className='close-menu' onClick={() => deselect?.()}> X (deselect node) </div>
       <h1> Menu </h1>
       <div>
-        {/* <h4>Current note</h4> */}
+        <h4>Selected note(s)</h4>
+        {/* CUSTOM REACT COMPONENT HERE TO DISPLAY SELECTIONS WELL */}
         <div style={{'backgroundColor': node.data.color}} className="post-it-node curr-node"> 
         <textarea className="post-it-text curr-node-text" value={node.data.label || "Select a node to edit."}> </textarea>
         </div>

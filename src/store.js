@@ -36,6 +36,32 @@ function getandPrintTextareaValues(list) {
   return textareaValues;
 }
 
+function setSelectedNodesData(list) {
+  const selectedNodesData = [];
+  // Iterate through the list of objects
+  for (let i = 0; i < list.length; i++) {
+    const target = list[i].target;
+    
+    // Check if target exists and has a textarea
+    if (target && target.getElementsByTagName('textarea').length > 0) {
+        const textareaValue = target.getElementsByTagName('textarea')[0].value;
+        const id = target.id;
+        const node = {id: id, data: {label: textareaValue}};
+        console.log("in creator: " + JSON.stringify(node));
+        selectedNodesData.push(node);
+    }
+  }
+
+  console.log("selectedNodesData:");
+  console.log("[");
+  for (let n of selectedNodesData) {
+    console.log(JSON.stringify(n));
+  }
+  console.log("]");
+
+  return selectedNodesData;
+}
+
 // chatgpt
 function generateRandomColor() {
   // Generate random values for R, G, and B
@@ -61,7 +87,8 @@ export const useStore = create((set, get) => ({
     { id: 'Q9tbOx', type: 'postIt', data: { id: 'Q9tbOx', label: 'House competitions', color: '#ffffba' }, position: { x: 580, y: 300 } }
   ],
   edges: [],
-  selectedNodes: [],
+  selectedNodesHTML: [],
+  selectedNodesData: [],
   brief: '',
  
   onNodesChange(changes) {
@@ -102,19 +129,10 @@ export const useStore = create((set, get) => ({
 
   onNodeClick(node) {
     // IMPORTANT: the 'node' passed to this func is the HTML object clicked upon...
-
-    if (!get().selectedNodes.find( currNode => currNode.target.id === node.target.id )) {
-      // if clicked on node is NOT already in selected nodes
-
-      // write function that gets PostItNode from HTML obj so we can edit that instead...
-
-      set({ selectedNodes: [node, ...get().selectedNodes] });
-      // node.target.style.backgroundColor=generateRandomColor();
-    } else {
-      // node.target.style.backgroundColor="peachpuff";
-      // remove from list
+    if (!get().selectedNodesHTML.find( currNode => currNode.target.id === node.target.id )) {
+      set({ selectedNodesHTML: [node, ...get().selectedNodesHTML] });
     }
-    getandPrintTextareaValues(get().selectedNodes);
+    set({ selectedNodesData: [setSelectedNodesData(get().selectedNodesHTML)] });
   },
 
   updateNodeLabel(nodeId, label) {
