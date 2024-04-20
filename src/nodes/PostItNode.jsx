@@ -19,7 +19,9 @@ function PostIt({ data, isConnectable }) {
     <div id={data.id} style={{'backgroundColor': data.color}} className='post-it-node'>
       <Handle type="target" position={Position.Top} isConnectable={isConnectable} />
       {/* <p style={{'color': 'black'}}>hi</p> */}
-        <textarea id={nanoid(6)} className='nopan nodrag post-it-text' name="text" value={data.label} onChange={(e) => trigger(e)} />
+        {/* <textarea id={nanoid(6)} className='nopan nodrag post-it-text' name="text" value={data.label} onChange={(e) => trigger(e)} /> */}
+        {/* BELOW FOR DEBUG PURPOSES UNCOMMENT ABOVE */}
+        <textarea id={nanoid(6)} className='nopan nodrag post-it-text' name="text" value={data.position} onChange={(e) => trigger(e)} /> 
         <Handle type="source" position={Position.Bottom} isConnectable={isConnectable} />
     </div>
   );

@@ -82,9 +82,9 @@ function generateRandomColor() {
  
 export const useStore = create((set, get) => ({
   nodes: [
-    { id: 'IOxNzE', type: 'postIt', data: { id: 'IOxNzE', label: 'In-house classes', color: '#ffb3ba' }, position: { x: 200, y: 300 } },
-    { id: 'koPZrd', type: 'postIt', data: { id: 'koPZrd', label: 'After school clubs', color: '#ffdfba' }, position: { x: 390, y: 300 } },
-    { id: 'Q9tbOx', type: 'postIt', data: { id: 'Q9tbOx', label: 'House competitions', color: '#ffffba' }, position: { x: 580, y: 300 } }
+    { id: 'IOxNzE', type: 'postIt', data: { id: 'IOxNzE', position: '200, 300', label: 'In-house classes', color: '#ffb3ba' }, position: { x: 200, y: 300 } },
+    { id: 'koPZrd', type: 'postIt', data: { id: 'koPZrd', position: '390, 300', label: 'After school clubs', color: '#ffdfba' }, position: { x: 390, y: 300 } },
+    { id: 'Q9tbOx', type: 'postIt', data: { id: 'Q9tbOx', position: '580, 300', label: 'House competitions', color: '#ffffba' }, position: { x: 580, y: 300 } }
   ],
   edges: [],
   selectedNodesHTML: [],
@@ -205,7 +205,12 @@ export const useStore = create((set, get) => ({
       nodes: get().nodes.map((node) => {
         if (node.id === nodeId) {
           node.parentNode = targetID;
-          node.position = {x:50, y:90};
+          if (targetID != null) {
+            node.position = {x:50, y:90};
+          } else {
+            node.data.label = `changed: ${node.position.x}, ${node.position.y}`;
+            node.position = {x:node.position.x, y:node.position.y};
+          }
         }
         return node;
       }),

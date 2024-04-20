@@ -77,7 +77,10 @@ export default function App() {
             // if node being dragged is current iter and target exists, set dragged node's parent to target
             // console.log("in if case, ids: " +n.id +" " + target.id)
             store.updateParent(n.id, target.id)
-          } else {
+          } else if (n.id === node.id && !target) {            
+            let nodeLabel = node ? node.data.label : "";
+            store.updateParent(n.id, null)
+            console.log(`else case. dragged node: ${nodeLabel} ${node.id}`);
           }
           })
         })
