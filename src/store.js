@@ -36,19 +36,19 @@ function getandPrintTextareaValues(list) {
   return textareaValues;
 }
 
-function setSelectedNodesData(list, nodes) {
-  const selectedNodesData = [];
-  for (let i = 0; i < list.length; i++) {
-    const target = list[i].target;
-    
-    // Check if target exists
-    if (target) {
-        const id = target.id;
-        let currNode = getNode(id, nodes);
-        selectedNodesData.push(currNode);
+function setSelectedNodes(nodes) {
+  let selectedNodes = [];
+  for (let node of nodes) {
+    if (node.selected == true) {
+      selectedNodes.push(node);
     }
   }
-  return selectedNodesData;
+
+  // console.log("selecteds:")
+  // for (let snode of selectedNodes) {
+  //   console.log(JSON.stringify(snode));
+  // }
+  return selectedNodes;
 }
 
 // chatgpt
@@ -97,13 +97,17 @@ export const useStore = create((set, get) => ({
     { id: 'c', type: 'postIt', data: { id: 'c', position: '580, 300', label: 'House competitions', color: '#ffffba' }, position: { x: 580, y: 300 } }
   ],
   edges:  [],
-  selectedNodesHTML: [],
-  selectedNodesData: [],
+  // selectedNodesHTML: [],
+  selectedNodes: [],
   brief: '',
  
   onNodesChange(changes) {
     set({
       nodes: applyNodeChanges(changes, get().nodes),
+    });
+    let selecteds = setSelectedNodes(get().nodes);
+    set({
+      selectedNodes: selecteds,
     });
   },
  
@@ -169,13 +173,13 @@ export const useStore = create((set, get) => ({
     set({ nodes: [node, ...get().nodes] });
   },
 
-  onNodeClick(node) {
-    // IMPORTANT: the 'node' passed to this func is the HTML object clicked upon...
-    if (!get().selectedNodesHTML.find( currNode => currNode.target.id === node.target.id )) {
-      set({ selectedNodesHTML: [node, ...get().selectedNodesHTML] });
-    }
-    set({ selectedNodesData: [setSelectedNodesData(get().selectedNodesHTML, get().nodes)] });
-  },
+  // onNodeClick(node) {
+  //   // IMPORTANT: the 'node' passed to this func is the HTML object clicked upon...
+  //   // if (!get().selectedNodesHTML.find( currNode => currNode.target.id === node.target.id )) {
+  //   //   set({ selectedNodesHTML: [node, ...get().selectedNodesHTML] });
+  //   // }
+  //   set({ selectedNodes: [setSelectedNodes(get().selectedNodes, get().nodes)] });
+  // },
 
   updateNodeLabel(nodeId, label) {
     set({

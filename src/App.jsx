@@ -15,7 +15,7 @@ const selector = (store) => ({
   addEdge: store.addEdge,
   addNode: store.addNode,
   onNodeClick: store.onNodeClick,
-  selectedNodesData: store.selectedNodesData,
+  selectedNodes: store.selectedNodes,
   updateParent: store.updateParent
 });
 
@@ -80,7 +80,6 @@ export default function App() {
           } else if (n.id === node.id && !target) {            
             let nodeLabel = node ? node.data.label : "";
             store.updateParent(n.id, null)
-            console.log(`else case. dragged node: ${nodeLabel} ${node.id}`);
           }
           })
         })
