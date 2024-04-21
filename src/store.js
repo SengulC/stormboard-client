@@ -5,36 +5,8 @@ import axios from "axios";
 
 async function artificial (sourceLabels, targetLabels, nodeLabel, prompt, brief) {
   // return await axios.post("https://guai-server.onrender.com/buttons", {nodeLabel, prompt, brief}).then(response => response.data)
-  // console.log(`About to post! ${sourceLabels} ${targetLabels} ${prompt} ${nodeLabel} ${brief}`)
   return await axios.post("http://localhost:8000/buttons", {sourceLabels, targetLabels, nodeLabel, prompt, brief}).then(response => response.data)
 };
-
-// chatgpt
-function getandPrintTextareaValues(list) {
-  const textareaValues = [];
-
-  // Iterate through the list of objects
-  for (let i = 0; i < list.length; i++) {
-      const target = list[i].target;
-      
-      // Check if target exists and has a textarea
-      if (target && target.getElementsByTagName('textarea').length > 0) {
-          const textarea = target.getElementsByTagName('textarea')[0];
-          const textareaValue = textarea.value;
-          textareaValues.push(textareaValue);
-      }
-  }
-
-  // Log each textarea value in the specified format
-  console.log("Textarea values:");
-  console.log("[");
-  for (let i = 0; i < textareaValues.length; i++) {
-      console.log(`  "${textareaValues[i]}"${i < textareaValues.length - 1 ? "," : ""}`);
-  }
-  console.log("]");
-
-  return textareaValues;
-}
 
 function setSelectedNodes(nodes) {
   let selectedNodes = [];

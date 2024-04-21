@@ -77,9 +77,11 @@ async function callButtonPrompt(sourceLabels, targetLabels, prompt, input, brief
   }
 
   let sources = "";
-  if (sourceLabels.length > 0) {
-    sources = sourceLabels.join(". ");
-    content += '. Remember to feed the following concepts into the output: ' + sources;
+  if (sourceLabels) {
+    if (sourceLabels.length > 0) {
+      sources = sourceLabels.join(". ");
+      content += '. Remember to feed the following concepts into the output: ' + sources;
+    }
   }
 
   return content;
@@ -147,7 +149,7 @@ app.post("/buttons", async (req, res) => {
   const prompt = req.body.prompt;
   const brief = req.body.brief;
   const nodes = req.body.nodes;
-  console.log(`Calling button prompt! [${sources}] [${targets}]`)
+  // console.log(`Calling button prompt! [${sources}] [${targets}]`)
   let result = await callButtonPrompt(sources, targets, prompt, input, brief, nodes);
   // result = result.message.content; // UNCOMMENT ME FOR API USAGE
   res.send(result);

@@ -35,9 +35,9 @@ export function Menu({ node, deselect }) {
     );
   }, [label, setNodes]);
 
-  function getselectedNodesLabels(list) {
+  function getSelectedNodesLabels(selectedNodes) {
     let labels = [];
-    for (let node of list) {
+    for (let node of selectedNodes) {
       labels.push(node.data.label);
     }
     return labels;
@@ -58,7 +58,8 @@ export function Menu({ node, deselect }) {
   function artificial (prompt, brief, nodes) {
     //sourceLabels, targetLabels, 
     if (prompt == "merge") {
-      const nodeLabel = getselectedNodesLabels(selectedNodes);
+      const nodeLabel = getSelectedNodesLabels(selectedNodes).join(" ");
+      console.log("joined labels: " + nodeLabel);
       axios.post("http://localhost:8000/buttons", {nodeLabel, prompt, brief, nodes})
       // axios.post("https://guai-server.onrender.com/buttons", {nodeLabel, prompt, brief, nodes}) // the var names here matter! nodeLabel and prompt are referred to in index.js
       .then((res) => {
@@ -69,11 +70,9 @@ export function Menu({ node, deselect }) {
       }))
     } else {
       for (let n of selectedNodes) {
-        console.log('in post node: ' + JSON.stringify(n));
         const nodeLabel = n.data.label ? n.data.label : "";
         const sourceLabels = n.data.source ? getLabelsFromIDs(n.data.source, nodes) : [];
         const targetLabels = n.data.target ? getLabelsFromIDs(n.data.target, nodes) : [];
-        console.log(`sourceLabels: ${sourceLabels}`);
         axios.post("http://localhost:8000/buttons", {nodeLabel, sourceLabels, targetLabels, prompt, brief, nodes})
         // axios.post("https://guai-server.onrender.com/buttons", {nodeLabel, prompt, brief, nodes}) // the var names here matter! nodeLabel and prompt are referred to in index.js
         .then((res) => {

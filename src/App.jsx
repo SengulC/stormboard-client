@@ -68,17 +68,12 @@ export default function App() {
         setTarget(targetNode);
       }}
       onNodeDragStop={(_, node) => {
-        // console.log("Dragging stop")
-        // console.log(target.id)
-        // console.log(dragRef.current.id)
         store.nodes = ({
           nodes: store.nodes.map((n) => {
           if (n.id === node.id && target) {
             // if node being dragged is current iter and target exists, set dragged node's parent to target
-            // console.log("in if case, ids: " +n.id +" " + target.id)
             store.updateParent(n.id, target.id)
           } else if (n.id === node.id && !target) {            
-            let nodeLabel = node ? node.data.label : "";
             store.updateParent(n.id, null)
           }
           })
