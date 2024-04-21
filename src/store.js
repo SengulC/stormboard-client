@@ -1,12 +1,12 @@
-import { applyNodeChanges, applyEdgeChanges } from 'reactflow';
+import { applyNodeChanges, applyEdgeChanges, getConnectedEdges, getNodePositionWithOrigin } from 'reactflow';
 import { nanoid } from 'nanoid';
 import { create } from 'zustand';
 import axios from "axios";
 
-async function artificial (node, prompt, brief) {
-  const nodelabel = node.data.label;
+async function artificial (sourceLabels, targetLabels, nodeLabel, prompt, brief) {
   // return await axios.post("https://guai-server.onrender.com/buttons", {nodelabel, prompt, brief}).then(response => response.data)
-  return await axios.post("http://localhost:8000/buttons", {nodelabel, prompt, brief}).then(response => response.data)
+  console.log(`About to post! ${sourceLabels} ${targetLabels} ${prompt} ${nodeLabel} ${brief}`)
+  return await axios.post("http://localhost:8000/buttons", {sourceLabels, targetLabels, nodeLabel, prompt, brief}).then(response => response.data)
 };
 
 // chatgpt
@@ -47,18 +47,9 @@ function setSelectedNodesData(list) {
         const textareaValue = target.getElementsByTagName('textarea')[0].value;
         const id = target.id;
         const node = {id: id, data: {label: textareaValue}};
-        console.log("in creator: " + JSON.stringify(node));
         selectedNodesData.push(node);
     }
   }
-
-  console.log("selectedNodesData:");
-  console.log("[");
-  for (let n of selectedNodesData) {
-    console.log(JSON.stringify(n));
-  }
-  console.log("]");
-
   return selectedNodesData;
 }
 
@@ -79,14 +70,27 @@ function generateRandomColor() {
 
   return hexColor;
 };
+
+function getNode(id, nodes) {
+  console.log("in get node. id is: " + id);
+  // given id, return node object:
+  // { id: 'a', type: 'postIt', data: { id: 'a', position: '200, 300', source: '', label: 'In-house classes', color: '#ffb3ba' }, position: { x: 200, y: 300 } }
+  // from nodes.
+
+  for (let node of nodes) {
+    if (node.id == id) {
+      return node;
+    }
+  }
+}
  
 export const useStore = create((set, get) => ({
   nodes: [
-    { id: 'IOxNzE', type: 'postIt', data: { id: 'IOxNzE', position: '200, 300', label: 'In-house classes', color: '#ffb3ba' }, position: { x: 200, y: 300 } },
-    { id: 'koPZrd', type: 'postIt', data: { id: 'koPZrd', position: '390, 300', label: 'After school clubs', color: '#ffdfba' }, position: { x: 390, y: 300 } },
-    { id: 'Q9tbOx', type: 'postIt', data: { id: 'Q9tbOx', position: '580, 300', label: 'House competitions', color: '#ffffba' }, position: { x: 580, y: 300 } }
+    { id: 'a', type: 'postIt', data: { id: 'a', position: '200, 300', label: 'In-house classes', color: '#ffb3ba' }, position: { x: 200, y: 300 } },
+    { id: 'b', type: 'postIt', data: { id: 'b', position: '390, 300', label: 'After school clubs', color: '#ffdfba' }, position: { x: 390, y: 300 } },
+    { id: 'c', type: 'postIt', data: { id: 'c', position: '580, 300', label: 'House competitions', color: '#ffffba' }, position: { x: 580, y: 300 } }
   ],
-  edges: [],
+  edges:  [],
   selectedNodesHTML: [],
   selectedNodesData: [],
   brief: '',
@@ -103,11 +107,26 @@ export const useStore = create((set, get) => ({
     });
   },
  
-  addEdge(data) {
+  async addEdge(data) {
     const id = nanoid(6);
     const edge = { id, ...data };
- 
     set({ edges: [edge, ...get().edges] });
+    const sourceNode = getNode(data.source, get().nodes);
+    const targetNode = getNode(data.target, get().nodes);
+    const label = await artificial(sourceNode.data.label, targetNode.data.label, 'feed', get().brief);
+    set({
+      nodes: get().nodes.map((node) => {
+        if (node.id === data.target) {
+          node.data.source = (!node.data.source) ? [data.source] : [node.data.source, data.source];
+          node.data.label = label;
+          // node.data.label = `my parents: ${node.data.source}. my children: ${node.data.target}`;
+        } if (node.id === data.source) {
+          node.data.target = (!node.data.target) ? [data.target] : [node.data.target, data.target];
+          // node.data.label = `my parents: ${node.data.source}. my children: ${node.data.target}`;
+        }
+        return node;
+      }),
+    });
   },
 
   async addNode(surprise, nodeLabel) {
@@ -116,18 +135,15 @@ export const useStore = create((set, get) => ({
     let yPos = Math.random() * (300 - 20) + 20;
     // let xPos = get().nodes[0].position.x + 190; // add to left of last post it
     // let yPos = get().nodes[0].position.y;
-    let node = { id: id, type: 'postIt', data: {id: id,  label: '', color: '#bae1ff' }, position: { x: xPos, y: yPos } };
+    let node = { id: id, type: 'postIt', data: {id: id, label: '', color: '#bae1ff' }, position: { x: xPos, y: yPos } };
     let label = "";
     if (surprise) {
-      console.log("The brief is: " + get().brief);
-      label = await artificial(node, 'surprise', get().brief);
+      label = await artificial("", "", node.data.label, 'surprise', get().brief);
     } else if (nodeLabel!="") {
-      console.log("else if case")
       label = nodeLabel;
     }
     node = { id: id, type: 'postIt', data: { id: id, label: label, color: '#bae1ff' }, position: { x: xPos, y: yPos } };
     set({ nodes: [node, ...get().nodes] });
-    // console.log(get().nodes);
   },
 
   onNodeClick(node) {

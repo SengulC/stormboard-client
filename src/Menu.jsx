@@ -50,7 +50,7 @@ export function Menu({ node, deselect }) {
   function artificial (node, prompt, brief, nodes) {
   if (prompt == "merge") {
     const nodelabel = getSelectedNodesDataLabels(selectedNodesData);
-    axios.post("http://localhost:8000/buttons", {nodelabel, prompt, brief, nodes})
+    axios.post("http://localhost:8000/buttons", {nodeLabel, prompt, brief, nodes})
     // axios.post("https://guai-server.onrender.com/buttons", {nodelabel, prompt, brief, nodes}) // the var names here matter! nodelabel and prompt are referred to in index.js
     .then((res) => {
       addNode(false, res.data);
