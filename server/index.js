@@ -124,7 +124,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.post("/buttons", async (req, res) => {
-  const input = req.body.nodelabel;
+  const input = req.body.nodeLabel;
   const prompt = req.body.prompt;
   const brief = req.body.brief;
   const nodes = req.body.nodes;

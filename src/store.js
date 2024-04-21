@@ -4,7 +4,7 @@ import { create } from 'zustand';
 import axios from "axios";
 
 async function artificial (sourceLabels, targetLabels, nodeLabel, prompt, brief) {
-  // return await axios.post("https://guai-server.onrender.com/buttons", {nodelabel, prompt, brief}).then(response => response.data)
+  // return await axios.post("https://guai-server.onrender.com/buttons", {nodeLabel, prompt, brief}).then(response => response.data)
   console.log(`About to post! ${sourceLabels} ${targetLabels} ${prompt} ${nodeLabel} ${brief}`)
   return await axios.post("http://localhost:8000/buttons", {sourceLabels, targetLabels, nodeLabel, prompt, brief}).then(response => response.data)
 };
