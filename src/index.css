@@ -4,7 +4,7 @@
 :root {
   font-family:'Roboto Slab';
   color-scheme: light dark;
-  background-color: darkgray;                  
+  background-color: rgb(219, 219, 219);                  
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -19,6 +19,11 @@
   background-color: #f6edc3;
   rotate: 2deg;
 }
+
+.react-flow .react-flow__edge {
+  color: red;
+}
+
 
 .react-flow .react-flow__handle-top {
   top: -0.3em;
