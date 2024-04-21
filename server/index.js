@@ -32,7 +32,7 @@ function extractNodesData (nodes) {
 }
 
 
-async function callButtonPrompt(prompt, input, brief, nodes) {
+async function callButtonPrompt(sourceLabels, targetLabels, prompt, input, brief, nodes) {
   let prePrompt;
   switch(prompt) {
     case 'opposite': 
@@ -50,6 +50,9 @@ async function callButtonPrompt(prompt, input, brief, nodes) {
     case 'merge': 
       prePrompt = "Respond with a single sentence product idea (max 10 words). " +  "The brief is: " + brief + ". Merge: ";
       break;
+    case 'feed': 
+      prePrompt = "Respond with a single sentence product idea (max 10 words). " +  "The brief is: " + brief + ". Feed: " + "'" + sourceLabels + "'" + " into " + "'" + targetLabels + "'";
+      break;
     case 'group': 
       let nodedata = extractNodesData(nodes);
       prePrompt = `GROUP ideas in association with one another. Given a list of the concepts (the idea itself in text and their unique ID), arrange them in groups that are most similar to one another. Respond with a list of lists (using square brackets) identifying the ideas via their unique IDs. 
@@ -64,8 +67,21 @@ async function callButtonPrompt(prompt, input, brief, nodes) {
       prePrompt = "Respond with a single sentence product idea (max 10 words). " +  "The brief is: " + brief + ". Come up with a random product idea: ";
       break;
   }
-  
-  let content = prePrompt + " " + input;
+
+
+  let content;
+  if (prompt!= 'feed') {
+    content = prePrompt + " " + input;
+  } else {
+    content=prePrompt;
+  }
+
+  let sources = "";
+  // if (sourceLabels.length < 1) {
+  //   sources = sourceLabels.join(". ");
+  //   content = content + '. Remember to feed the following concepts into the output: ' + sources;
+  // }
+
   return content;
 
   // API usage
@@ -77,6 +93,7 @@ async function callButtonPrompt(prompt, input, brief, nodes) {
   - Regenerate; rephrase the given idea.
   - Surprise; surprise the user with a random concept, drawing inspiration from the given idea. Make sure to stay within the context of the design brief.
   - Merge; given two ideas, semantically merge them to create a novel concept.
+  -Feed; given a core idea, feed components of (a) child idea(s) into it.
 
   You will also be asked to GROUP ideas in association with one another. Given a list of the concepts (the idea itself in text and their unique ID), arrange them in groups that are most similar to one another. Respond with a list of lists (using square brackets) identifying the ideas via their unique IDs. 
   E.g. 
@@ -124,11 +141,14 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.post("/buttons", async (req, res) => {
+  const sources = req.body.sourceLabels;
+  const targets = req.body.targetLabels;
   const input = req.body.nodeLabel;
   const prompt = req.body.prompt;
   const brief = req.body.brief;
   const nodes = req.body.nodes;
-  let result = await callButtonPrompt(prompt, input, brief, nodes);
+  // console.log(`Calling button prompt! [${sources}] [${targets}]`)
+  let result = await callButtonPrompt(sources, targets, prompt, input, brief, nodes);
   // result = result.message.content; // UNCOMMENT ME FOR API USAGE
   res.send(result);
 });

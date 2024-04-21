@@ -5,7 +5,7 @@ import axios from "axios";
 
 async function artificial (sourceLabels, targetLabels, nodeLabel, prompt, brief) {
   // return await axios.post("https://guai-server.onrender.com/buttons", {nodeLabel, prompt, brief}).then(response => response.data)
-  console.log(`About to post! ${sourceLabels} ${targetLabels} ${prompt} ${nodeLabel} ${brief}`)
+  // console.log(`About to post! ${sourceLabels} ${targetLabels} ${prompt} ${nodeLabel} ${brief}`)
   return await axios.post("http://localhost:8000/buttons", {sourceLabels, targetLabels, nodeLabel, prompt, brief}).then(response => response.data)
 };
 
@@ -36,18 +36,16 @@ function getandPrintTextareaValues(list) {
   return textareaValues;
 }
 
-function setSelectedNodesData(list) {
+function setSelectedNodesData(list, nodes) {
   const selectedNodesData = [];
-  // Iterate through the list of objects
   for (let i = 0; i < list.length; i++) {
     const target = list[i].target;
     
-    // Check if target exists and has a textarea
-    if (target && target.getElementsByTagName('textarea').length > 0) {
-        const textareaValue = target.getElementsByTagName('textarea')[0].value;
+    // Check if target exists
+    if (target) {
         const id = target.id;
-        const node = {id: id, data: {label: textareaValue}};
-        selectedNodesData.push(node);
+        let currNode = getNode(id, nodes);
+        selectedNodesData.push(currNode);
     }
   }
   return selectedNodesData;
@@ -72,11 +70,6 @@ function generateRandomColor() {
 };
 
 function getNode(id, nodes) {
-  console.log("in get node. id is: " + id);
-  // given id, return node object:
-  // { id: 'a', type: 'postIt', data: { id: 'a', position: '200, 300', source: '', label: 'In-house classes', color: '#ffb3ba' }, position: { x: 200, y: 300 } }
-  // from nodes.
-
   for (let node of nodes) {
     if (node.id == id) {
       return node;
@@ -84,6 +77,19 @@ function getNode(id, nodes) {
   }
 }
  
+function getLabelsFromIDs(ids, nodes) {
+  let labels = [];
+  for (let node of nodes) {
+    for (let id of ids) {
+      if (node.id === id) {
+        labels.push(node.data.label);
+      }
+    }
+  }
+  return labels;
+}
+
+
 export const useStore = create((set, get) => ({
   nodes: [
     { id: 'a', type: 'postIt', data: { id: 'a', position: '200, 300', label: 'In-house classes', color: '#ffb3ba' }, position: { x: 200, y: 300 } },
@@ -113,16 +119,33 @@ export const useStore = create((set, get) => ({
     set({ edges: [edge, ...get().edges] });
     const sourceNode = getNode(data.source, get().nodes);
     const targetNode = getNode(data.target, get().nodes);
-    const label = await artificial(sourceNode.data.label, targetNode.data.label, 'feed', get().brief);
+    let sources; let nodeID;
     set({
       nodes: get().nodes.map((node) => {
         if (node.id === data.target) {
-          node.data.source = (!node.data.source) ? [data.source] : [node.data.source, data.source];
-          node.data.label = label;
+          // set sources here. need to use sources to call artifical.
+          node.data.source = (!node.data.source) ? [data.source] :
+          Array.isArray(node.data.source) ? [...node.data.source, data.source] :
+          [node.data.source, data.source];
+          sources = node.data.source;
           // node.data.label = `my parents: ${node.data.source}. my children: ${node.data.target}`;
         } if (node.id === data.source) {
-          node.data.target = (!node.data.target) ? [data.target] : [node.data.target, data.target];
+          node.data.target = (!node.data.target) ? [data.target] :
+          Array.isArray(node.data.target) ? [...node.data.target, data.target] :
+          [node.data.target, data.target];
           // node.data.label = `my parents: ${node.data.source}. my children: ${node.data.target}`;
+        }
+        return node;
+      }),
+    });
+
+    // use set sources above below, write label.
+    const sourceLabels = getLabelsFromIDs(sources, get().nodes)
+    const label = await artificial(sourceLabels, targetNode.data.label, '', 'feed', get().brief);
+    set({
+      nodes: get().nodes.map((node) => {
+        if (node.id === data.target) {
+          node.data.label = label;
         }
         return node;
       }),
@@ -151,7 +174,7 @@ export const useStore = create((set, get) => ({
     if (!get().selectedNodesHTML.find( currNode => currNode.target.id === node.target.id )) {
       set({ selectedNodesHTML: [node, ...get().selectedNodesHTML] });
     }
-    set({ selectedNodesData: [setSelectedNodesData(get().selectedNodesHTML)] });
+    set({ selectedNodesData: [setSelectedNodesData(get().selectedNodesHTML, get().nodes)] });
   },
 
   updateNodeLabel(nodeId, label) {

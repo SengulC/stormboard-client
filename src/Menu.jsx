@@ -15,7 +15,6 @@ export function Menu({ node, deselect }) {
   const addNode = useStore(state => state.addNode);
 
   node = node ? node : {'id': 'x', 'data':{'label': ''}};
-  // console.log(node);
 
   const [label, setLabel] = useState(node.data.label);
 
@@ -43,42 +42,44 @@ export function Menu({ node, deselect }) {
         labels.push(node.data.label);
       }
     }
-    console.log(labels);
     return labels;
   }
 
-  function artificial (node, prompt, brief, nodes) {
-  if (prompt == "merge") {
-    const nodeLabel = getSelectedNodesDataLabels(selectedNodesData);
-    axios.post("http://localhost:8000/buttons", {nodeLabel, prompt, brief, nodes})
-    // axios.post("https://guai-server.onrender.com/buttons", {nodeLabel, prompt, brief, nodes}) // the var names here matter! nodeLabel and prompt are referred to in index.js
-    .then((res) => {
-      addNode(false, res.data);
-    })
-    .catch((err => {
-        console.error(err);
-    }))
-  } else {
-    for (let data of selectedNodesData) {
-      for (let n of data) {
-        console.log("n: " + JSON.stringify(n));
-        const nodeLabel = n.data.label;
-        console.log(nodeLabel);
-        axios.post("http://localhost:8000/buttons", {nodeLabel, prompt, brief, nodes})
-        // axios.post("https://guai-server.onrender.com/buttons", {nodeLabel, prompt, brief, nodes}) // the var names here matter! nodeLabel and prompt are referred to in index.js
-        .then((res) => {
-            if (prompt == "group") {
-              rearrangeNodes(res.data);
-            } else {
-              setLabel(res.data);
-              updateNodeLabel(n.id, res.data);
-            }
-        })
-        .catch((err => {
-            console.error(err);
-        }))
+  function artificial (prompt, brief, nodes) {
+    //sourceLabels, targetLabels, 
+    if (prompt == "merge") {
+      const nodeLabel = getSelectedNodesDataLabels(selectedNodesData);
+      axios.post("http://localhost:8000/buttons", {nodeLabel, prompt, brief, nodes})
+      // axios.post("https://guai-server.onrender.com/buttons", {nodeLabel, prompt, brief, nodes}) // the var names here matter! nodeLabel and prompt are referred to in index.js
+      .then((res) => {
+        addNode(false, res.data);
+      })
+      .catch((err => {
+          console.error(err);
+      }))
+    } else {
+      for (let data of selectedNodesData) {
+        for (let n of data) {  
+          const nodeLabel = n.data.label;
+          const sourceLabels = n.data.source;
+          const targetLabels = n.data.target;
+          console.log('in post node: ' + JSON.stringify(n));
+          console.log(`Posting nodeLabel: ${nodeLabel}, sourceLabels: ${sourceLabels}, targetLabels: ${targetLabels}, prompt: ${prompt}, brief: ${brief}`)
+          axios.post("http://localhost:8000/buttons", {nodeLabel, sourceLabels, targetLabels, prompt, brief, nodes})
+          // axios.post("https://guai-server.onrender.com/buttons", {nodeLabel, prompt, brief, nodes}) // the var names here matter! nodeLabel and prompt are referred to in index.js
+          .then((res) => {
+              if (prompt == "group") {
+                rearrangeNodes(res.data);
+              } else {
+                setLabel(res.data);
+                updateNodeLabel(n.id, res.data);
+              }
+          })
+          .catch((err => {
+              console.error(err);
+          }))
+        }
       }
-    }
     }
   };
 
@@ -94,12 +95,13 @@ export function Menu({ node, deselect }) {
         </div>
         <h4>Supercharge Post-its</h4>
         <div className="art-buttons">
-        <button name="opposite" onClick={e => artificial(node, e.target.name, brief, nodes)}> Make-Opposite </button>
-        <button name="summarize" onClick={e => artificial(node, e.target.name, brief, nodes)}> Summarize </button>
-        <button name="expand" onClick={e => artificial(node, e.target.name, brief, nodes)}> Expand </button>
-        <button name="merge" onClick={e => artificial(node, e.target.name, brief, nodes)}> Merge </button>
-        <button name="surprise" onClick={e => artificial(node, e.target.name, brief, nodes)}> Surprise Me! </button>
-        <button name="group" onClick={e => artificial(node, e.target.name, brief, nodes)}> Group Em'! </button>
+          //prompt, brief, nodes
+        <button name="opposite" onClick={e => artificial(e.target.name, brief, nodes)}> Make-Opposite </button>
+        <button name="summarize" onClick={e => artificial(e.target.name, brief, nodes)}> Summarize </button>
+        <button name="expand" onClick={e => artificial(e.target.name, brief, nodes)}> Expand </button>
+        <button name="merge" onClick={e => artificial(e.target.name, brief, nodes)}> Merge </button>
+        <button name="surprise" onClick={e => artificial(e.target.name, brief, nodes)}> Surprise Me! </button>
+        <button name="group" onClick={e => artificial(e.target.name, brief, nodes)}> Group Em'! </button>
         <br></br>
         </div>
       </div>
