@@ -79,7 +79,7 @@ export function Menu({ node, deselect }) {
       }))
     } else {
       for (let n of selectedNodes) {
-        const nodeLabel = n.data.label ? n.data.label : "";
+        let nodeLabel = n.data.label ? n.data.label : "";
         const sourceLabels = n.data.source ? getLabelsFromIDs(n.data.source, nodes) : [];
         const targetLabels = n.data.target ? getLabelsFromIDs(n.data.target, nodes) : [];
         axios.post("http://localhost:8000/buttons", {nodeLabel, sourceLabels, targetLabels, prompt, brief, nodes})
@@ -91,6 +91,20 @@ export function Menu({ node, deselect }) {
         .catch((err => {
             console.error(err);
         }))
+        
+        for (let targetId of n.data.target) {
+          // if current selected node has targets, trigger regen for each target/child node
+          nodeLabel = getLabelsFromIDs(targetId, nodes) // get current target/child's labelc
+          prompt="regen";
+          axios.post("http://localhost:8000/buttons", {nodeLabel, prompt, brief})
+          // axios.post("https://guai-server.onrender.com/buttons", {nodeLabel, prompt, brief}) // the var names here matter! nodeLabel and prompt are referred to in index.js
+          .then((res) => {
+              updateNodeLabel(targetId, res.data);
+          })
+          .catch((err => {
+              console.error(err);
+          }))
+        }
       }
     }
   };

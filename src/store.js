@@ -87,6 +87,9 @@ export const useStore = create((set, get) => ({
     set({
       edges: applyEdgeChanges(changes, get().edges),
     });
+    // console.log(changes[0].type);
+    console.log(changes[0]);
+    console.log(get().edges)
   },
  
   async addEdge(data) {
@@ -104,17 +107,14 @@ export const useStore = create((set, get) => ({
           Array.isArray(node.data.source) ? [...node.data.source, data.source] :
           [node.data.source, data.source];
           sources = node.data.source;
-          // node.data.label = `my parents: ${node.data.source}. my children: ${node.data.target}`;
         } if (node.id === data.source) {
           node.data.target = (!node.data.target) ? [data.target] :
           Array.isArray(node.data.target) ? [...node.data.target, data.target] :
           [node.data.target, data.target];
-          // node.data.label = `my parents: ${node.data.source}. my children: ${node.data.target}`;
         }
         return node;
       }),
     });
-
     // use set sources above below, write label.
     const sourceLabels = getLabelsFromIDs(sources, get().nodes)
     const label = await artificial(sourceLabels, targetNode.data.label, '', 'feed', get().brief);
