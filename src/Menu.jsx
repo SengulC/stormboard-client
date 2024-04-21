@@ -68,6 +68,15 @@ export function Menu({ node, deselect }) {
       .catch((err => {
           console.error(err);
       }))
+    } else if (prompt == "group") {
+      axios.post("http://localhost:8000/buttons", {prompt, brief, nodes})
+      // axios.post("https://guai-server.onrender.com/buttons", {nodeLabel, prompt, brief, nodes}) // the var names here matter! nodeLabel and prompt are referred to in index.js
+      .then((res) => {
+          rearrangeNodes(res.data);
+      })
+      .catch((err => {
+          console.error(err);
+      }))
     } else {
       for (let n of selectedNodes) {
         const nodeLabel = n.data.label ? n.data.label : "";
@@ -76,12 +85,8 @@ export function Menu({ node, deselect }) {
         axios.post("http://localhost:8000/buttons", {nodeLabel, sourceLabels, targetLabels, prompt, brief, nodes})
         // axios.post("https://guai-server.onrender.com/buttons", {nodeLabel, prompt, brief, nodes}) // the var names here matter! nodeLabel and prompt are referred to in index.js
         .then((res) => {
-            if (prompt == "group") {
-              rearrangeNodes(res.data);
-            } else {
-              setLabel(res.data);
-              updateNodeLabel(n.id, res.data);
-            }
+            setLabel(res.data);
+            updateNodeLabel(n.id, res.data);
         })
         .catch((err => {
             console.error(err);
@@ -108,7 +113,7 @@ export function Menu({ node, deselect }) {
         <button name="expand" onClick={e => artificial(e.target.name, brief, nodes)}> Expand </button>
         <button name="merge" onClick={e => artificial(e.target.name, brief, nodes)}> Merge </button>
         <button name="surprise" onClick={e => artificial(e.target.name, brief, nodes)}> Surprise Me! </button>
-        <button name="group" onClick={e => artificial(e.target.name, brief, nodes)}> Group Em'! </button>
+        <button name="group" onClick={e => artificial(e.target.name, brief, selectedNodes)}> Group Em'! </button>
         <br></br>
         </div>
       </div>

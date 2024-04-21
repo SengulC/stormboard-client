@@ -181,13 +181,6 @@ export const useStore = create((set, get) => ({
   },
 
   rearrangeNodes(order) {
-    // let currentNodes = get().nodes;
-    /*
-    - loop thru order
-      move:
-      - for # of post its divide page into that #
-      - arrange post its in groups of 3 L-R (xPos) next to each other than below each other (yPos)
-    */
     for (let group of order) {
       let color = generateRandomColor();
       for (let id of group) {
