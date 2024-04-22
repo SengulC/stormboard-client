@@ -3,9 +3,9 @@ import { nanoid } from 'nanoid';
 import { create } from 'zustand';
 import axios from "axios";
 
-async function artificial (sourceLabels, targetLabels, nodeLabel, prompt, brief) {
-  // return await axios.post("https://guai-server.onrender.com/buttons", {nodeLabel, prompt, brief}).then(response => response.data)
-  return await axios.post("http://localhost:8000/buttons", {sourceLabels, targetLabels, nodeLabel, prompt, brief}).then(response => response.data)
+async function artificial (sourceLabels, targetLabels, nodeLabel, prompt, brief, charTone) {
+  // return await axios.post("https://guai-server.onrender.com/buttons", {nodeLabel, prompt, brief, charTone}).then(response => response.data)
+  return await axios.post("http://localhost:8000/buttons", {sourceLabels, targetLabels, nodeLabel, prompt, brief, charTone}).then(response => response.data)
 };
 
 function setSelectedNodes(nodes) {
@@ -89,6 +89,7 @@ export const useStore = create((set, get) => ({
   selectedNodes: [],
   brief: '',
   loadingState: 'hidden',
+  charTone: '',
  
   onNodesChange(changes) {
     set({
@@ -127,6 +128,10 @@ export const useStore = create((set, get) => ({
     set({
       edges: applyEdgeChanges(changes, get().edges),
     });
+  },
+
+  setCharTone(charChange) {
+    set({charTone: charChange});
   },
  
   async addEdge(data) {
@@ -179,7 +184,7 @@ export const useStore = create((set, get) => ({
     let label = "";
     if (surprise) {
       set({loadingState: null})
-      label = await artificial("", "", node.data.label, 'surprise', get().brief);
+      label = await artificial("", "", node.data.label, 'surprise', get().brief, get().charTone);
       set({loadingState: 'hidden'})
     } else if (merge) {
       label = nodeLabel;

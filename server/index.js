@@ -31,8 +31,22 @@ function extractNodesData (nodes) {
   return extractedNodes;
 }
 
+async function callCharChange(char) {
+  let prePrompt = `You have been asked to change your tone. 
+  You will be asked to either take on a Realistic or Abstract approach tone. 
+  The Realistic tone's responses should be: straightforward, coherent, precise and realistic. 
+  The Abstract tone's responses should be: descriptive, creative, a little random, and abstract in nature.`
+  let prompt = "For FOLLOWING responses, change tone to " + char + ". THE TONE SHOULD TAKE EFFECT IN YOUR FOLLOWING RESPONSES. JUST REPLY SAYING OKAY FOR NOW.";
+  const completion = await openai.chat.completions.create({
+    messages: [{ role: "system", content: prePrompt},
+               {role: "user", content: prompt}],
+    model: "gpt-4",
+  });
+  console.log("CHARCHANGE. Called gpt with : " + prompt);
+  console.log("Got back: " + JSON.stringify(completion.choices[0]));
+}
 
-async function callButtonPrompt(sourceLabels, targetLabels, prompt, input, brief, nodes) {
+async function callButtonPrompt(sourceLabels, targetLabels, prompt, input, brief, nodes, charTone) {
   let prePrompt;
   switch(prompt) {
     case 'opposite': 
@@ -71,7 +85,6 @@ async function callButtonPrompt(sourceLabels, targetLabels, prompt, input, brief
       break;
   }
 
-
   let content;
   if (prompt!= 'feed') {
     content = prePrompt + " " + input;
@@ -87,6 +100,10 @@ async function callButtonPrompt(sourceLabels, targetLabels, prompt, input, brief
     }
   }
 
+  if (charTone) {
+    content += '. Remember to have a ' + charTone + " tone."
+  }
+
   // return content;
 
   // API usage
@@ -98,7 +115,7 @@ async function callButtonPrompt(sourceLabels, targetLabels, prompt, input, brief
   - Regenerate; rephrase the given idea.
   - Surprise; surprise the user with a random concept, drawing inspiration from the given idea. Make sure to stay within the context of the design brief.
   - Merge; given two ideas, semantically merge them to create a novel concept.
-  -Feed; given a core idea, feed components of (a) child idea(s) into it.
+  - Feed; given a core idea, feed components of (a) child idea(s) into it.
 
   You will also be asked to GROUP ideas in association with one another. Given a list of the concepts (the idea itself in text and their unique ID), arrange them in groups that are most similar to one another. Respond with a list of lists (using square brackets) identifying the ideas via their unique IDs. 
   E.g. 
@@ -152,8 +169,13 @@ app.post("/buttons", async (req, res) => {
   const prompt = req.body.prompt;
   const brief = req.body.brief;
   const nodes = req.body.nodes;
-  let result = await callButtonPrompt(sources, targets, prompt, input, brief, nodes);
-  result = result.message.content; // UNCOMMENT ME FOR API USAGE
+  const charTone = req.body.charTone;
+  let result;
+  if (charTone) {await callCharChange(charTone);}
+  if (prompt) {
+    result = await callButtonPrompt(sources, targets, prompt, input, brief, nodes, charTone);
+    result = result.message.content; // UNCOMMENT ME FOR API USAGE
+  }
   res.send(result);
 });
 
