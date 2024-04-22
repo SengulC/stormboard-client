@@ -59,13 +59,15 @@ export default function App() {
   useEffect(() => {
     if (charTone == 'abstract') {
       const intervalId = setInterval(() => {
-      console.log(`Current blinking text for abstract`);
+        addNode(true, "", false);
+        console.log(`Current blinking text for abstract`);
       }, getRandomInterval());
       return () => {
         clearInterval(intervalId);
       };
     } else if (charTone == 'realistic') {
       const intervalId = setInterval(() => {
+          addNode(true, "", false);
         console.log(`Current blinking text for realistic`);
         }, userTime);
         return () => {
