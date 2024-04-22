@@ -45,8 +45,7 @@ export default function App() {
       onNodesChange={store.onNodesChange}
       onEdgesChange={store.onEdgesChange}
       onConnect={store.addEdge}
-      onNodeClick={store.onNodeClick}
-      onNodeDoubleClick={(_, node) => {
+      onNodeClick={(_, node) => {
         setCurrentNode(node);
       }}
       onNodeDragStart={(_, node) => {
