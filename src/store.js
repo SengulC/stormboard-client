@@ -128,7 +128,8 @@ export const useStore = create((set, get) => ({
  
   async addEdge(data) {
     const id = nanoid(6);
-    const edge = { id, ...data };
+    let edge = { id, ...data };
+    edge.animated = true;
     set({ edges: [edge, ...get().edges] });
     const sourceNode = getNode(data.source, get().nodes);
     const targetNode = getNode(data.target, get().nodes);
