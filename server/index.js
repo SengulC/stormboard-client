@@ -101,7 +101,8 @@ async function callButtonPrompt(sourceLabels, targetLabels, prompt, input, brief
   }
 
   if (charTone) {
-    content += '. Remember to have a ' + charTone + " tone."
+    let charDesc = {"realistic": "straightforward, coherent, precise and realistic", "abstract": "descriptive, creative, a little random, and abstract in nature"};
+    content += '. Remember to have a ' + charDesc[charTone] + " tone."
   }
 
   // return content;
