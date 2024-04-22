@@ -39,7 +39,7 @@ async function callButtonPrompt(sourceLabels, targetLabels, prompt, input, brief
       prePrompt = "Respond with a single sentence product idea (max 10 words). " +  "The brief is: " + brief + ". Make opposite: ";
       break;
     case 'summarize': 
-      prePrompt = "Respond with a single sentence product idea (max 10 words). " +  "The brief is: " + brief + ". Summarize: ";
+      prePrompt = "Halve the word length of the following product idea, making more coherent. " +  "The brief is: " + brief + ". Summarize: ";
       break;
     case 'expand': 
       prePrompt = "Respond with a single sentence product idea (max 10 words). " +  "The brief is: " + brief + ". Expand: ";
@@ -87,7 +87,7 @@ async function callButtonPrompt(sourceLabels, targetLabels, prompt, input, brief
     }
   }
 
-  return content;
+  // return content;
 
   // API usage
   const instruction = `You are a brainstorming assistant. You will be given a design brief and will be asked to assist with ideas in the given context. You will be asked to edit user-created ideas or create new ideas. These are how you will be asked to edit:
@@ -153,7 +153,7 @@ app.post("/buttons", async (req, res) => {
   const brief = req.body.brief;
   const nodes = req.body.nodes;
   let result = await callButtonPrompt(sources, targets, prompt, input, brief, nodes);
-  // result = result.message.content; // UNCOMMENT ME FOR API USAGE
+  result = result.message.content; // UNCOMMENT ME FOR API USAGE
   res.send(result);
 });
 
