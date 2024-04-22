@@ -91,7 +91,7 @@ export function Menu({ node, deselect }) {
             console.error(err);
         }))
         
-        for (let targetId of n.data.target) {
+        if (n.data.target) {for (let targetId of n.data.target) {
           // if current selected node has targets, trigger regen for each target/child node
           nodeLabel = getLabelsFromIDs(targetId, nodes) // get current target/child's labelc
           prompt="regen";
@@ -104,7 +104,7 @@ export function Menu({ node, deselect }) {
           .catch((err => {
               console.error(err);
           }))
-        }
+        }}
       }
     }
   };
