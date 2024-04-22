@@ -140,7 +140,7 @@ export function Menu({ node, deselect }) {
         <h4>Selected note(s)</h4>
         {/* CUSTOM REACT COMPONENT HERE TO DISPLAY SELECTIONS WELL */}
         <div style={{'backgroundColor': node.data.color}} className="post-it-node curr-node"> 
-        <textarea className="post-it-text curr-node-text" value={node.data.label || "Select a node to edit."}> </textarea>
+        <textarea readOnly className="post-it-text curr-node-text" value={node.data.label || "Select a node to edit."}> </textarea>
         </div>
         <h4>Supercharge Post-its</h4>
         <div className="art-buttons">
@@ -151,7 +151,7 @@ export function Menu({ node, deselect }) {
         <button name="surprise" onClick={e => artificial(e.target.name, brief, nodes, charTone)}> Surprise Me! </button>
         <button name="group" onClick={e => artificial(e.target.name, brief, selectedNodes, charTone)}> Group Em'! </button>
         <div id='realistic' onClick={e => artificialCharacter(e.target.id)}> Realistic </div>
-          <input onChange={e => setUserTime(e.target.value)} value={userTime} min='5000' max='600000' type="range"></input>
+          <input onChange={e => setUserTime(e.target.value)} value={userTime} min='000' max='600000' type="range"></input>
           <p>{userTime}</p>
         <div id='abstract' onClick={e => artificialCharacter(e.target.id)}> Abstract </div>
         <br></br>
