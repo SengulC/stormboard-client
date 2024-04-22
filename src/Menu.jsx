@@ -13,6 +13,7 @@ export function Menu({ node, deselect }) {
   const rearrangeNodes = useStore(state => state.rearrangeNodes);
   const selectedNodes = useStore(state => state.selectedNodes);
   const addNode = useStore(state => state.addNode);
+  const setLoadingState = useStore(state => state.setLoadingState);
 
   node = node ? node : {'id': 'x', 'data':{'label': ''}};
 
@@ -56,6 +57,7 @@ export function Menu({ node, deselect }) {
   }
 
   function artificial (prompt, brief, nodes) {
+    setLoadingState(null);
     //sourceLabels, targetLabels, 
     if (prompt == "merge") {
       const nodeLabel = getSelectedNodesLabels(selectedNodes).join(" ");
@@ -63,6 +65,7 @@ export function Menu({ node, deselect }) {
       // axios.post("https://guai-server.onrender.com/buttons", {nodeLabel, prompt, brief, nodes}) // the var names here matter! nodeLabel and prompt are referred to in index.js
       .then((res) => {
         addNode(false, res.data, true);
+        setLoadingState('hidden');
       })
       .catch((err => {
           console.error(err);
@@ -72,6 +75,7 @@ export function Menu({ node, deselect }) {
       // axios.post("https://guai-server.onrender.com/buttons", {nodeLabel, prompt, brief, nodes}) // the var names here matter! nodeLabel and prompt are referred to in index.js
       .then((res) => {
           rearrangeNodes(res.data);
+          setLoadingState('hidden');
       })
       .catch((err => {
           console.error(err);
@@ -86,6 +90,7 @@ export function Menu({ node, deselect }) {
         .then((res) => {
             setLabel(res.data);
             updateNodeLabel(n.id, res.data);
+            setLoadingState('hidden');
         })
         .catch((err => {
             console.error(err);
@@ -100,6 +105,7 @@ export function Menu({ node, deselect }) {
           // axios.post("https://guai-server.onrender.com/buttons", {nodeLabel, prompt, brief}) // the var names here matter! nodeLabel and prompt are referred to in index.js
           .then((res) => {
               updateNodeLabel(targetId, res.data);
+              setLoadingState('hidden');
           })
           .catch((err => {
               console.error(err);
@@ -107,6 +113,7 @@ export function Menu({ node, deselect }) {
         }}
       }
     }
+    return;
   };
 
   return (

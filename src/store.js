@@ -85,6 +85,7 @@ export const useStore = create((set, get) => ({
   // selectedNodesHTML: [],
   selectedNodes: [],
   brief: '',
+  loadingState: 'hidden',
  
   onNodesChange(changes) {
     set({
@@ -161,6 +162,10 @@ export const useStore = create((set, get) => ({
     });
   },
 
+  setLoadingState(state) {
+    set({loadingState: state});
+  },
+
   async addNode(surprise, nodeLabel, merge) {
     var id = nanoid(6);
     let xPos = Math.random() * (500 - 20) + 20; // random
@@ -169,7 +174,9 @@ export const useStore = create((set, get) => ({
     let node = { id: id, type: 'postIt', data: {id: id, label: '', color: '#bae1ff' }, position: position};
     let label = "";
     if (surprise) {
+      set({loadingState: null})
       label = await artificial("", "", node.data.label, 'surprise', get().brief);
+      set({loadingState: 'hidden'})
     } else if (merge) {
       label = nodeLabel;
       xPos = 0; yPos = 0;

@@ -6,6 +6,7 @@ import PostItNode from './nodes/PostItNode.jsx';
 import ReactDOM from 'react-dom/client';
 import './index.css'
 import Menu from './Menu.jsx'
+import Loader from './Loader.jsx'
 
 const selector = (store) => ({
   nodes: store.nodes,
@@ -25,6 +26,7 @@ export default function App() {
   const store = useStore(selector, shallow);
   const addNode = useStore(state => state.addNode);
   const updateBrief = useStore(state => state.updateBrief);
+  const loadingState = useStore(state => state.loadingState);
   const [currentNode, setCurrentNode] = useState(null);
   const [brief, setBrief] = useState("");
 
@@ -51,6 +53,7 @@ export default function App() {
         <button className="add-node-button" onClick={(e) => addNode(false, "", false)}>Add Note</button>
         <button className="add-node-button" onClick={(e) => addNode(true, "", false)}>Add Surprise Note</button>
       </Panel>
+      <Loader loadingState={loadingState}/>
       {/* <Background/> */}
     </ReactFlow>
   );

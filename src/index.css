@@ -78,13 +78,25 @@ button, input {
   float:inline-start;
 }
 
+.loader {
+  width: 5em;
+  height: 3em;
+  z-index: 99;
+  bottom: 0;
+  padding: 1em;
+  background-color: #fbf7f5;
+  color: black;
+  gap: 1em;
+  border: 1px solid #000;
+  position: fixed; overflow-y: auto;
+}
+
 .menu {
   width: 15em;
   z-index: 99;
   right: 0;
   top: 0;
   bottom: 0;
-  padding: 1em;
   background-color: #fbf7f5;
   color: black;
   /* display:list-item; */
