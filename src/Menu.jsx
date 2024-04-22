@@ -59,11 +59,12 @@ export function Menu({ node, deselect }) {
   }
 
   function artificialCharacter (charTone) {
-    console.log(`charTone: ${(charTone)}`)
+    setLoadingState(null);
     axios.post("http://localhost:8000/buttons", {charTone})
     // axios.post("https://guai-server.onrender.com/buttons", {nodeLabel, prompt, brief, nodes}) // the var names here matter! nodeLabel and prompt are referred to in index.js
     .then((res) => {
       setCharTone(charTone);
+      setLoadingState('hidden');
     })
     .catch((err => {
         console.error(err);
