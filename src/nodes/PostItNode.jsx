@@ -12,6 +12,7 @@ function PostIt({ data, isConnectable }) {
   function trigger(e) {
     setPrompt(e.target.value);
     data.label=e.target.value;
+    console.log("changing label heyo!")
     return;
   }
   

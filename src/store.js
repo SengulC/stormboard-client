@@ -100,12 +100,6 @@ export const useStore = create((set, get) => ({
     // if change is of type REMOVE. unlink edge. find source and target node of edge and set node data.
     if (changes[0].type =='remove') {
       let sourceAndTarget = extractEdge(changes[0].id, get().edges, get().nodes);
-      // console.log(`sourceAndTarget ${JSON.stringify(sourceAndTarget)}`);
-      // {
-      //   "source":{"width":162,"height":167,"id":"a","type":"postIt","data":{"id":"a","position":"200, 300","label":"In-house classes","color":"#ffb3ba","target":["b"]},"position":{"x":200,"y":300},"positionAbsolute":{"x":200,"y":300}}
-        // ,"target":{"width":162,"height":167,"id":"b","type":"postIt","data":{"id":"b","position":"390, 300","label":"Respond with a single sentence product idea (max 10 words). The brief is: . Feed: 'In-house classes' into 'After school clubs'. Remember to feed the following concepts into the output: In-house classes","color":"#ffdfba","source":["a"]},"position":{"x":390,"y":300},"positionAbsolute":{"x":390,"y":300}}
-      // }
-      // console.log(`edges before ${JSON.stringify(get().edges)}`);
       set({
         nodes: get().nodes.map((node) => {
           if (node.id == sourceAndTarget.target.id) {

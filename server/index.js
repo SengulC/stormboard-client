@@ -24,13 +24,10 @@ function makeid(length) {
 }
 
 function extractNodesData (nodes) {
-  console.log('in extractNodesData');
   let extractedNodes = [];
   for (let node of nodes) {
     extractedNodes.push({id: node.id, text: node.data.label});
-    console.log('pushing: ' + JSON.stringify({id: node.id, text: node.data.label}))
   }
-  console.log(JSON.stringify(extractedNodes));
   return extractedNodes;
 }
 
@@ -90,7 +87,7 @@ async function callButtonPrompt(sourceLabels, targetLabels, prompt, input, brief
     }
   }
 
-  // return content;
+  return content;
 
   // API usage
   const instruction = `You are a brainstorming assistant. You will be given a design brief and will be asked to assist with ideas in the given context. You will be asked to edit user-created ideas or create new ideas. These are how you will be asked to edit:
@@ -156,7 +153,7 @@ app.post("/buttons", async (req, res) => {
   const brief = req.body.brief;
   const nodes = req.body.nodes;
   let result = await callButtonPrompt(sources, targets, prompt, input, brief, nodes);
-  result = result.message.content; // UNCOMMENT ME FOR API USAGE
+  // result = result.message.content; // UNCOMMENT ME FOR API USAGE
   res.send(result);
 });
 
