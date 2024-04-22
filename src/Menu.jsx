@@ -140,7 +140,7 @@ export function Menu({ node, deselect }) {
         <h4>Selected note(s)</h4>
         {/* CUSTOM REACT COMPONENT HERE TO DISPLAY SELECTIONS WELL */}
         <div style={{'backgroundColor': node.data.color}} className="post-it-node curr-node"> 
-        <textarea readOnly className="post-it-text curr-node-text" value={node.data.label || "Select a node to edit."}> </textarea>
+        <textarea readOnly className="post-it-text curr-node-text" value={node.data.label || "Select or type into nodes to begin editing!" }> </textarea>
         </div>
         <h4>Supercharge Post-its</h4>
         <div className="art-buttons">
