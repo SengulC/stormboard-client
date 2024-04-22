@@ -4,22 +4,50 @@ import '../index.css'
 import '../openai-test'
 import { nanoid } from 'nanoid';
 import { useStore } from '../store';
+import axios from "axios";
 
 function PostIt({ data, isConnectable }) {
   const [prompt, setPrompt] = useState(data.label);
   const updateNodeLabel = useStore(state => state.updateNodeLabel);
+  const brief = useStore(state => state.brief);
+  const nodes = useStore(state => state.nodes);
 
   function trigger(e) {
     setPrompt(e.target.value);
     data.label=e.target.value;
-    console.log("changing label heyo!")
     return;
+  }
+
+  function getNodeLabel(id, nodes) {
+    for (let node of nodes) {
+      if (node.id == id) {
+        return node.data.label;
+      }
+    }
+  }
+
+  function artificial(e, data) {
+    for (let cTarget of data.target) {
+      let prompt = "regen";
+    let nodeLabel = getNodeLabel(cTarget, nodes);
+    let sourceLabels = [e.target.value];
+    // console.log(`posting... sourceLabels: ${sourceLabels}, x: ${nodeLabel}`)
+    axios.post("http://localhost:8000/buttons", {sourceLabels, nodeLabel, prompt, brief})
+    // axios.post("https://guai-server.onrender.com/buttons", {nodeLabel, prompt, brief, nodes}) // the var names here matter! nodeLabel and prompt are referred to in index.js
+    .then((res) => {
+      updateNodeLabel(cTarget, res.data); // not updating?
+      // console.log(`got back: ${res.data}. id to change: ${data.target}`)
+    })
+    .catch((err => {
+        console.error(err);
+    }))
+  }
   }
   
   return (
     <div id={data.id} style={{'backgroundColor': data.color}} className='post-it-node'>
       <Handle type="target" position={Position.Top} isConnectable={isConnectable} />
-        <textarea id={nanoid(6)} className='nopan nodrag post-it-text' name="text" value={data.label} onChange={(e) => trigger(e)} />
+        <textarea id={nanoid(6)} className='nopan nodrag post-it-text' name="text" value={data.label} onBlur={(e) => {if(data.target) {artificial(e, data)}}} onChange={(e) => trigger(e)} />
         <Handle type="source" position={Position.Bottom} isConnectable={isConnectable} />
     </div>
   );

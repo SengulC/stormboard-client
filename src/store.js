@@ -187,10 +187,13 @@ export const useStore = create((set, get) => ({
   // },
 
   updateNodeLabel(nodeId, label) {
+    console.log("in updatenodelabel, node id is: " + nodeId)
     set({
       nodes: get().nodes.map((node) => {
-        if (node.id === nodeId) {
+        if (node.id == nodeId) {
+          console.log("found node to change: " + node.id + ". changing label to: " + label)
           node.data.label = label;
+          console.log("changed label to:  " + node.data.label)
         }
         return node;
       }),
