@@ -62,7 +62,7 @@ export function Menu({ node, deselect }) {
       axios.post("http://localhost:8000/buttons", {nodeLabel, prompt, brief, nodes})
       // axios.post("https://guai-server.onrender.com/buttons", {nodeLabel, prompt, brief, nodes}) // the var names here matter! nodeLabel and prompt are referred to in index.js
       .then((res) => {
-        addNode(false, res.data);
+        addNode(false, res.data, true);
       })
       .catch((err => {
           console.error(err);

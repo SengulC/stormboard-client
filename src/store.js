@@ -161,20 +161,37 @@ export const useStore = create((set, get) => ({
     });
   },
 
-  async addNode(surprise, nodeLabel) {
+  async addNode(surprise, nodeLabel, merge) {
     var id = nanoid(6);
     let xPos = Math.random() * (500 - 20) + 20; // random
     let yPos = Math.random() * (300 - 20) + 20;
-    // let xPos = get().nodes[0].position.x + 190; // add to left of last post it
-    // let yPos = get().nodes[0].position.y;
-    let node = { id: id, type: 'postIt', data: {id: id, label: '', color: '#bae1ff' }, position: { x: xPos, y: yPos } };
+    let position = { x: xPos, y: yPos };
+    let node = { id: id, type: 'postIt', data: {id: id, label: '', color: '#bae1ff' }, position: position};
     let label = "";
     if (surprise) {
       label = await artificial("", "", node.data.label, 'surprise', get().brief);
+    } else if (merge) {
+      label = nodeLabel;
+      xPos = 0; yPos = 0;
+
+      // loop thru selected nodes, accumulate their x and y positions
+
+      for (let sNode of get().selectedNodes) {
+        xPos += sNode.position.x;
+        yPos += sNode.position.y;
+      }
+
+      // at the end divide x and y values by number of selected nodes
+      xPos = xPos/get().selectedNodes.length;
+      yPos = yPos/get().selectedNodes.length;
+
+      position = { x: xPos, y: yPos };
     } else if (nodeLabel!="") {
       label = nodeLabel;
     }
-    node = { id: id, type: 'postIt', data: { id: id, label: label, color: '#bae1ff' }, position: { x: xPos, y: yPos } };
+    node = { id: id, type: 'postIt', data: { id: id, label: label, color: '#bae1ff' }, position: position};
+    node.zIndex = 999;
+    console.log(JSON.stringify(node));
     set({ nodes: [node, ...get().nodes] });
   },
 
