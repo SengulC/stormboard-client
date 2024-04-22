@@ -46,9 +46,9 @@ function PostIt({ data, isConnectable }) {
   
   return (
     <div id={data.id} style={{'backgroundColor': data.color}} className='post-it-node'>
-      <Handle type="target" position={Position.Top} isConnectable={isConnectable} />
+      <Handle style={{'backgroundColor': data.handleColor}} type="target" position={Position.Top} isConnectable={isConnectable} />
         <textarea id={nanoid(6)} className='nopan nodrag post-it-text' name="text" value={data.label} onBlur={(e) => {if(data.target) {artificial(e, data)}}} onChange={(e) => trigger(e)} />
-        <Handle type="source" position={Position.Bottom} isConnectable={isConnectable} />
+        <Handle style={{'backgroundColor': data.handleColor}} type="source" position={Position.Bottom} isConnectable={isConnectable} />
     </div>
   );
 }
