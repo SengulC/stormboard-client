@@ -121,7 +121,6 @@ export function Menu({ node, deselect }) {
         </div>
         <h4>Supercharge Post-its</h4>
         <div className="art-buttons">
-          //prompt, brief, nodes
         <button name="opposite" onClick={e => artificial(e.target.name, brief, nodes)}> Make-Opposite </button>
         <button name="summarize" onClick={e => artificial(e.target.name, brief, nodes)}> Summarize </button>
         <button name="expand" onClick={e => artificial(e.target.name, brief, nodes)}> Expand </button>
