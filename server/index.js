@@ -56,6 +56,9 @@ async function callButtonPrompt(sourceLabels, targetLabels, prompt, input, brief
     case 'feed': 
       prePrompt = "Respond with a single sentence product idea (max 10 words). " +  "The brief is: " + brief + ". Feed: " + "'" + sourceLabels + "'" + " into " + "'" + targetLabels + "'";
       break;
+    case 'regen': 
+      prePrompt = "Respond with a single sentence product idea (max 10 words). " +  "The brief is: " + brief + ". Regenerate: ";
+      break;
     case 'group': 
       let nodedata = extractNodesData(nodes);
       prePrompt = `GROUP ideas in association with one another. Given a list of the concepts (the idea itself in text and their unique ID), arrange them in groups that are most similar to one another. Respond with a list of lists (using square brackets) identifying the ideas via their unique IDs. 
@@ -87,7 +90,7 @@ async function callButtonPrompt(sourceLabels, targetLabels, prompt, input, brief
     }
   }
 
-  return content;
+  // return content;
 
   // API usage
   const instruction = `You are a brainstorming assistant. You will be given a design brief and will be asked to assist with ideas in the given context. You will be asked to edit user-created ideas or create new ideas. These are how you will be asked to edit:
@@ -153,7 +156,7 @@ app.post("/buttons", async (req, res) => {
   const brief = req.body.brief;
   const nodes = req.body.nodes;
   let result = await callButtonPrompt(sources, targets, prompt, input, brief, nodes);
-  // result = result.message.content; // UNCOMMENT ME FOR API USAGE
+  result = result.message.content; // UNCOMMENT ME FOR API USAGE
   res.send(result);
 });
 

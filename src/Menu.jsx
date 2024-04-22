@@ -93,10 +93,13 @@ export function Menu({ node, deselect }) {
         }))
         
         for (let targetId of n.data.target) {
+          console.log("this bitch got targets")
           // if current selected node has targets, trigger regen for each target/child node
           nodeLabel = getLabelsFromIDs(targetId, nodes) // get current target/child's labelc
           prompt="regen";
-          axios.post("http://localhost:8000/buttons", {nodeLabel, prompt, brief})
+          let sourceLabels = [n.data.label];
+          console.log("sources: " + sourceLabels)
+          axios.post("http://localhost:8000/buttons", {nodeLabel, prompt, brief, sourceLabels})
           // axios.post("https://guai-server.onrender.com/buttons", {nodeLabel, prompt, brief}) // the var names here matter! nodeLabel and prompt are referred to in index.js
           .then((res) => {
               updateNodeLabel(targetId, res.data);
