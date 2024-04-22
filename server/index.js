@@ -37,13 +37,13 @@ async function callCharChange(char) {
   The Realistic tone's responses should be: straightforward, coherent, precise and realistic. 
   The Abstract tone's responses should be: descriptive, creative, a little random, and abstract in nature.`
   let prompt = "For FOLLOWING responses, change tone to " + char + ". THE TONE SHOULD TAKE EFFECT IN YOUR FOLLOWING RESPONSES. JUST REPLY SAYING OKAY FOR NOW.";
-  const completion = await openai.chat.completions.create({
-    messages: [{ role: "system", content: prePrompt},
-               {role: "user", content: prompt}],
-    model: "gpt-4",
-  });
+  // const completion = await openai.chat.completions.create({
+  //   messages: [{ role: "system", content: prePrompt},
+  //              {role: "user", content: prompt}],
+  //   model: "gpt-4",
+  // }); // API USAGE
   console.log("CHARCHANGE. Called gpt with : " + prompt);
-  console.log("Got back: " + JSON.stringify(completion.choices[0]));
+  // console.log("Got back: " + JSON.stringify(completion.choices[0]));
 }
 
 async function callButtonPrompt(sourceLabels, targetLabels, prompt, input, brief, nodes, charTone) {
@@ -105,7 +105,7 @@ async function callButtonPrompt(sourceLabels, targetLabels, prompt, input, brief
     content += '. Remember to have a ' + charDesc[charTone] + " tone."
   }
 
-  // return content;
+  return content;
 
   // API usage
   const instruction = `You are a brainstorming assistant. You will be given a design brief and will be asked to assist with ideas in the given context. You will be asked to edit user-created ideas or create new ideas. These are how you will be asked to edit:
@@ -175,7 +175,7 @@ app.post("/buttons", async (req, res) => {
   if (charTone) {await callCharChange(charTone);}
   if (prompt) {
     result = await callButtonPrompt(sources, targets, prompt, input, brief, nodes, charTone);
-    result = result.message.content; // UNCOMMENT ME FOR API USAGE
+    // result = result.message.content; // UNCOMMENT ME FOR API USAGE
   }
   res.send(result);
 });

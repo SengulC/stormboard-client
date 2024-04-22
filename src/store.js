@@ -90,6 +90,7 @@ export const useStore = create((set, get) => ({
   brief: '',
   loadingState: 'hidden',
   charTone: '',
+  userTime: 5000,
  
   onNodesChange(changes) {
     set({
@@ -132,6 +133,10 @@ export const useStore = create((set, get) => ({
 
   setCharTone(charChange) {
     set({charTone: charChange});
+  },
+
+  setUserTime(time) {
+    set({userTime: time});
   },
  
   async addEdge(data) {

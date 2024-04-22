@@ -16,6 +16,8 @@ export function Menu({ node, deselect }) {
   const setLoadingState = useStore(state => state.setLoadingState);
   const setCharTone = useStore(state => state.setCharTone);
   const charTone = useStore(state => state.charTone);
+  const userTime = useStore(state => state.userTime);
+  const setUserTime = useStore(state => state.setUserTime);
 
   node = node ? node : {'id': 'x', 'data':{'label': ''}};
 
@@ -149,6 +151,8 @@ export function Menu({ node, deselect }) {
         <button name="surprise" onClick={e => artificial(e.target.name, brief, nodes, charTone)}> Surprise Me! </button>
         <button name="group" onClick={e => artificial(e.target.name, brief, selectedNodes, charTone)}> Group Em'! </button>
         <div id='realistic' onClick={e => artificialCharacter(e.target.id)}> Realistic </div>
+          <input onChange={e => setUserTime(e.target.value)} value={userTime} min='5000' max='600000' type="range"></input>
+          <p>{userTime}</p>
         <div id='abstract' onClick={e => artificialCharacter(e.target.id)}> Abstract </div>
         <br></br>
       </div>

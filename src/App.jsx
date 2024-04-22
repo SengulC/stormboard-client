@@ -27,6 +27,8 @@ export default function App() {
   const addNode = useStore(state => state.addNode);
   const updateBrief = useStore(state => state.updateBrief);
   const loadingState = useStore(state => state.loadingState);
+  const charTone = useStore(state => state.charTone);
+  const userTime = useStore(state => state.userTime);
   const [currentNode, setCurrentNode] = useState(null);
   const [brief, setBrief] = useState("");
 
@@ -34,6 +36,43 @@ export default function App() {
     setBrief(value);
     updateBrief(brief);
   }
+
+  //) {
+  //   let milliseconds;
+  //   let interval;
+  //   if (charTone=='abstract') {
+  //     milliseconds = Math.random() * (300000 - 30000) + 30000;
+  //     interval = setInterval(function () { addNode(true, "", false); }, milliseconds); // milliseconds
+  //   } else if (charTone=='abstract') {
+  //     milliseconds = Math.random() * (300000 - 30000) + 30000;
+  //     interval = setInterval(function () { addNode(true, "", false); }, milliseconds); // milliseconds
+  //   } else {
+  //     clearInterval(timerID);
+  //   }
+  //   console.log("timer!")
+  // }
+
+  function getRandomInterval () {
+    return Math.floor(Math.random() * (10000 - 5000 + 1) + 5000);
+  };
+
+  useEffect(() => {
+    if (charTone == 'abstract') {
+      const intervalId = setInterval(() => {
+      console.log(`Current blinking text for abstract`);
+      }, getRandomInterval());
+      return () => {
+        clearInterval(intervalId);
+      };
+    } else if (charTone == 'realistic') {
+      const intervalId = setInterval(() => {
+        console.log(`Current blinking text for realistic`);
+        }, userTime);
+        return () => {
+          clearInterval(intervalId);
+        };    
+    }
+  },);
 
   return (
     <ReactFlow
