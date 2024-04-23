@@ -36,20 +36,43 @@ function getRandomInt(min, max) {
 
 // chatgpt
 function generateRandomColor() {
+  const pastelColors = [
+    "#FFB6C1", // Light Pink
+    "#DB7093", // Pale Violet
+    "#89CFF0", // Baby Blue
+    "#98FF98", // Mint Green
+    "#E6E6FA", // Lavender
+    "#FFDAB9", // Peach
+    "#FFFFE0", // Light Yellow
+    "#FFA07A", // Light Salmon
+    "#FFC0CB", // Pink
+    "#B0E0E6", // Powder Blue
+    "#ADD8E6", // Light Blue
+    "#87CEEB", // Sky Blue
+    "#87CEFA", // Light Sky Blue
+    "#00BFFF", // Deep Sky Blue
+    "#AFEEEE", // Pale Turquoise
+    "#F0FFFF", // Azure
+    "#F0F8FF", // Alice Blue
+    "#F0FFF0", // Honeydew
+    "#FFFAF0", // Floral White
+    "#F5FFFA"  // Mint Cream
+  ];
+  return pastelColors[getRandomInt(0,pastelColors.length)];
   // Generate random values for R, G, and B
-  var r = Math.floor(Math.random() * 256); // Random number between 0 and 255
-  var g = Math.floor(Math.random() * 256);
-  var b = Math.floor(Math.random() * 256);
+  // var r = Math.floor(Math.random() * 256); // Random number between 0 and 255
+  // var g = Math.floor(Math.random() * 256);
+  // var b = Math.floor(Math.random() * 256);
 
-  // Convert RGB to hexadecimal
-  var hexR = r.toString(16).padStart(2, '0'); // Convert to hexadecimal and ensure at least 2 digits
-  var hexG = g.toString(16).padStart(2, '0');
-  var hexB = b.toString(16).padStart(2, '0');
+  // // Convert RGB to hexadecimal
+  // var hexR = r.toString(16).padStart(2, '0'); // Convert to hexadecimal and ensure at least 2 digits
+  // var hexG = g.toString(16).padStart(2, '0');
+  // var hexB = b.toString(16).padStart(2, '0');
 
-  // Concatenate the hexadecimal values
-  var hexColor = '#' + hexR + hexG + hexB;
+  // // Concatenate the hexadecimal values
+  // var hexColor = '#' + hexR + hexG + hexB;
 
-  return hexColor;
+  // return hexColor;
 };
 
 function getNode(id, nodes) {
@@ -209,7 +232,7 @@ export const useStore = create((set, get) => ({
     let xPos = Math.random() * (500 - 20) + 20; // random
     let yPos = Math.random() * (300 - 20) + 20;
     let position = { x: xPos, y: yPos };
-    let node = { id: id, type: 'postIt', data: {id: id, label: '', color: '#bae1ff' }, position: position};
+    let node = { id: id, type: 'postIt', data: {id: id, label: '', color: generateRandomColor() }, position: position};
     let label = "";
     if (surprise) {
       set({loadingState: null})
@@ -230,7 +253,7 @@ export const useStore = create((set, get) => ({
     } else if (nodeLabel!="") {
       label = nodeLabel;
     }
-    node = { id: id, type: 'postIt', data: { id: id, label: label, color: '#bae1ff' }, position: position};
+    node = { id: id, type: 'postIt', data: { id: id, label: label, color: generateRandomColor() }, position: position};
     node.zIndex = 999;
     set({ nodes: [node, ...get().nodes] });
   },
@@ -276,6 +299,7 @@ export const useStore = create((set, get) => ({
     }
     for (let node of nodes) {
       set({loadingState: null})
+      node.data.label = "...";
       let label = await artificial([], [], node.data.label, prompt, get().brief, get().charTone);
       node.data.label = label;
       appliedNodes.push(node);
