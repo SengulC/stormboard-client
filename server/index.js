@@ -3,25 +3,14 @@ var cors = require("cors");
 var OpenAI = require("openai");
 var bodyParser = require("body-parser");
 
-let first = true; //?
+let first = true;
+let firstCharChange = true;
+let prevCharTone = null;
 
 const key = process.env.VITE_OPENAI_KEY;
 const openai = new OpenAI({
   apiKey: key
 });
-
-//https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript
-function makeid(length) {
-  let result = '';
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  const charactersLength = characters.length;
-  let counter = 0;
-  while (counter < length) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    counter += 1;
-  }
-  return result;
-}
 
 function extractNodesData (nodes) {
   let extractedNodes = [];
@@ -32,18 +21,26 @@ function extractNodesData (nodes) {
 }
 
 async function callCharChange(char) {
-  let prePrompt = `You have been asked to change your tone. 
-  You will be asked to either take on a Realistic or Abstract approach tone. 
-  The Realistic tone's responses should be: straightforward, coherent, precise and realistic. 
-  The Abstract tone's responses should be: descriptive, creative, a little random, and abstract in nature.`
-  let prompt = "For FOLLOWING responses, change tone to " + char + ". THE TONE SHOULD TAKE EFFECT IN YOUR FOLLOWING RESPONSES. JUST REPLY SAYING OKAY FOR NOW.";
-  const completion = await openai.chat.completions.create({
-    messages: [{ role: "system", content: prePrompt},
-               {role: "user", content: prompt}],
-    model: "gpt-4",
-  }); // API USAGE
-  console.log("CHARCHANGE. Called gpt with : " + prompt);
-  // console.log("Got back: " + JSON.stringify(completion.choices[0]));
+  if (firstCharChange || prevCharTone!=char) {
+    firstCharChange = false;
+    prevCharTone = char;
+    let prePrompt = `You have been asked to change your tone. 
+    You will be asked to either take on a Realistic or Abstract approach tone. 
+    The Realistic tone's responses should be: straightforward, coherent, precise and realistic. 
+    The Abstract tone's responses should be: descriptive, creative, a little random, and abstract in nature.`
+    let prompt = `For following responses, change tone to ${char}. 
+    For now, respond with a VARIANT of the following JSON object: {preWhat: 'I am creating a', preWho: 'for', preWhere: 'to use in', preWhy: 'to'}, 
+    Make sure your tone matches the desired, ${char}, and is max 4 words for each.
+    `;
+    const completion = await openai.chat.completions.create({
+      messages: [{ role: "system", content: prePrompt},
+                 {role: "user", content: prompt}],
+      model: "gpt-4",
+    }); // API USAGE
+    console.log("CHARCHANGE. Called gpt with : " + prompt);
+    console.log("Got back: " + JSON.stringify(completion.choices[0].message.content));
+    return completion.choices[0].message.content;
+  }
 }
 
 async function callButtonPrompt(sourceLabels, targetLabels, prompt, input, brief, nodes, charTone) {
@@ -139,7 +136,7 @@ async function callButtonPrompt(sourceLabels, targetLabels, prompt, input, brief
       model: "gpt-4",
     });
     console.log("Sent init instructions. Called gpt with brief: " + brief + ", and: " + content);
-    console.log("Got back: " + JSON.stringify(completion.choices[0]));
+    console.log("Got back: " + JSON.stringify(completion.choices[0].message.content));
     return completion.choices[0];
   } else {
     const completion = await openai.chat.completions.create({
@@ -147,7 +144,7 @@ async function callButtonPrompt(sourceLabels, targetLabels, prompt, input, brief
       model: "gpt-4",
     });
     console.log("Called gpt with: " + content);
-    console.log("Got back: " + JSON.stringify(completion.choices[0]));
+    console.log("Got back: " + JSON.stringify(completion.choices[0].message.content));
     return completion.choices[0];
   }
 }
@@ -172,7 +169,9 @@ app.post("/buttons", async (req, res) => {
   const nodes = req.body.nodes;
   const charTone = req.body.charTone;
   let result;
-  if (charTone) {await callCharChange(charTone);}
+  if (charTone) {
+    /*result =*/ await callCharChange(charTone);
+  }
   if (prompt) {
     result = await callButtonPrompt(sources, targets, prompt, input, brief, nodes, charTone);
     result = result.message.content; // UNCOMMENT ME FOR API USAGE

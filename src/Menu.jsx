@@ -18,6 +18,8 @@ export function Menu({ node, deselect }) {
   const charTone = useStore(state => state.charTone);
   const userTime = useStore(state => state.userTime);
   const setUserTime = useStore(state => state.setUserTime);
+  const setBriefStructure = useStore(state => state.setBriefStructure);
+  const briefStructure = useStore(state => state.briefStructure);
 
   node = node ? node : {'id': 'x', 'data':{'label': ''}};
 
@@ -66,6 +68,8 @@ export function Menu({ node, deselect }) {
     // axios.post("https://guai-server.onrender.com/buttons", {nodeLabel, prompt, brief, nodes}) // the var names here matter! nodeLabel and prompt are referred to in index.js
     .then((res) => {
       setCharTone(charTone);
+      setBriefStructure(res.data);
+      // setBriefStructure({preWhat: 'Crafting a', preWho: 'within', preWhere: 'amidst', preWhy: 'pursuing'});
       setLoadingState('hidden');
     })
     .catch((err => {

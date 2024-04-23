@@ -39,7 +39,7 @@ export default function App() {
     if (charTone == 'abstract') {
       const intervalId = setInterval(() => {
         addNode(true, "", false);
-        console.log(`Current blinking text for abstract`);
+        // console.log(`Current blinking text for abstract`);
       }, getRandomInterval());
       return () => {
         clearInterval(intervalId);
@@ -47,7 +47,7 @@ export default function App() {
     } else if (charTone == 'realistic') {
       const intervalId = setInterval(() => {
           addNode(true, "", false);
-        console.log(`Current blinking text for realistic`);
+        // console.log(`Current blinking text for realistic`);
         }, userTime);
         return () => {
           clearInterval(intervalId);

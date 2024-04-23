@@ -209,7 +209,6 @@ export const useStore = create((set, get) => ({
     }
     node = { id: id, type: 'postIt', data: { id: id, label: label, color: '#bae1ff' }, position: position};
     node.zIndex = 999;
-    console.log(JSON.stringify(node));
     set({ nodes: [node, ...get().nodes] });
   },
 
@@ -222,13 +221,10 @@ export const useStore = create((set, get) => ({
   // },
 
   updateNodeLabel(nodeId, label) {
-    console.log("in updatenodelabel, node id is: " + nodeId)
     set({
       nodes: get().nodes.map((node) => {
         if (node.id == nodeId) {
-          console.log("found node to change: " + node.id + ". changing label to: " + label)
           node.data.label = label;
-          console.log("changed label to:  " + node.data.label)
         }
         return node;
       }),
@@ -251,6 +247,16 @@ export const useStore = create((set, get) => ({
     return;
   },
 
+  setBriefStructure(newBriefStructure) {
+    if (newBriefStructure) {
+      console.log((newBriefStructure))
+      set( {briefStructure: newBriefStructure} );
+    } else {
+      console.log("wth is up with structure")
+    }
+    return;
+  },
+
   setBriefJSON(pronoun, string) {
     let newBrief = get().briefJSON;
     newBrief[pronoun] = string;
@@ -258,7 +264,6 @@ export const useStore = create((set, get) => ({
 
     let struc = get().briefStructure;
     set( {brief: `${struc.preWhat} ${newBrief.what} ${struc.preWho} ${newBrief.who} ${struc.preWhere} ${newBrief.where} ${struc.preWhy} ${newBrief.why}`} );
-    console.log(get().brief);
     return;
   },
 
