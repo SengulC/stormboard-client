@@ -53,7 +53,7 @@ button:focus {
     outline: none;
 }
 
-button, input {
+button, input, img {
   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   padding: 9px;
   border-radius: 10px;
@@ -104,16 +104,16 @@ button {
   float:inline-start;
 }
 
-.loader {
-  width: 5em;
+.loader, img {
+  width: 3em;
   height: 3em;
   z-index: 99;
   bottom: 0;
   padding: 1em;
-  background-color: #fbf7f5;
+  /* background-color: #fbf7f5; */
   color: black;
   gap: 1em;
-  border: 1px solid #000;
+  /* border: 1px solid #000; */
   position: fixed; overflow-y: auto;
 }
 
@@ -142,7 +142,7 @@ button {
 
 .art-buttons {
   display: grid;
-  row-gap: 2em;
+  row-gap: 5em;
   float: left;
 }
 .art-buttons > button {
