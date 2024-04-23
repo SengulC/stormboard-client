@@ -5,7 +5,8 @@ import axios from "axios";
 
 async function artificial (sourceLabels, targetLabels, nodeLabel, prompt, brief, charTone) {
   // return await axios.post("https://guai-server.onrender.com/buttons", {nodeLabel, prompt, brief, charTone}).then(response => response.data)
-  return await axios.post("http://localhost:8000/buttons", {sourceLabels, targetLabels, nodeLabel, prompt, brief, charTone}).then(response => response.data)
+  return await axios.post("http://localhost:8000/buttons", {sourceLabels, targetLabels, nodeLabel, prompt, brief, charTone})
+  .then(response => response.data)
 };
 
 function setSelectedNodes(nodes) {
@@ -24,6 +25,13 @@ function setSelectedNodes(nodes) {
   //   console.log(JSON.stringify(snode));
   // }
   return selectedNodes;
+}
+
+// MDN web docs
+function getRandomInt(min, max) {
+  const minCeiled = Math.ceil(min);
+  const maxFloored = Math.floor(max);
+  return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled); // The maximum is exclusive and the minimum is inclusive
 }
 
 // chatgpt
@@ -186,7 +194,7 @@ export const useStore = create((set, get) => ({
     let label = "";
     if (surprise) {
       set({loadingState: null})
-      label = await artificial("", "", node.data.label, 'surprise', get().brief, get().charTone);
+      label = await artificial([], [], node.data.label, 'surprise', get().brief, get().charTone);
       set({loadingState: 'hidden'})
     } else if (merge) {
       label = nodeLabel;
@@ -240,6 +248,28 @@ export const useStore = create((set, get) => ({
         return node;
       }),
     });
+  },
+
+  async callButtonForNodes(prompt, nodes) {
+    console.log(`calling ${prompt} for ${nodes.length} buttons.`)
+    let appliedNodes = [];
+    let randIndex = 0; let randPromptIndex = 0;
+    let prompts = ['opposite', 'summarize', 'expand', 'surprise', 'merge', 'regen']
+    if (prompt == 'random') {
+      randIndex = getRandomInt(0, nodes.length);
+      // nodes = nodes.splice(randIndex);
+      randPromptIndex = getRandomInt(0, prompts.length);
+      prompt = prompts[randPromptIndex]
+    }
+    for (let node of nodes) {
+      set({loadingState: null})
+      let label = await artificial([], [], node.data.label, prompt, get().brief, get().charTone);
+      node.data.label = label;
+      appliedNodes.push(node);
+    }
+    set({ nodes: appliedNodes });
+    set({loadingState: 'hidden'})
+    console.log(`CALLED ${prompt} for ${nodes.length} buttons.`)
   },
 
   setBrief(newBrief) {

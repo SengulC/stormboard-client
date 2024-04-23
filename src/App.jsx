@@ -26,10 +26,13 @@ const nodeTypes = { postIt: PostItNode };
 export default function App() {
   const store = useStore(selector, shallow);
   const addNode = useStore(state => state.addNode);
+  const nodes = useStore(state => state.nodes);
   const loadingState = useStore(state => state.loadingState);
   const charTone = useStore(state => state.charTone);
   const userTime = useStore(state => state.userTime);
+  const callButtonForNodes = useStore(state => state.callButtonForNodes);
   const [currentNode, setCurrentNode] = useState(null);
+  let num = 0;
 
   function getRandomInterval () {
     return Math.floor(Math.random() * (10000 - 5000 + 1) + 5000);
@@ -38,22 +41,21 @@ export default function App() {
   useEffect(() => {
     if (charTone == 'abstract') {
       const intervalId = setInterval(() => {
-        addNode(true, "", false);
-        // console.log(`Current blinking text for abstract`);
+        // addNode(true, "", false);
+        if(loadingState=='hidden'){callButtonForNodes('random', nodes);}
         }, getRandomInterval());
         return () => {
           clearInterval(intervalId);
         };
     } else if (charTone == 'realistic') {
       const intervalId = setInterval(() => {
-        addNode(true, "", false);
-        // console.log(`Current blinking text for realistic`);
+        if(loadingState=='hidden'){callButtonForNodes('summarize', nodes);}
         }, userTime);
         return () => {
           clearInterval(intervalId);
         };    
     }
-  },);
+  }, [charTone, nodes]);
 
   return (
     <ReactFlow
