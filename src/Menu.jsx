@@ -106,6 +106,7 @@ export function Menu({ node, deselect }) {
         let nodeLabel = n.data.label ? n.data.label : "";
         const sourceLabels = n.data.source ? getLabelsFromIDs(n.data.source, nodes) : [];
         const targetLabels = n.data.target ? getLabelsFromIDs(n.data.target, nodes) : [];
+        updateNodeLabel(n.id, "...");
         axios.post("http://localhost:8000/buttons", {nodeLabel, sourceLabels, targetLabels, prompt, brief, nodes, charTone})
         // axios.post("https://guai-server.onrender.com/buttons", {nodeLabel, prompt, brief, nodes}) // the var names here matter! nodeLabel and prompt are referred to in index., charTonejs
         .then((res) => {
@@ -122,6 +123,7 @@ export function Menu({ node, deselect }) {
           nodeLabel = getLabelsFromIDs(targetId, nodes) // get current target/child's labelc
           prompt="regen";
           let sourceLabels = [n.data.label];
+          updateNodeLabel(targetId, "...");
           axios.post("http://localhost:8000/buttons", {nodeLabel, prompt, brief, sourceLabels, charTone})
           // axios.post("https://guai-server.onrender.com/buttons", {nodeLabel, prompt, brief}) // the var names here matter! nodeLabel and prompt are referred to in index., charTonejs
           .then((res) => {

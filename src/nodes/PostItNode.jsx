@@ -31,23 +31,22 @@ function PostIt({ data, isConnectable }) {
       let prompt = "regen";
     let nodeLabel = getNodeLabel(cTarget, nodes);
     let sourceLabels = [e.target.value];
-    // console.log(`posting... sourceLabels: ${sourceLabels}, x: ${nodeLabel}`)
+    updateNodeLabel(cTarget, "...");
     axios.post("http://localhost:8000/buttons", {sourceLabels, nodeLabel, prompt, brief})
     // axios.post("https://guai-server.onrender.com/buttons", {nodeLabel, prompt, brief, nodes}) // the var names here matter! nodeLabel and prompt are referred to in index.js
     .then((res) => {
       updateNodeLabel(cTarget, res.data); // not updating?
-      // console.log(`got back: ${res.data}. id to change: ${data.target}`)
     })
     .catch((err => {
         console.error(err);
     }))
   }
   }
-  
+
   return (
-    <div id={data.id} style={{'backgroundColor': data.color}} className='post-it-node'>
+    <div id={data.id} style={{'backgroundColor': data.color}} className={`post-it-node`}>
       <Handle style={{'backgroundColor': data.handleColor}} type="target" position={Position.Top} isConnectable={isConnectable} />
-        <textarea id={nanoid(6)} className='nopan nodrag post-it-text' name="text" value={data.label} onBlur={(e) => {if(data.target) {artificial(e, data)}}} onChange={(e) => trigger(e)} />
+        <textarea id={nanoid(6)} className={`nopan nodrag post-it-text`} name="text" value={data.label} onBlur={(e) => {if(data.target) {artificial(e, data)}}} onChange={(e) => trigger(e)} />
         <Handle style={{'backgroundColor': data.handleColor}} type="source" position={Position.Bottom} isConnectable={isConnectable} />
     </div>
   );

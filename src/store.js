@@ -138,7 +138,8 @@ export const useStore = create((set, get) => ({
 
   setCharTone(charChange) {
     set({charTone: charChange});
-    let straightforwardStructures = [
+    if (charChange!='off'){
+      let straightforwardStructures = [
       { preWhat: 'Creating a new', preWho: 'to assist', preWhere: 'for use in', preWhy: 'to improve' },
       { preWhat: 'Designing an innovative', preWho: 'to support', preWhere: 'across various platforms', preWhy: 'to enhance' },
       { preWhat: 'Developing a robust', preWho: 'to serve', preWhere: 'in the', preWhy: 'to optimize' },
@@ -155,6 +156,7 @@ export const useStore = create((set, get) => ({
     let tonedStructure = {realistic: straightforwardStructures, abstract: abstractStructures}
     let randomIndex = getRandomInt(0, 4);
     set({briefStructure: tonedStructure[charChange][randomIndex]})
+  }
   },
 
   setUserTime(time) {
