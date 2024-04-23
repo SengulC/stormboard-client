@@ -4,7 +4,7 @@ export function Loader({ loadingState }) {
 
   return (
     <aside hidden={loadingState} className="loader">
-        <img src="images/loader.png" alt="AI preloader"></img>
+        <img id='loaderImg' src="images/spinnerblack.gif" alt="AI preloader"></img>
     </aside>
   );
 }

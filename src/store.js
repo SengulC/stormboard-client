@@ -114,7 +114,7 @@ export const useStore = create((set, get) => ({
   edges:  [],
   selectedNodes: [],
   brief: '',
-  briefStructure: {preWhat: 'i am devseloping a new', preWho: 'to help', preWhere: 'in', preWhy: 'to'},
+  briefStructure: {preWhat: 'i am developing a new', preWho: 'to help', preWhere: 'in', preWhy: 'to'},
   briefJSON: {what: '', who: '', where: '', why: ''},
   loadingState: 'hidden',
   charTone: 'off',
