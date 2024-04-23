@@ -55,7 +55,7 @@ button:focus {
 
 button, input {
   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  padding: 10px;
+  padding: 9px;
   border-radius: 10px;
   background-color: #fbf7f5;
   border: 1px solid #000;
@@ -67,7 +67,7 @@ button, input {
 .brief, .briefInputs { 
   font-size: small;
   background-color: #fbf7f5;
-  padding: 10px;
+  padding: 9px;
   border: 1px solid #000;
   border-radius: 10px;
   border-bottom: 3px solid #000;

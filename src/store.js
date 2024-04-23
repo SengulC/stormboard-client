@@ -83,7 +83,7 @@ export const useStore = create((set, get) => ({
   edges:  [],
   selectedNodes: [],
   brief: '',
-  briefStructure: {preWhat: 'I am developing a new', preWho: 'to help', preWhere: 'in', preWhy: 'to'},
+  briefStructure: {preWhat: 'i am developing a new', preWho: 'to help', preWhere: 'in', preWhy: 'to'},
   briefJSON: {what: '', who: '', where: '', why: ''},
   loadingState: 'hidden',
   charTone: '',
@@ -255,7 +255,7 @@ export const useStore = create((set, get) => ({
     let newBrief = get().briefJSON;
     newBrief[pronoun] = string;
     set( {briefJSON: newBrief} );
-    
+
     let struc = get().briefStructure;
     set( {brief: `${struc.preWhat} ${newBrief.what} ${struc.preWho} ${newBrief.who} ${struc.preWhere} ${newBrief.where} ${struc.preWhy} ${newBrief.why}`} );
     console.log(get().brief);
