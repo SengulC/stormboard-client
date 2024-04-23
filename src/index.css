@@ -75,7 +75,7 @@ button {
 .brief, .briefInputs { 
   font-size: small;
   background-color: #fbf7f5;
-  padding: 9px;
+  padding: 10px;
   border: 1px solid #000;
   border-radius: 10px;
   border-bottom: 3px solid #000;
@@ -142,7 +142,7 @@ button {
 
 .art-buttons {
   display: grid;
-  row-gap: 5em;
+  row-gap: 1em;
   float: left;
 }
 .art-buttons > button {
