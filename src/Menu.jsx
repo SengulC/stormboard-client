@@ -67,10 +67,10 @@ export function Menu({ node, deselect }) {
     axios.post("http://localhost:8000/buttons", {charTone})
     // axios.post("https://guai-server.onrender.com/buttons", {nodeLabel, prompt, brief, nodes}) // the var names here matter! nodeLabel and prompt are referred to in index.js
     .then((res) => {
+      setLoadingState('hidden');
       setCharTone(charTone);
       setBriefStructure(res.data);
       // setBriefStructure({preWhat: 'Crafting a', preWho: 'within', preWhere: 'amidst', preWhy: 'pursuing'});
-      setLoadingState('hidden');
     })
     .catch((err => {
         console.error(err);

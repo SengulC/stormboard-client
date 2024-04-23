@@ -138,6 +138,23 @@ export const useStore = create((set, get) => ({
 
   setCharTone(charChange) {
     set({charTone: charChange});
+    let straightforwardStructures = [
+      { preWhat: 'Creating a new', preWho: 'to assist', preWhere: 'for use in', preWhy: 'to improve' },
+      { preWhat: 'Designing an innovative', preWho: 'to support', preWhere: 'across various platforms', preWhy: 'to enhance' },
+      { preWhat: 'Developing a robust', preWho: 'to serve', preWhere: 'in the', preWhy: 'to optimize' },
+      { preWhat: 'Building an efficient', preWho: 'for the benefit of', preWhere: 'across different industries', preWhy: 'to streamline' },
+      { preWhat: 'Crafting a user-friendly', preWho: 'to empower', preWhere: 'for seamless integration', preWhy: 'to simplify' }
+    ];
+    let abstractStructures = [
+      { preWhat: 'Embarking on a visionary', preWho: 'to inspire', preWhere: 'across boundless horizons', preWhy: 'to ignite' },
+      { preWhat: 'Weaving a tapestry of dreams', preWho: 'to illuminate', preWhere: 'within the realm of imagination', preWhy: 'to transcend' },
+      { preWhat: 'Exploring the depths of creativity', preWho: 'to evoke', preWhere: 'in the infinite expanse', preWhy: 'to awaken' },
+      { preWhat: 'Navigating the labyrinth of possibilities', preWho: 'to provoke thought', preWhere: 'amidst ethereal landscapes', preWhy: 'to catalyze' },
+      { preWhat: 'Venturing into the unknown', preWho: 'to evoke wonder', preWhere: 'beyond the veil of reality', preWhy: 'to transcend boundaries' }
+    ];
+    let tonedStructure = {realistic: straightforwardStructures, abstract: abstractStructures}
+    let randomIndex = getRandomInt(0, 4);
+    set({briefStructure: tonedStructure[charChange][randomIndex]})
   },
 
   setUserTime(time) {
@@ -199,18 +216,14 @@ export const useStore = create((set, get) => ({
     } else if (merge) {
       label = nodeLabel;
       xPos = 0; yPos = 0;
-
       // loop thru selected nodes, accumulate their x and y positions
-
       for (let sNode of get().selectedNodes) {
         xPos += sNode.position.x;
         yPos += sNode.position.y;
       }
-
       // at the end divide x and y values by number of selected nodes
       xPos = xPos/get().selectedNodes.length;
       yPos = yPos/get().selectedNodes.length;
-
       position = { x: xPos, y: yPos };
     } else if (nodeLabel!="") {
       label = nodeLabel;
@@ -253,11 +266,9 @@ export const useStore = create((set, get) => ({
   async callButtonForNodes(prompt, nodes) {
     console.log(`calling ${prompt} for ${nodes.length} buttons.`)
     let appliedNodes = [];
-    let randIndex = 0; let randPromptIndex = 0;
+    let randPromptIndex = 0;
     let prompts = ['opposite', 'summarize', 'expand', 'surprise', 'merge', 'regen']
     if (prompt == 'random') {
-      randIndex = getRandomInt(0, nodes.length);
-      // nodes = nodes.splice(randIndex);
       randPromptIndex = getRandomInt(0, prompts.length);
       prompt = prompts[randPromptIndex]
     }

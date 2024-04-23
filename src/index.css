@@ -64,6 +64,14 @@ button, input {
   border-bottom: 3px solid #000;
 }
 
+button {
+  height: 3em;
+}
+
+.brief {
+  width: 50em;
+}
+
 .brief, .briefInputs { 
   font-size: small;
   background-color: #fbf7f5;
