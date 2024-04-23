@@ -68,10 +68,6 @@ function extractEdge(edgeId, edges, nodes) {
   for (let edge of edges) {
     if (edge.id == edgeId) {
       const sourceAndTarget = {source: getNode(edge.source, nodes), target: getNode(edge.target, nodes)};
-      // {
-      //   "source":{"width":162,"height":167,"id":"a","type":"postIt","data":{"id":"a","position":"200, 300","label":"In-house classes","color":"#ffb3ba","target":["b"]},"position":{"x":200,"y":300},"positionAbsolute":{"x":200,"y":300}}
-      // ,"target":{"width":162,"height":167,"id":"b","type":"postIt","data":{"id":"b","position":"390, 300","label":"Respond with a single sentence product idea (max 10 words). The brief is: . Feed: 'In-house classes' into 'After school clubs'. Remember to feed the following concepts into the output: In-house classes","color":"#ffdfba","source":["a"]},"position":{"x":390,"y":300},"positionAbsolute":{"x":390,"y":300}}
-      // }
       return sourceAndTarget;
     }
   }
@@ -85,9 +81,10 @@ export const useStore = create((set, get) => ({
     { id: 'c', type: 'postIt', data: { id: 'c', position: '580, 300', label: 'House competitions', handleColor: '#f6edc3', color: '#ffffba' }, position: { x: 580, y: 300 } }
   ],
   edges:  [],
-  // selectedNodesHTML: [],
   selectedNodes: [],
   brief: '',
+  briefStructure: {preWhat: 'I am developing a new', preWho: 'to help', preWhere: 'in', preWhy: 'to'},
+  briefJSON: {what: '', who: '', where: '', why: ''},
   loadingState: 'hidden',
   charTone: '',
   userTime: 5000,
@@ -249,8 +246,19 @@ export const useStore = create((set, get) => ({
     });
   },
 
-  updateBrief(newBrief) {
+  setBrief(newBrief) {
     set( {brief: newBrief} );
+    return;
+  },
+
+  setBriefJSON(pronoun, string) {
+    let newBrief = get().briefJSON;
+    newBrief[pronoun] = string;
+    set( {briefJSON: newBrief} );
+    
+    let struc = get().briefStructure;
+    set( {brief: `${struc.preWhat} ${newBrief.what} ${struc.preWho} ${newBrief.who} ${struc.preWhere} ${newBrief.where} ${struc.preWhy} ${newBrief.why}`} );
+    console.log(get().brief);
     return;
   },
 
