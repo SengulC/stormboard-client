@@ -157,11 +157,23 @@ export function Menu({ node, deselect }) {
           <button name="merge" onClick={e => artificial(e.target.name, brief, nodes, charTone)}> Merge </button>
           <button name="surprise" onClick={e => artificial(e.target.name, brief, nodes, charTone)}> Surprise Me! </button>
           <button name="group" onClick={e => artificial(e.target.name, brief, selectedNodes, charTone)}> Group Em'! </button>
-          <div id='realistic' onClick={e => artificialCharacter(e.target.id)}> Realistic </div>
-            <input onChange={e => setUserTime(e.target.value)} value={userTime} min='000' max='600000' type="range"></input>
-            <p>{userTime}</p>
-          <div id='abstract' onClick={e => artificialCharacter(e.target.id)}> Abstract </div>
-          <div id='off' onClick={e => artificialCharacter(e.target.id)}> Off </div>
+        <h4>Adopt Personas</h4>
+        <div className="personasContainer">
+          <div className="persona">
+            <img onClick={e => artificialCharacter(e.target.id)} id='off' style={(charTone=='off')? {'filter': 'none'} : {'filter': 'grayscale()'}} alt="hades" className="personaImgs" src="/images/hades.png"></img>
+            <p>Hades <p style={{'font-size': 'xx-small'}}>No autonomy.</p></p>
+          </div>
+          <div className="persona">
+            <img onClick={e => artificialCharacter(e.target.id)} id='abstract' style={(charTone=='abstract')? {'filter': 'none'} : {'filter': 'grayscale()'}} alt="Apollo" className="personaImgs" src="/images/apollo.png"></img>
+            <p>Apollo <p style={{'font-size': 'xx-small'}}>Descriptive, creative.</p></p>
+          </div>
+          <div className="persona">
+            <img onClick={e => artificialCharacter(e.target.id)} id='realistic' style={(charTone=='realistic')? {'filter': 'none'} : {'filter': 'grayscale()'}} alt="themis" className="personaImgs" src="/images/themis.png"></img>
+            <p>Themis <p style={{'font-size': 'xx-small'}}>Precise, succinct.</p></p>
+          </div>
+        </div>
+          {(charTone=='realistic') ? <p style={{'font-size': 'small'}}>How often would you like Themis to collaborate? Currently set to: every {userTime} millisecond. </p> : <></>} 
+          {(charTone=='realistic') ? <input onChange={e => setUserTime(e.target.value)} value={userTime} min='000' max='600000' type="number"></input> : <></>}
           <br></br>
         </div>
     </aside>

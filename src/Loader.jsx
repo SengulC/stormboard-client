@@ -10,6 +10,6 @@ export function Loader({ loadingState }) {
 }
 
 // CREDITING PNG <a href="https://www.flaticon.com/free-icons/artificial-intelligence" title="artificial intelligence icons">Artificial intelligence icons created by Freepik - Flaticon</a>
-// MENU PNG <a href="https://www.flaticon.com/free-icons/robot" title="robot icons">Robot icons created by juicy_fish - Flaticon</a>
+// PERSONAS <a href="https://www.flaticon.com/free-icons/hades" title="hades icons">Hades icons created by max.icons - Flaticon</a>
 
 export default Loader;

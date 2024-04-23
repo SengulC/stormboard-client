@@ -117,7 +117,7 @@ export const useStore = create((set, get) => ({
   briefStructure: {preWhat: 'i am developing a new', preWho: 'to help', preWhere: 'in', preWhy: 'to'},
   briefJSON: {what: '', who: '', where: '', why: ''},
   loadingState: 'hidden',
-  charTone: '',
+  charTone: 'off',
   userTime: 5000,
  
   onNodesChange(changes) {
