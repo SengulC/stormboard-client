@@ -5,7 +5,7 @@ import axios from "axios";
 
 async function artificial (sourceLabels, targetLabels, nodeLabel, prompt, brief, charTone) {
   // return await axios.post("https://guai-server.onrender.com/buttons", {nodeLabel, prompt, brief, charTone}).then(response => response.data)
-  return await axios.post("http://localhost:8000/buttons", {sourceLabels, targetLabels, nodeLabel, prompt, brief, charTone})
+  return await axios.post("http://127.0.0.1:8000/buttons", {sourceLabels, targetLabels, nodeLabel, prompt, brief, charTone})
   .then(response => response.data)
 };
 
@@ -114,7 +114,7 @@ export const useStore = create((set, get) => ({
   edges:  [],
   selectedNodes: [],
   brief: '',
-  briefStructure: {preWhat: 'i am developing a new', preWho: 'to help', preWhere: 'in', preWhy: 'to'},
+  briefStructure: {preWhat: 'i am devseloping a new', preWho: 'to help', preWhere: 'in', preWhy: 'to'},
   briefJSON: {what: '', who: '', where: '', why: ''},
   loadingState: 'hidden',
   charTone: 'off',
