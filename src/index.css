@@ -158,6 +158,15 @@ button {
   box-shadow: 5px 5px 7px rgba(33,33,33,.7); 
 }
 
+.child {
+  position: absolute;
+  left: 10%;
+  bottom: 50%;
+  height: 120em;
+  width: 120em;
+  z-index: -1;
+}
+
 /* text area */
 .post-it-text {
   background: transparent;
@@ -184,9 +193,8 @@ button {
   /* resize: both; */
 }
 
-.post-it-node::selection {
-  color: yellow;
-  outline: red;
+.multipleSelection {
+  font-size: xx-small;
 }
 
 a {

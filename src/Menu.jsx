@@ -144,9 +144,10 @@ export function Menu({ node, deselect }) {
       <div className='close-menu' onClick={() => deselect?.()}> X (deselect node) </div>
       <h1> Menu </h1>
         <h4>Selected note(s)</h4>
-        {/* CUSTOM REACT COMPONENT HERE TO DISPLAY SELECTIONS WELL */}
+        {(selectedNodes.length)>1 ? <div style={{'backgroundColor': selectedNodes[1].data.color}} className="post-it-node child curr-node"/> : <></>}
         <div style={{'backgroundColor': node.data.color}} className="post-it-node curr-node"> 
-        <textarea readOnly className="post-it-text curr-node-text" value={node.data.label || "Select or type into nodes to begin editing!" }> </textarea>
+          <textarea readOnly className="post-it-text curr-node-text" value={node.data.label || "Select or type into nodes to begin editing!" }> </textarea>
+          {(selectedNodes.length)>1 ? <p className="multipleSelection"> + {selectedNodes.length-1} more </p> : <></>}
         </div>
         <h4>Supercharge Post-its</h4>
         <div className="art-buttons">
