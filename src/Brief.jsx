@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 
 export function Brief({}) {
     const briefStructure = useStore(state => state.briefStructure);
+    const setBriefStructure = useStore(state => state.setBriefStructure);
     const briefJSON = useStore(state => state.briefJSON);
     const setBriefJSON = useStore(state => state.setBriefJSON);
     const setBrief = useStore(state => state.setBrief);
@@ -24,7 +25,7 @@ export function Brief({}) {
         {briefStructure.preWhy} <input onChange={(e) => setBriefInput(e.target.value, e.target.name)} name='why' className='briefInputs' placeholder='(why)'></input>
         <br></br>
         {/* {briefStructure} */}
-        <button className='briefButton'>Reset brief structure</button>
+        <button onClick={(e) => setBriefStructure( {preWhat: 'i am developing a new', preWho: 'to help', preWhere: 'in', preWhy: 'to'})} className='briefButton'>Reset brief structure</button>
     </div>
     );
 }
