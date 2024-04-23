@@ -21,7 +21,14 @@ function extractNodesData (nodes) {
 }
 
 async function callCharChange(char) {
-  if (firstCharChange || prevCharTone!=char) {
+  if (char=='off') {
+    const completion = await openai.chat.completions.create({
+      messages: [{role: "user", content: 'Moving forward, respond in a natural tone. Respond now with just "Okay"'}],
+      model: "gpt-4",
+    }); // API USAGE
+    console.log("CHARCHANGE OFF. Called gpt with : " + 'Moving forward, respond in a natural tone. Respond now with just "Okay"');
+    console.log("Got back: " + JSON.stringify(completion.choices[0].message.content));
+  } else if (firstCharChange || prevCharTone!=char) {
     firstCharChange = false;
     prevCharTone = char;
     let prePrompt = `You have been asked to change your tone. 
@@ -97,7 +104,7 @@ async function callButtonPrompt(sourceLabels, targetLabels, prompt, input, brief
     }
   }
 
-  if (charTone) {
+  if (charTone && charTone!='off') {
     let charDesc = {"realistic": "straightforward, coherent, precise and realistic", "abstract": "descriptive, creative, a little random, and abstract in nature"};
     content += '. Remember to have a ' + charDesc[charTone] + " tone."
   }

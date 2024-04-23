@@ -158,6 +158,7 @@ export function Menu({ node, deselect }) {
           <input onChange={e => setUserTime(e.target.value)} value={userTime} min='000' max='600000' type="range"></input>
           <p>{userTime}</p>
         <div id='abstract' onClick={e => artificialCharacter(e.target.id)}> Abstract </div>
+        <div id='off' onClick={e => artificialCharacter(e.target.id)}> Off </div>
         <br></br>
       </div>
     </aside>

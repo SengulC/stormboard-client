@@ -40,13 +40,13 @@ export default function App() {
       const intervalId = setInterval(() => {
         addNode(true, "", false);
         // console.log(`Current blinking text for abstract`);
-      }, getRandomInterval());
-      return () => {
-        clearInterval(intervalId);
-      };
+        }, getRandomInterval());
+        return () => {
+          clearInterval(intervalId);
+        };
     } else if (charTone == 'realistic') {
       const intervalId = setInterval(() => {
-          addNode(true, "", false);
+        addNode(true, "", false);
         // console.log(`Current blinking text for realistic`);
         }, userTime);
         return () => {
