@@ -148,19 +148,19 @@ export function Menu({ node, deselect }) {
         </div>
         <h4>Supercharge Post-its</h4>
         <div className="art-buttons">
-        <button name="opposite" onClick={e => artificial(e.target.name, brief, nodes, charTone)}> Make-Opposite </button>
-        <button name="summarize" onClick={e => artificial(e.target.name, brief, nodes, charTone)}> Summarize </button>
-        <button name="expand" onClick={e => artificial(e.target.name, brief, nodes, charTone)}> Expand </button>
-        <button name="merge" onClick={e => artificial(e.target.name, brief, nodes, charTone)}> Merge </button>
-        <button name="surprise" onClick={e => artificial(e.target.name, brief, nodes, charTone)}> Surprise Me! </button>
-        <button name="group" onClick={e => artificial(e.target.name, brief, selectedNodes, charTone)}> Group Em'! </button>
-        <div id='realistic' onClick={e => artificialCharacter(e.target.id)}> Realistic </div>
-          <input onChange={e => setUserTime(e.target.value)} value={userTime} min='000' max='600000' type="range"></input>
-          <p>{userTime}</p>
-        <div id='abstract' onClick={e => artificialCharacter(e.target.id)}> Abstract </div>
-        <div id='off' onClick={e => artificialCharacter(e.target.id)}> Off </div>
-        <br></br>
-      </div>
+          <button name="opposite" onClick={e => artificial(e.target.name, brief, nodes, charTone)}> Make-Opposite </button>
+          <button name="summarize" onClick={e => artificial(e.target.name, brief, nodes, charTone)}> Summarize </button>
+          <button name="expand" onClick={e => artificial(e.target.name, brief, nodes, charTone)}> Expand </button>
+          <button name="merge" onClick={e => artificial(e.target.name, brief, nodes, charTone)}> Merge </button>
+          <button name="surprise" onClick={e => artificial(e.target.name, brief, nodes, charTone)}> Surprise Me! </button>
+          <button name="group" onClick={e => artificial(e.target.name, brief, selectedNodes, charTone)}> Group Em'! </button>
+          <div id='realistic' onClick={e => artificialCharacter(e.target.id)}> Realistic </div>
+            <input onChange={e => setUserTime(e.target.value)} value={userTime} min='000' max='600000' type="range"></input>
+            <p>{userTime}</p>
+          <div id='abstract' onClick={e => artificialCharacter(e.target.id)}> Abstract </div>
+          <div id='off' onClick={e => artificialCharacter(e.target.id)}> Off </div>
+          <br></br>
+        </div>
     </aside>
   );
 }
