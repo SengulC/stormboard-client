@@ -41,7 +41,7 @@ export default function App() {
   useEffect(() => {
     if (charTone == 'abstract') {
       const intervalId = setInterval(() => {
-        addNode(true, "", false);
+        if(loadingState=='hidden'){addNode(true, "", false);}
         if(loadingState=='hidden'){callButtonForNodes('random', nodes);}
         }, getRandomInterval());
         return () => {

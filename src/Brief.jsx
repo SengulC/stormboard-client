@@ -24,6 +24,7 @@ export function Brief({}) {
         {briefStructure.preWhy} <input onChange={(e) => setBriefInput(e.target.value, e.target.name)} name='why' className='briefInputs' placeholder='(why)'></input>
         <br></br>
         {/* {briefStructure} */}
+        <button className='briefButton'>Reset brief structure</button>
     </div>
     );
 }

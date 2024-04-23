@@ -54,25 +54,25 @@ async function callButtonPrompt(sourceLabels, targetLabels, prompt, input, brief
   let prePrompt;
   switch(prompt) {
     case 'opposite': 
-      prePrompt = "Respond with a single sentence product idea (max 10 words). " +  "The brief is: " + brief + ". Make opposite: ";
+      prePrompt = "Respond with a single sentence produc, beginning with 'a(n)'t idea (max 10 words). " +  "The brief is: " + brief + ". Make opposite: ";
       break;
     case 'summarize': 
-      prePrompt = "Halve the word length of the following product idea, making more coherent. " +  "The brief is: " + brief + ". Summarize: ";
+      prePrompt = "Halve the word length of the following product idea, making more coherent. " +  ". Summarize: ";
       break;
     case 'expand': 
-      prePrompt = "Respond with a single sentence product idea (max 10 words). " +  "The brief is: " + brief + ". Expand: ";
+      prePrompt = "Respond with a single sentence product idea (max 10 words), beginning with 'a(n)'. " +  "The brief is: " + brief + ". Expand: ";
       break;
     case 'surprise': 
-      prePrompt = "Respond with a single sentence product idea (max 10 words). " +  "The brief is: " + brief + ". Surprise me, drawing inspiration from: ";
+      prePrompt = "Respond with a single sentence product idea (max 10 words), beginning with 'a(n)'. " +  "The brief is: " + brief + ". Surprise me, drawing inspiration from: ";
       break;
     case 'merge': 
-      prePrompt = "Respond with a single sentence product idea (max 10 words). " +  "The brief is: " + brief + ". Merge: ";
+      prePrompt = "Respond with a single sentence product idea (max 10 words), beginning with 'a(n)'. " +  "The brief is: " + brief + ". Merge: ";
       break;
     case 'feed': 
-      prePrompt = "Respond with a single sentence product idea (max 10 words). " +  "The brief is: " + brief + ". Feed: " + "'" + sourceLabels + "'" + " into " + "'" + targetLabels + "'";
+      prePrompt = "Respond with a single sentence product idea (max 10 words), beginning with 'a(n)'. " +  "The brief is: " + brief + ". Feed: " + "'" + sourceLabels + "'" + " into " + "'" + targetLabels + "'";
       break;
     case 'regen': 
-      prePrompt = "Respond with a single sentence product idea (max 10 words). " +  "The brief is: " + brief + ". Regenerate: ";
+      prePrompt = "Respond with a single sentence product idea (max 10 words), beginning with 'a(n)'. " +  "The brief is: " + brief + ". Regenerate: ";
       break;
     case 'group': 
       let nodedata = extractNodesData(nodes);
@@ -85,7 +85,7 @@ async function callButtonPrompt(sourceLabels, targetLabels, prompt, input, brief
         ]` + JSON.stringify(nodedata);
       break;
     default:
-      prePrompt = "Respond with a single sentence product idea (max 10 words). " +  "The brief is: " + brief + ". Come up with a random product idea: ";
+      prePrompt = "Respond with a single sentence product idea (max 10 words), beginning with 'a(n)'. " +  "The brief is: " + brief + ". Come up with a random product idea: ";
       break;
   }
 
@@ -131,7 +131,7 @@ async function callButtonPrompt(sourceLabels, targetLabels, prompt, input, brief
     ]
 
   Except for when you're asked to GROUP, respond in ONE sentence (max 20 words) outlining the product or concept ideea, and make sure to always stay within the context.
-  Respond concisely, e.g. "A wearable AI band that adapts and composes music based on the wearer's heart rate and mood.", "A compact, voice-controlled kitchen robot that cooks, cleans and also orders groceries based on your diet and budget preferences."
+  Respond CONCISELY beginning with the word "a", e.g. "A wearable AI band that adapts and composes music based on the wearer's heart rate and mood.", "A compact, voice-controlled kitchen robot that cooks, cleans and also orders groceries based on your diet and budget preferences."
 
   The design brief is: ${brief}`
 

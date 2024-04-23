@@ -299,8 +299,9 @@ export const useStore = create((set, get) => ({
     }
     for (let node of nodes) {
       set({loadingState: null})
+      let nodeLabel = node.data.label;
       node.data.label = "...";
-      let label = await artificial([], [], node.data.label, prompt, get().brief, get().charTone);
+      let label = await artificial([], [], nodeLabel, prompt, get().brief, get().charTone);
       node.data.label = label;
       appliedNodes.push(node);
     }

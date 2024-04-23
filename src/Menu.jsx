@@ -160,19 +160,28 @@ export function Menu({ node, deselect }) {
         <h4>Adopt Personas</h4>
         <div className="personasContainer">
           <div className="persona">
-            <img onClick={e => artificialCharacter(e.target.id)} id='off' style={(charTone=='off')? {'filter': 'none'} : {'filter': 'grayscale()'}} alt="hades" className="personaImgs" src="/images/hades.png"></img>
-            <p>Hades <p style={{'font-size': 'xx-small'}}>No autonomy.</p></p>
+              <img onClick={e => artificialCharacter(e.target.id)} id='off' style={(charTone=='off')? {'filter': 'none'} : {'filter': 'grayscale()'}} alt="hades" className="personaImgs" src="/images/hades.png"></img>
+              <div>
+                  <p>Hades</p>
+                  <p style={{'fontSize': 'xx-small'}}>No autonomy.</p>
+              </div>
           </div>
           <div className="persona">
-            <img onClick={e => artificialCharacter(e.target.id)} id='abstract' style={(charTone=='abstract')? {'filter': 'none'} : {'filter': 'grayscale()'}} alt="Apollo" className="personaImgs" src="/images/apollo.png"></img>
-            <p>Apollo <p style={{'font-size': 'xx-small'}}>Descriptive, creative.</p></p>
+              <img onClick={e => artificialCharacter(e.target.id)} id='abstract' style={(charTone=='abstract')? {'filter': 'none'} : {'filter': 'grayscale()'}} alt="Apollo" className="personaImgs" src="/images/apollo.png"></img>
+              <div>
+                  <p>Apollo</p>
+                  <p style={{'fontSize': 'xx-small'}}>Descriptive, creative.</p>
+              </div>
           </div>
           <div className="persona">
-            <img onClick={e => artificialCharacter(e.target.id)} id='realistic' style={(charTone=='realistic')? {'filter': 'none'} : {'filter': 'grayscale()'}} alt="themis" className="personaImgs" src="/images/themis.png"></img>
-            <p>Themis <p style={{'font-size': 'xx-small'}}>Precise, succinct.</p></p>
+              <img onClick={e => artificialCharacter(e.target.id)} id='realistic' style={(charTone=='realistic')? {'filter': 'none'} : {'filter': 'grayscale()'}} alt="themis" className="personaImgs" src="/images/themis.png"></img>
+              <div>
+                  <p>Themis</p>
+                  <p style={{'fontSize': 'xx-small'}}>Precise, succinct.</p>
+              </div>
           </div>
         </div>
-          {(charTone=='realistic') ? <p style={{'font-size': 'small'}}>How often would you like Themis to collaborate? Currently set to: every {userTime} millisecond. </p> : <></>} 
+          {(charTone=='realistic') ? <p style={{'fontSize': 'small'}}>How often would you like Themis to collaborate? Currently set to: every {userTime} millisecond. </p> : <></>} 
           {(charTone=='realistic') ? <input onChange={e => setUserTime(e.target.value)} value={userTime} min='000' max='600000' type="number"></input> : <></>}
           <br></br>
         </div>
