@@ -36,7 +36,7 @@ export function Brief({}) {
         {briefStructure.preWhere} <input onChange={(e) => setBriefInput(e.target.value, e.target.name)} name='where' className='briefInputs' placeholder='(where)'></input> 
         {briefStructure.preWhy} <input onChange={(e) => setBriefInput(e.target.value, e.target.name)} name='why' className='briefInputs' placeholder='(why)'></input>
         <br></br>
-        <button onClick={(e) => setBriefStructure(getShuffledStructure())} className='briefButton'>Shuffle brief structure</button>
+        <button title="get a new brief structure!" onClick={(e) => setBriefStructure(getShuffledStructure())} className='briefButton'>↻</button>
     </div>
     );
 }

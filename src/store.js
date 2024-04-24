@@ -118,7 +118,7 @@ export const useStore = create((set, get) => ({
   briefJSON: {what: '', who: '', where: '', why: ''},
   loadingState: 'hidden',
   charTone: 'off',
-  userTime: 60000,
+  userTime: 30000,
   straightforwardStructures: [
     { preWhat: 'Creating a new', preWho: 'to assist', preWhere: 'for use in', preWhy: 'to improve' },
     { preWhat: 'Designing an innovative', preWho: 'to support', preWhere: 'across various platforms', preWhy: 'to enhance' },

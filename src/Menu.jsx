@@ -151,30 +151,30 @@ export function Menu({ node, deselect }) {
         </div>
         <h4>Supercharge Post-its</h4>
         <div className="art-buttons">
-          <button name="opposite" onClick={e => artificial(e.target.name, brief, nodes, charTone)}> Make-Opposite </button>
-          <button name="summarize" onClick={e => artificial(e.target.name, brief, nodes, charTone)}> Summarize </button>
-          <button name="expand" onClick={e => artificial(e.target.name, brief, nodes, charTone)}> Expand </button>
-          <button name="merge" onClick={e => artificial(e.target.name, brief, nodes, charTone)}> Merge </button>
-          <button name="surprise" onClick={e => artificial(e.target.name, brief, nodes, charTone)}> Surprise Me! </button>
-          <button name="group" onClick={e => artificial(e.target.name, brief, selectedNodes, charTone)}> Group Em'! </button>
+          <button title="find the semantic opposite of your idea!" name="opposite" onClick={e => artificial(e.target.name, brief, nodes, charTone)}> Make-Opposite </button>
+          <button title="summarize your idea!" name="summarize" onClick={e => artificial(e.target.name, brief, nodes, charTone)}> Summarize </button>
+          <button title="expand on your idea!" name="expand" onClick={e => artificial(e.target.name, brief, nodes, charTone)}> Expand </button>
+          <button title="merge two or more Post-its into a new one!" name="merge" onClick={e => artificial(e.target.name, brief, nodes, charTone)}> Merge </button>
+          <button title="build off of your idea in a surprising way!" name="surprise" onClick={e => artificial(e.target.name, brief, nodes, charTone)}> Surprise Me! </button>
+          <button title="group selected Post-its semantically via their color!" name="group" onClick={e => artificial(e.target.name, brief, selectedNodes, charTone)}> Group Em'! </button>
         <h4>Adopt Personas</h4>
         <div className="personasContainer">
           <div className="persona">
-              <img onClick={e => artificialCharacter(e.target.id)} id='off' style={(charTone=='off')? {'filter': 'none'} : {'filter': 'grayscale()'}} alt="hades" className="personaImgs" src="/images/hades.png"></img>
+              <img title="adopt a neutral, non-autonomous persona!" onClick={e => artificialCharacter(e.target.id)} id='off' style={(charTone=='off')? {'filter': 'none'} : {'filter': 'grayscale()'}} alt="hades" className="personaImgs" src="/images/hades.png"></img>
               <div>
                   <p>Hades</p>
                   <p style={{'fontSize': 'xx-small'}}>No autonomy.</p>
               </div>
           </div>
           <div className="persona">
-              <img onClick={e => artificialCharacter(e.target.id)} id='abstract' style={(charTone=='abstract')? {'filter': 'none'} : {'filter': 'grayscale()'}} alt="Apollo" className="personaImgs" src="/images/apollo.png"></img>
+              <img title="adopt a fully autonomous and creative persona, he interacts as he likes!" onClick={e => artificialCharacter(e.target.id)} id='abstract' style={(charTone=='abstract')? {'filter': 'none'} : {'filter': 'grayscale()'}} alt="Apollo" className="personaImgs" src="/images/apollo.png"></img>
               <div>
                   <p>Apollo</p>
                   <p style={{'fontSize': 'xx-small'}}>Descriptive, creative.</p>
               </div>
           </div>
           <div className="persona">
-              <img onClick={e => artificialCharacter(e.target.id)} id='realistic' style={(charTone=='realistic')? {'filter': 'none'} : {'filter': 'grayscale()'}} alt="themis" className="personaImgs" src="/images/themis.png"></img>
+              <img title="adopt an autonomous and succinct persona, customize how often she interacts!" onClick={e => artificialCharacter(e.target.id)} id='realistic' style={(charTone=='realistic')? {'filter': 'none'} : {'filter': 'grayscale()'}} alt="themis" className="personaImgs" src="/images/themis.png"></img>
               <div>
                   <p>Themis</p>
                   <p style={{'fontSize': 'xx-small'}}>Precise, succinct.</p>
