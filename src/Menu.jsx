@@ -64,8 +64,8 @@ export function Menu({ node, deselect }) {
 
   function artificialCharacter (charTone) {
     setLoadingState(null);
-    axios.post("http://localhost:8000/buttons", {charTone})
-    // axios.post("https://guai-server.onrender.com/buttons", {nodeLabel, prompt, brief, nodes}) // the var names here matter! nodeLabel and prompt are referred to in index.js
+    // axios.post("http://localhost:8000/buttons", {charTone})
+    axios.post("https://guai-server.onrender.com/buttons", {charTone})
     .then((res) => {
       setLoadingState('hidden');
       setCharTone(charTone);
@@ -82,8 +82,8 @@ export function Menu({ node, deselect }) {
     //sourceLabels, targetLabels, 
     if (prompt == "merge") {
       const nodeLabel = getSelectedNodesLabels(selectedNodes).join(" ");
-      axios.post("http://localhost:8000/buttons", {nodeLabel, prompt, brief, nodes, charTone})
-      // axios.post("https://guai-server.onrender.com/buttons", {nodeLabel, prompt, brief, nodes}) // the var names here matter! nodeLabel and prompt are referred to in index., charTonejs
+      // axios.post("http://localhost:8000/buttons", {nodeLabel, prompt, brief, nodes, charTone})
+      axios.post("https://guai-server.onrender.com/buttons", {nodeLabel, prompt, brief, nodes, charTone})
       .then((res) => {
         addNode(false, res.data, true);
         setLoadingState('hidden');
@@ -92,8 +92,8 @@ export function Menu({ node, deselect }) {
           console.error(err);
       }))
     } else if (prompt == "group") {
-      axios.post("http://localhost:8000/buttons", {prompt, brief, nodes, charTone})
-      // axios.post("https://guai-server.onrender.com/buttons", {nodeLabel, prompt, brief, nodes}) // the var names here matter! nodeLabel and prompt are referred to in index., charTonejs
+      // axios.post("http://localhost:8000/buttons", {prompt, brief, nodes, charTone})
+      axios.post("https://guai-server.onrender.com/buttons", {prompt, brief, nodes, charTone}) // the var names here matter! nodeLabel and prompt are referred to in index., charTonejs
       .then((res) => {
           rearrangeNodes(res.data);
           setLoadingState('hidden');
@@ -107,8 +107,8 @@ export function Menu({ node, deselect }) {
         const sourceLabels = n.data.source ? getLabelsFromIDs(n.data.source, nodes) : [];
         const targetLabels = n.data.target ? getLabelsFromIDs(n.data.target, nodes) : [];
         updateNodeLabel(n.id, "...");
-        axios.post("http://localhost:8000/buttons", {nodeLabel, sourceLabels, targetLabels, prompt, brief, nodes, charTone})
-        // axios.post("https://guai-server.onrender.com/buttons", {nodeLabel, prompt, brief, nodes}) // the var names here matter! nodeLabel and prompt are referred to in index., charTonejs
+        // axios.post("http://localhost:8000/buttons", {nodeLabel, sourceLabels, targetLabels, prompt, brief, nodes, charTone})
+        axios.post("https://guai-server.onrender.com/buttons", {nodeLabel, sourceLabels, targetLabels, prompt, brief, nodes, charTone})
         .then((res) => {
             setLabel(res.data);
             updateNodeLabel(n.id, res.data);
@@ -124,8 +124,8 @@ export function Menu({ node, deselect }) {
           prompt="regen";
           let sourceLabels = [n.data.label];
           updateNodeLabel(targetId, "...");
-          axios.post("http://localhost:8000/buttons", {nodeLabel, prompt, brief, sourceLabels, charTone})
-          // axios.post("https://guai-server.onrender.com/buttons", {nodeLabel, prompt, brief}) // the var names here matter! nodeLabel and prompt are referred to in index., charTonejs
+          // axios.post("http://localhost:8000/buttons", {nodeLabel, prompt, brief, sourceLabels, charTone})
+          axios.post("https://guai-server.onrender.com/buttons", {nodeLabel, prompt, brief, sourceLabels, charTone}) // the var names here matter! nodeLabel and prompt are referred to in index., charTonejs
           .then((res) => {
               updateNodeLabel(targetId, res.data);
               setLoadingState('hidden');
