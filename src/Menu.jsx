@@ -160,21 +160,21 @@ export function Menu({ node, deselect }) {
         <h4>Adopt Personas</h4>
         <div className="personasContainer">
           <div className="persona">
-              <img title="adopt a neutral, non-autonomous persona!" onClick={e => artificialCharacter(e.target.id)} id='off' style={(charTone=='off')? {'filter': 'none'} : {'filter': 'grayscale()'}} alt="hades" className="personaImgs" src="/images/hades.png"></img>
+              <img title="adopt a neutral, non-autonomous persona!" onClick={e => artificialCharacter(e.target.id)} id='off' style={(charTone=='off')? {'filter': 'none'} : {'filter': 'grayscale()'}} alt="hades" className="personaImgs" src="/public/static/images/hades.png"></img>
               <div>
                   <p>Hades</p>
                   <p style={{'fontSize': 'xx-small'}}>No autonomy.</p>
               </div>
           </div>
           <div className="persona">
-              <img title="adopt a fully autonomous and creative persona, he interacts as he likes!" onClick={e => artificialCharacter(e.target.id)} id='abstract' style={(charTone=='abstract')? {'filter': 'none'} : {'filter': 'grayscale()'}} alt="Apollo" className="personaImgs" src="/images/apollo.png"></img>
+              <img title="adopt a fully autonomous and creative persona, he interacts as he likes!" onClick={e => artificialCharacter(e.target.id)} id='abstract' style={(charTone=='abstract')? {'filter': 'none'} : {'filter': 'grayscale()'}} alt="Apollo" className="personaImgs" src="/public/static/images/apollo.png"></img>
               <div>
                   <p>Apollo</p>
                   <p style={{'fontSize': 'xx-small'}}>Descriptive, creative.</p>
               </div>
           </div>
           <div className="persona">
-              <img title="adopt an autonomous and succinct persona, customize how often she interacts!" onClick={e => artificialCharacter(e.target.id)} id='realistic' style={(charTone=='realistic')? {'filter': 'none'} : {'filter': 'grayscale()'}} alt="themis" className="personaImgs" src="/images/themis.png"></img>
+              <img title="adopt an autonomous and succinct persona, customize how often she interacts!" onClick={e => artificialCharacter(e.target.id)} id='realistic' style={(charTone=='realistic')? {'filter': 'none'} : {'filter': 'grayscale()'}} alt="themis" className="personaImgs" src="/public/static/images/themis.png"></img>
               <div>
                   <p>Themis</p>
                   <p style={{'fontSize': 'xx-small'}}>Precise, succinct.</p>
