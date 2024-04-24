@@ -5,7 +5,7 @@ import axios from "axios";
 
 async function artificial (sourceLabels, targetLabels, nodeLabel, prompt, brief, charTone) {
   // return await axios.post("https://guai-server.onrender.com/buttons", {nodeLabel, prompt, brief, charTone}).then(response => response.data)
-  return await axios.post("http://127.0.0.1:8000/buttons", {sourceLabels, targetLabels, nodeLabel, prompt, brief, charTone})
+  return await axios.post("http://localhost:8000/buttons", {sourceLabels, targetLabels, nodeLabel, prompt, brief, charTone})
   .then(response => response.data)
 };
 
@@ -114,11 +114,36 @@ export const useStore = create((set, get) => ({
   edges:  [],
   selectedNodes: [],
   brief: '',
-  briefStructure: {preWhat: 'i am developing a new', preWho: 'to help', preWhere: 'in', preWhy: 'to'},
+  briefStructure: {preWhat: 'I am creating a new', preWho: 'to help', preWhere: 'in', preWhy: 'to'},
   briefJSON: {what: '', who: '', where: '', why: ''},
   loadingState: 'hidden',
   charTone: 'off',
-  userTime: 5000,
+  userTime: 60000,
+  straightforwardStructures: [
+    { preWhat: 'Creating a new', preWho: 'to assist', preWhere: 'for use in', preWhy: 'to improve' },
+    { preWhat: 'Designing an innovative', preWho: 'to support', preWhere: 'across various platforms', preWhy: 'to enhance' },
+    { preWhat: 'Developing a robust', preWho: 'to serve', preWhere: 'in the', preWhy: 'to optimize' },
+    { preWhat: 'Building an efficient', preWho: 'for the benefit of', preWhere: 'across different industries', preWhy: 'to streamline' },
+    { preWhat: 'Crafting a user-friendly', preWho: 'to empower', preWhere: 'for seamless integration', preWhy: 'to simplify' },
+    { preWhat: 'Revamping the', preWho: 'to modernize', preWhere: 'for the', preWhy: 'to enhance efficiency' },
+    { preWhat: 'Introducing a cutting-edge', preWho: 'to revolutionize', preWhere: 'across industries', preWhy: 'to drive innovation' },
+    { preWhat: 'Optimizing the performance of', preWho: 'to benefit', preWhere: 'in various sectors', preWhy: 'to achieve optimal outcomes' },
+    { preWhat: 'Launching an innovative', preWho: 'to address the needs of', preWhere: 'across markets', preWhy: 'to provide solutions' },
+    { preWhat: 'Creating a seamless', preWho: 'to cater to the requirements of', preWhere: 'for efficient operations', preWhy: 'to ensure smooth functionality' },
+    {preWhat: 'I am creating a new', preWho: 'to help', preWhere: 'in', preWhy: 'to'},
+  ],
+  abstractStructures: [
+    { preWhat: 'Embarking on a visionary', preWho: 'to inspire', preWhere: 'across boundless horizons', preWhy: 'to ignite' },
+    { preWhat: 'Weaving a tapestry of dreams', preWho: 'to illuminate', preWhere: 'within the realm of imagination', preWhy: 'to transcend' },
+    { preWhat: 'Exploring the depths of creativity', preWho: 'to evoke', preWhere: 'in the infinite expanse', preWhy: 'to awaken' },
+    { preWhat: 'Navigating the labyrinth of possibilities', preWho: 'to provoke thought', preWhere: 'amidst ethereal landscapes', preWhy: 'to catalyze' },
+    { preWhat: 'Venturing into the unknown', preWho: 'to evoke wonder', preWhere: 'beyond the veil of reality', preWhy: 'to transcend boundaries' },
+    { preWhat: 'Exploring the uncharted territories of', preWho: 'to discover new perspectives on', preWhere: 'beyond conventional boundaries', preWhy: 'to expand horizons' },
+    { preWhat: 'Navigating the intricate landscapes of', preWho: 'to uncover hidden insights into', preWhere: 'amidst the complexities of', preWhy: 'to unlock potential' },
+    { preWhat: 'Embarking on an odyssey of', preWho: 'to delve into the mysteries of', preWhere: 'in pursuit of enlightenment', preWhy: 'to transcend limitations' },
+    { preWhat: 'Venturing into the ethereal realms of', preWho: 'to explore the essence of', preWhere: 'beyond tangible boundaries', preWhy: 'to inspire imagination' },
+    { preWhat: 'Weaving a tapestry of innovation in', preWho: 'to reimagine possibilities for', preWhere: 'across the spectrum of', preWhy: 'to shape the future' }
+  ],
  
   onNodesChange(changes) {
     set({
@@ -162,21 +187,7 @@ export const useStore = create((set, get) => ({
   setCharTone(charChange) {
     set({charTone: charChange});
     if (charChange!='off'){
-      let straightforwardStructures = [
-      { preWhat: 'Creating a new', preWho: 'to assist', preWhere: 'for use in', preWhy: 'to improve' },
-      { preWhat: 'Designing an innovative', preWho: 'to support', preWhere: 'across various platforms', preWhy: 'to enhance' },
-      { preWhat: 'Developing a robust', preWho: 'to serve', preWhere: 'in the', preWhy: 'to optimize' },
-      { preWhat: 'Building an efficient', preWho: 'for the benefit of', preWhere: 'across different industries', preWhy: 'to streamline' },
-      { preWhat: 'Crafting a user-friendly', preWho: 'to empower', preWhere: 'for seamless integration', preWhy: 'to simplify' }
-    ];
-    let abstractStructures = [
-      { preWhat: 'Embarking on a visionary', preWho: 'to inspire', preWhere: 'across boundless horizons', preWhy: 'to ignite' },
-      { preWhat: 'Weaving a tapestry of dreams', preWho: 'to illuminate', preWhere: 'within the realm of imagination', preWhy: 'to transcend' },
-      { preWhat: 'Exploring the depths of creativity', preWho: 'to evoke', preWhere: 'in the infinite expanse', preWhy: 'to awaken' },
-      { preWhat: 'Navigating the labyrinth of possibilities', preWho: 'to provoke thought', preWhere: 'amidst ethereal landscapes', preWhy: 'to catalyze' },
-      { preWhat: 'Venturing into the unknown', preWho: 'to evoke wonder', preWhere: 'beyond the veil of reality', preWhy: 'to transcend boundaries' }
-    ];
-    let tonedStructure = {realistic: straightforwardStructures, abstract: abstractStructures}
+    let tonedStructure = {realistic: get().straightforwardStructures, abstract: get().abstractStructures}
     let randomIndex = getRandomInt(0, 4);
     set({briefStructure: tonedStructure[charChange][randomIndex]})
   }
@@ -296,6 +307,17 @@ export const useStore = create((set, get) => ({
     if (prompt == 'random') {
       randPromptIndex = getRandomInt(0, prompts.length);
       prompt = prompts[randPromptIndex]
+      var id = nanoid(6);
+      let xPos = Math.random() * (500 - 20) + 20; // random
+      let yPos = Math.random() * (300 - 20) + 20;
+      let position = { x: xPos, y: yPos };
+      let surpriseNode = { id: id, type: 'postIt', data: {id: id, label: '', color: generateRandomColor() }, position: position};
+      let label = "";
+      set({loadingState: null})
+      label = await artificial([], [], surpriseNode.data.label, 'surprise', get().brief, get().charTone);
+      set({loadingState: 'hidden'})
+      surpriseNode.data.label = label;
+      appliedNodes.push(surpriseNode);
     }
     for (let node of nodes) {
       set({loadingState: null})
@@ -317,10 +339,7 @@ export const useStore = create((set, get) => ({
 
   setBriefStructure(newBriefStructure) {
     if (newBriefStructure) {
-      console.log((newBriefStructure))
       set( {briefStructure: newBriefStructure} );
-    } else {
-      console.log("wth is up with structure")
     }
     return;
   },

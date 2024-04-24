@@ -64,7 +64,7 @@ export function Menu({ node, deselect }) {
 
   function artificialCharacter (charTone) {
     setLoadingState(null);
-    axios.post("http://127.0.0.1:8000/buttons", {charTone})
+    axios.post("http://localhost:8000/buttons", {charTone})
     // axios.post("https://guai-server.onrender.com/buttons", {nodeLabel, prompt, brief, nodes}) // the var names here matter! nodeLabel and prompt are referred to in index.js
     .then((res) => {
       setLoadingState('hidden');
@@ -82,7 +82,7 @@ export function Menu({ node, deselect }) {
     //sourceLabels, targetLabels, 
     if (prompt == "merge") {
       const nodeLabel = getSelectedNodesLabels(selectedNodes).join(" ");
-      axios.post("http://127.0.0.1:8000/buttons", {nodeLabel, prompt, brief, nodes, charTone})
+      axios.post("http://localhost:8000/buttons", {nodeLabel, prompt, brief, nodes, charTone})
       // axios.post("https://guai-server.onrender.com/buttons", {nodeLabel, prompt, brief, nodes}) // the var names here matter! nodeLabel and prompt are referred to in index., charTonejs
       .then((res) => {
         addNode(false, res.data, true);
@@ -92,7 +92,7 @@ export function Menu({ node, deselect }) {
           console.error(err);
       }))
     } else if (prompt == "group") {
-      axios.post("http://127.0.0.1:8000/buttons", {prompt, brief, nodes, charTone})
+      axios.post("http://localhost:8000/buttons", {prompt, brief, nodes, charTone})
       // axios.post("https://guai-server.onrender.com/buttons", {nodeLabel, prompt, brief, nodes}) // the var names here matter! nodeLabel and prompt are referred to in index., charTonejs
       .then((res) => {
           rearrangeNodes(res.data);
@@ -107,7 +107,7 @@ export function Menu({ node, deselect }) {
         const sourceLabels = n.data.source ? getLabelsFromIDs(n.data.source, nodes) : [];
         const targetLabels = n.data.target ? getLabelsFromIDs(n.data.target, nodes) : [];
         updateNodeLabel(n.id, "...");
-        axios.post("http://127.0.0.1:8000/buttons", {nodeLabel, sourceLabels, targetLabels, prompt, brief, nodes, charTone})
+        axios.post("http://localhost:8000/buttons", {nodeLabel, sourceLabels, targetLabels, prompt, brief, nodes, charTone})
         // axios.post("https://guai-server.onrender.com/buttons", {nodeLabel, prompt, brief, nodes}) // the var names here matter! nodeLabel and prompt are referred to in index., charTonejs
         .then((res) => {
             setLabel(res.data);
@@ -124,7 +124,7 @@ export function Menu({ node, deselect }) {
           prompt="regen";
           let sourceLabels = [n.data.label];
           updateNodeLabel(targetId, "...");
-          axios.post("http://127.0.0.1:8000/buttons", {nodeLabel, prompt, brief, sourceLabels, charTone})
+          axios.post("http://localhost:8000/buttons", {nodeLabel, prompt, brief, sourceLabels, charTone})
           // axios.post("https://guai-server.onrender.com/buttons", {nodeLabel, prompt, brief}) // the var names here matter! nodeLabel and prompt are referred to in index., charTonejs
           .then((res) => {
               updateNodeLabel(targetId, res.data);
@@ -181,8 +181,8 @@ export function Menu({ node, deselect }) {
               </div>
           </div>
         </div>
-          {(charTone=='realistic') ? <p style={{'fontSize': 'small'}}>How often would you like Themis to collaborate? Currently set to: every {userTime} millisecond. </p> : <></>} 
-          {(charTone=='realistic') ? <input onChange={e => setUserTime(e.target.value)} value={userTime} min='000' max='600000' type="number"></input> : <></>}
+          {(charTone=='realistic') ? <p style={{'fontSize': 'small'}}>How often would you like Themis to collaborate? Currently set to: every {userTime/60000} minutes. </p> : <></>} 
+          {(charTone=='realistic') ? <input onChange={e => setUserTime(e.target.value*60000)} value={userTime/60000} min='0.5' max='10' step='0.5' type="number"></input> : <></>}
           <br></br>
         </div>
     </aside>

@@ -32,7 +32,7 @@ function PostIt({ data, isConnectable }) {
     let nodeLabel = getNodeLabel(cTarget, nodes);
     let sourceLabels = [e.target.value];
     updateNodeLabel(cTarget, "...");
-    axios.post("http://127.0.0.1:8000/buttons", {sourceLabels, nodeLabel, prompt, brief})
+    axios.post("http://localhost:8000/buttons", {sourceLabels, nodeLabel, prompt, brief})
     // axios.post("https://guai-server.onrender.com/buttons", {nodeLabel, prompt, brief, nodes}) // the var names here matter! nodeLabel and prompt are referred to in index.js
     .then((res) => {
       updateNodeLabel(cTarget, res.data); // not updating?

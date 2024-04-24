@@ -8,9 +8,21 @@ export function Brief({}) {
     const briefJSON = useStore(state => state.briefJSON);
     const setBriefJSON = useStore(state => state.setBriefJSON);
     const setBrief = useStore(state => state.setBrief);
+    const straightforwardStructures = useStore(state => state.straightforwardStructures);
+    const abstractStructures = useStore(state => state.abstractStructures);
+    
 
     function setBriefInput(string, pronoun) {
         setBriefJSON(pronoun, string);
+    }
+
+    function getShuffledStructure() {
+        let possibleStrucs = straightforwardStructures.concat(abstractStructures);
+        const minCeiled = Math.ceil(0);
+        const maxFloored = Math.floor(possibleStrucs.length);
+        let randIndex = Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled);
+        let structure = possibleStrucs[randIndex];
+        return structure;
     }
 
     useEffect(() => {
@@ -24,8 +36,7 @@ export function Brief({}) {
         {briefStructure.preWhere} <input onChange={(e) => setBriefInput(e.target.value, e.target.name)} name='where' className='briefInputs' placeholder='(where)'></input> 
         {briefStructure.preWhy} <input onChange={(e) => setBriefInput(e.target.value, e.target.name)} name='why' className='briefInputs' placeholder='(why)'></input>
         <br></br>
-        {/* {briefStructure} */}
-        <button onClick={(e) => setBriefStructure( {preWhat: 'i am developing a new', preWho: 'to help', preWhere: 'in', preWhy: 'to'})} className='briefButton'>Reset brief structure</button>
+        <button onClick={(e) => setBriefStructure(getShuffledStructure())} className='briefButton'>Shuffle brief structure</button>
     </div>
     );
 }
