@@ -45,7 +45,7 @@ textarea::-webkit-scrollbar-thumb {
   cursor: pointer;
 }
 
-/* NOTE: following sacrifices accessibility for pretty CSS... */
+/* NOTE: following sacrifices accessibility for pretty CSS in textareas */
 input:focus,
 select:focus,
 textarea:focus,
@@ -133,8 +133,36 @@ button {
   position: fixed; overflow-y: auto;
 }
 
+/* https://stackoverflow.com/a/23985078/21372215 */
+@keyframes flickerAnimation {
+  0%   { opacity:1; }
+  50%  { opacity:0.5; }
+  100% { opacity:1; }
+}
+@-o-keyframes flickerAnimation{
+  0%   { opacity:1; }
+  50%  { opacity:0.5; }
+  100% { opacity:1; }
+}
+@-moz-keyframes flickerAnimation{
+  0%   { opacity:1; }
+  50%  { opacity:0.5; }
+  100% { opacity:1; }
+}
+@-webkit-keyframes flickerAnimation{
+  0%   { opacity:1; }
+  50%  { opacity:0.5; }
+  100% { opacity:1; }
+}
+.loader {
+   -webkit-animation: flickerAnimation 1s infinite;
+   -moz-animation: flickerAnimation 1s infinite;
+   -o-animation: flickerAnimation 1s infinite;
+    animation: flickerAnimation 1s infinite;
+}
+
 #loaderImg {
-  width: 4em; height: 4em;
+  width: 5em; height: 5em;
 }
 
 .personasContainer {
