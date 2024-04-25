@@ -32,10 +32,10 @@ export function Brief({}) {
     return (
     <div className='brief'>
         <p>THE IDEA...</p>
-        {briefStructure.preWhat} <input onChange={(e) => setBriefInput(e.target.value, e.target.name)} name='what' className='briefInputs' placeholder='(what)'></input> 
-        {briefStructure.preWho} <input onChange={(e) => setBriefInput(e.target.value, e.target.name)} name='who' className='briefInputs' placeholder='(who)'></input> 
-        {briefStructure.preWhere} <input onChange={(e) => setBriefInput(e.target.value, e.target.name)} name='where' className='briefInputs' placeholder='(where)'></input> 
-        {briefStructure.preWhy} <input onChange={(e) => setBriefInput(e.target.value, e.target.name)} name='why' className='briefInputs' placeholder='(why)'></input>
+        {briefStructure.preWhat} <input autoComplete='off' onChange={(e) => setBriefInput(e.target.value, e.target.name)} name='what' className='briefInputs' placeholder='(what)'></input> 
+        {briefStructure.preWho} <input autoComplete='off' onChange={(e) => setBriefInput(e.target.value, e.target.name)} name='who' className='briefInputs' placeholder='(who)'></input> 
+        {briefStructure.preWhere} <input autoComplete='off' onChange={(e) => setBriefInput(e.target.value, e.target.name)} name='where' className='briefInputs' placeholder='(where)'></input> 
+        {briefStructure.preWhy} <input autoComplete='off' onChange={(e) => setBriefInput(e.target.value, e.target.name)} name='why' className='briefInputs' placeholder='(why)'></input>
         <br></br>
         <button title="get a new brief structure!" onClick={(e) => setBriefStructure(getShuffledStructure())} className='briefButton'>↻</button>
     </div>
