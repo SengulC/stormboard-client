@@ -183,13 +183,14 @@ export function Menu({ node, deselect }) {
         {(selectedNodes.length)>1 ? <div style={{'backgroundColor': selectedNodes[1].data.color}} className="post-it-node child curr-node"/> : <></>}
         <div style={{'backgroundColor': node.data.color}} className="post-it-node curr-node"> 
           <textarea readOnly className="post-it-text curr-node-text" value={node.data.label || "Select or type into nodes to begin editing!" }> </textarea>
-          {(selectedNodes.length)>1 ? <p className="multipleSelection"> + {selectedNodes.length-1} more </p> : <></>}
+          {(selectedNodes.length)>1 ? <p className="multipleSelection"> + {selectedNodes.length-2} more </p> : <></>}
         </div>
       </div>
 
       <br></br>
 
       <div className="faq">
+      <br></br>
         <h4>AI Toolkit</h4>
         <div className="art-buttons">
           <button title="find the semantic opposite of your idea!" name="opposite" onClick={e => artificial(e.target.name, brief, nodes, charTone)}> Make-Opposite </button>
