@@ -260,7 +260,7 @@ button {
 .child {
   position: absolute;
   left: 10%;
-  bottom: -43%;
+  /* bottom: -43%; */
   height: 120em;
   width: 120em;
   z-index: -1;
