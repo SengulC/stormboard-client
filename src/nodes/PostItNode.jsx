@@ -33,7 +33,7 @@ function PostIt({ data, isConnectable }) {
     let sourceLabels = [e.target.value];
     updateNodeLabel(cTarget, "...");
     // axios.post("http://localhost:8000/buttons", {sourceLabels, nodeLabel, prompt, brief})
-    axios.post("https://guai-server.onrender.com:10000/buttons", {sourceLabels, nodeLabel, prompt, brief})
+    axios.post("https://guai-server-9271b20bda9a.herokuapp.com/buttons", {sourceLabels, nodeLabel, prompt, brief})
     .then((res) => {
       updateNodeLabel(cTarget, res.data); // not updating?
     })

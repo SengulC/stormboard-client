@@ -5,7 +5,7 @@ import axios from "axios";
 
 async function artificial (sourceLabels, targetLabels, nodeLabel, prompt, brief, charTone) {
   // return await axios.post("http://localhost:8000/buttons", {sourceLabels, targetLabels, nodeLabel, prompt, brief, charTone})
-  return await axios.post("https://guai-server.onrender.com:10000/buttons", {sourceLabels, targetLabels, nodeLabel, prompt, brief, charTone})
+  return await axios.post("https://guai-server-9271b20bda9a.herokuapp.com/buttons", {sourceLabels, targetLabels, nodeLabel, prompt, brief, charTone})
   .then(response => response.data)
 };
 
