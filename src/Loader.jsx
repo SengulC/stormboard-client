@@ -1,10 +1,14 @@
+import { useStore } from './store';
 import './index.css'
 
 export function Loader({ loadingState }) {
 
+  const persona = useStore(state => state.persona);
+
   return (
     <aside hidden={loadingState} className="loader">
-        <img id='loaderImg' src="/Images/hermes.png" alt="AI preloader"></img>
+        <img id='loaderImg' src={`/Images/${persona}.png`} alt="AI preloader"></img>
+        {/* <img id='loaderImg' src={`/Images/hades.png`} alt="AI preloader"></img> */}
     </aside>
   );
 }

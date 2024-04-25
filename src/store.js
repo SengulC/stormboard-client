@@ -118,6 +118,7 @@ export const useStore = create((set, get) => ({
   briefJSON: {what: '', who: '', where: '', why: ''},
   loadingState: 'hidden',
   charTone: 'off',
+  persona: 'hades',
   userTime: 30000,
   straightforwardStructures: [
     { preWhat: 'Creating a new', preWho: 'to assist', preWhere: 'for use in', preWhy: 'to improve' },
@@ -190,6 +191,8 @@ export const useStore = create((set, get) => ({
     let tonedStructure = {realistic: get().straightforwardStructures, abstract: get().abstractStructures}
     let randomIndex = getRandomInt(0, 4);
     set({briefStructure: tonedStructure[charChange][randomIndex]})
+    let personas = {off: 'hades', abstract: 'apollo', realistic: 'themis'}
+    set({persona: personas[charChange]})
   }
   },
 

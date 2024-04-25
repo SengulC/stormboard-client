@@ -175,7 +175,7 @@ export function Menu({ node, deselect }) {
           {(charTone=='realistic') ? <p style={{'fontSize': 'small'}}>How often would you like Themis to collaborate? Currently set to: every {userTime/60000} minutes. </p> : <></>} 
           {(charTone=='realistic') ? <input onChange={e => setUserTime(e.target.value*60000)} value={userTime/60000} min='0.5' max='10' step='0.5' type="number"></input> : <></>}
       </div>
-      
+
       <br></br>
 
       <div className="faq">
@@ -217,6 +217,19 @@ export function Menu({ node, deselect }) {
           <li>Hades can be viewed as neutral ChatGPT responding to your tool requests, and doesn't act autonomously.</li>
           </ul>
         </div>
+      </div>
+
+      <div className="faq">
+        <h4>What is this project?</h4>
+        <p className="desc"> This is a project I've created for my final year CS@UoB thesis exploring the field of AI and HCI. 
+        My name is Sengul, and you can find me on LinkedIn and/or email me with any inquiries! </p>
+        <a href="https://www.linkedin.com/in/sengul-cagdal-266158264/">LinkedIn</a>
+        <br></br>
+        <a href="mailto:sengulcagdal@gmail.com">sengulcagdal@gmail.com</a>
+        <br></br>
+        <p></p>
+        <br></br>
+        <p></p>
       </div>
     </aside>
   );

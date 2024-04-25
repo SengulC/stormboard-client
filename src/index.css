@@ -227,6 +227,11 @@ button {
   position: fixed; overflow-y: auto;
 }
 
+a {
+  font-family: 'Roboto Slab';
+  font-size: small;
+}
+
 .menu .close-menu {
   cursor: pointer;
 }
