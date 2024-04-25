@@ -24,6 +24,7 @@ export function Menu({ node, deselect }) {
   node = node ? node : {'id': 'x', 'data':{'label': ''}};
 
   const [label, setLabel] = useState(node.data.label);
+  const [display, setDisplay] = useState("block");
 
   useEffect(() => {
     setNodes((nodes) =>
@@ -141,23 +142,13 @@ export function Menu({ node, deselect }) {
 
   return (
     <aside className="menu">
-      <div className='close-menu' onClick={() => deselect?.()}> X (deselect node) </div>
-      <h1> Menu </h1>
-        <h4>Selected note(s)</h4>
-        {(selectedNodes.length)>1 ? <div style={{'backgroundColor': selectedNodes[1].data.color}} className="post-it-node child curr-node"/> : <></>}
-        <div style={{'backgroundColor': node.data.color}} className="post-it-node curr-node"> 
-          <textarea readOnly className="post-it-text curr-node-text" value={node.data.label || "Select or type into nodes to begin editing!" }> </textarea>
-          {(selectedNodes.length)>1 ? <p className="multipleSelection"> + {selectedNodes.length-1} more </p> : <></>}
-        </div>
-        <h4>Supercharge Post-its</h4>
-        <div className="art-buttons">
-          <button title="find the semantic opposite of your idea!" name="opposite" onClick={e => artificial(e.target.name, brief, nodes, charTone)}> Make-Opposite </button>
-          <button title="summarize your idea!" name="summarize" onClick={e => artificial(e.target.name, brief, nodes, charTone)}> Summarize </button>
-          <button title="expand on your idea!" name="expand" onClick={e => artificial(e.target.name, brief, nodes, charTone)}> Expand </button>
-          <button title="merge two or more Post-its into a new one!" name="merge" onClick={e => artificial(e.target.name, brief, nodes, charTone)}> Merge </button>
-          <button title="build off of your idea in a surprising way!" name="surprise" onClick={e => artificial(e.target.name, brief, nodes, charTone)}> Surprise Me! </button>
-          <button title="group selected Post-its semantically via their color!" name="group" onClick={e => artificial(e.target.name, brief, selectedNodes, charTone)}> Group Em'! </button>
-        <h4>Adopt Personas</h4>
+      <h1>STORMBOARD</h1>
+      <p className="desc"> STORMBOARD is an AI-enhanced brainstorming tool! You can use any of the tools below to 'supercharge' your notes with AI. </p>
+      <p className="desc"> More information on how to start brainstorming can be found below! </p>
+
+      <div className="faq">
+        <h4>Personas</h4>
+        <p className="desc"> Below, you can pick an AI persona to apply to the board. These personas range in autonomy and the overall tone in which they respond to tools. </p> 
         <div className="personasContainer">
           <div className="persona">
               <img title="adopt a neutral, non-autonomous persona!" onClick={e => artificialCharacter(e.target.id)} id='off' style={(charTone=='off')? {'filter': 'none'} : {'filter': 'grayscale()'}} alt="hades" className="personaImgs" src="/Images/hades.png"></img>
@@ -183,8 +174,50 @@ export function Menu({ node, deselect }) {
         </div>
           {(charTone=='realistic') ? <p style={{'fontSize': 'small'}}>How often would you like Themis to collaborate? Currently set to: every {userTime/60000} minutes. </p> : <></>} 
           {(charTone=='realistic') ? <input onChange={e => setUserTime(e.target.value*60000)} value={userTime/60000} min='0.5' max='10' step='0.5' type="number"></input> : <></>}
-          <br></br>
+      </div>
+      
+      <br></br>
+
+      <div className="faq">
+        <h4>Selected note(s)</h4>
+        {(selectedNodes.length)>1 ? <div style={{'backgroundColor': selectedNodes[1].data.color}} className="post-it-node child curr-node"/> : <></>}
+        <div style={{'backgroundColor': node.data.color}} className="post-it-node curr-node"> 
+          <textarea readOnly className="post-it-text curr-node-text" value={node.data.label || "Select or type into nodes to begin editing!" }> </textarea>
+          {(selectedNodes.length)>1 ? <p className="multipleSelection"> + {selectedNodes.length-1} more </p> : <></>}
         </div>
+      </div>
+
+      <br></br>
+
+      <div className="faq">
+        <h4>AI Toolkit</h4>
+        <div className="art-buttons">
+          <button title="find the semantic opposite of your idea!" name="opposite" onClick={e => artificial(e.target.name, brief, nodes, charTone)}> Make-Opposite </button>
+          <button title="summarize your idea!" name="summarize" onClick={e => artificial(e.target.name, brief, nodes, charTone)}> Summarize </button>
+          <button title="expand on your idea!" name="expand" onClick={e => artificial(e.target.name, brief, nodes, charTone)}> Expand </button>
+          <button title="merge two or more Post-its into a new one!" name="merge" onClick={e => artificial(e.target.name, brief, nodes, charTone)}> Merge </button>
+          <button title="build off of your idea in a surprising way!" name="surprise" onClick={e => artificial(e.target.name, brief, nodes, charTone)}> Surprise Me! </button>
+          <button title="group selected Post-its semantically via their color!" name="group" onClick={e => artificial(e.target.name, brief, selectedNodes, charTone)}> Group Em'! </button>
+        </div>
+      </div>
+      
+      <br></br>
+
+      <div className="faq">
+        <h4>Where do I start!?</h4>
+        <button type="button" onClick={(e) => setDisplay((display == "none" ? "block" : "none"))} className="collapsible">General guidance...</button>
+        <div style={{display: display}} className="content">
+          <ul className="desc"> 
+          <li>Begin by filling out the design brief (aka THE IDEA...) at the top left corner of the screen.</li>
+          <li>Then, you may add some Surprise Notes to motivate your brainstorming. These notes will be in the context of your design brief. </li>
+          <li>Then, you can edit your notes by applying any of the tools from the toolkit.</li>
+          <li>You may also like to adopt a persona! These personas influence the tone of the output from all of the tools available on the STORMBOARD. </li>
+          <li>The personas of Apollo and Themis also act autonomously, i.e. Apollo creates new and edits your existing notes sporadically, and in a very descriptive tone. </li>
+          <li>Whereas Themis edits your notes every minute/second of your choosing, and she only summarizes your notes to help keep your STORMBOARD succinct and precise.</li>
+          <li>Hades can be viewed as neutral ChatGPT responding to your tool requests, and doesn't act autonomously.</li>
+          </ul>
+        </div>
+      </div>
     </aside>
   );
 }

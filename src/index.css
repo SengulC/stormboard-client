@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Reenie+Beanie|Roboto+Slab');
+@import url('https://fonts.googleapis.com/css?family=Reenie+Beanie|Roboto+Slab|Roboto+Slab+Medium');
 /* inspiration: https://webdesign.tutsplus.com/create-a-sticky-note-effect-in-5-easy-steps-with-css3-and-html5--net-13934t */
 
 :root {
@@ -18,6 +18,22 @@
   border: none;
   background-color: #f6edc3;
   rotate: 2deg;
+}
+
+h1 {
+  font-family: 'Roboto Slab Medium';
+  font-style: italic;
+  font-size: xx-large;
+}
+
+h4 {
+  font-family: 'Roboto Slab Medium';
+  font-size: large;
+}
+
+h5 {
+  font-family: 'Roboto Slab Medium';
+  font-size: small;
 }
 
 .react-flow .react-flow__edge {
@@ -92,6 +108,7 @@ button {
   font-size: small;
   background-color: #fbf7f5;
   padding: 10px;
+  padding-top: 0px;
   border: 1px solid #000;
   border-radius: 10px;
   border-bottom: 3px solid #000;
@@ -177,10 +194,9 @@ button {
   align-items: center;
 }
 
-/*.persona img {
-  max-width: 100px; 
-  margin-right: 10px; 
-}*/
+.desc {
+  font-size: small;
+}
 
 .personaImgs {
   width: 5em;
@@ -201,7 +217,8 @@ button {
   color: black;
   /* display:list-item; */
   padding: 3em;
-  padding-bottom: 3em;
+  padding-top: 1em;
+  padding-bottom: 20em;
   /* flex-direction: column; */
   gap: 1em;
   border: 1px solid #000;
@@ -224,6 +241,11 @@ button {
   height: 3.5em;
 }
 
+.faq {
+  display: inline;
+  float:inline-start;
+}
+
 /* div */
 .post-it-node {
   border-color: #213547;
@@ -236,7 +258,7 @@ button {
 .child {
   position: absolute;
   left: 10%;
-  bottom: 50%;
+  bottom: -40%;
   height: 120em;
   width: 120em;
   z-index: -1;
@@ -246,13 +268,15 @@ button {
 .post-it-text {
   background: transparent;
   font-family:'Reenie Beanie';
-  font-size: x-large;
+  font-size: large;
   border-color: transparent;
   color: black;
-  padding: 1em;
+  padding: 0.5em;
+  padding-left: 0.3em;
+  padding-right: 0.3em;
   resize:none;
-  height: 4em;
-  width: 4em;
+  height: 8em;
+  width: 8em;
 }
 
 .curr-node {
@@ -262,10 +286,8 @@ button {
 }
 
 .curr-node-text {
-  /* padding: 1em; */
-  height: 5em;
-  width: 5em;
-  /* resize: both; */
+  height: 8em;
+  width: 8em;
 }
 
 .multipleSelection {
