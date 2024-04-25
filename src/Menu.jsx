@@ -24,7 +24,7 @@ export function Menu({ node, deselect }) {
   node = node ? node : {'id': 'x', 'data':{'label': ''}};
 
   const [label, setLabel] = useState(node.data.label);
-  const [display, setDisplay] = useState("block");
+  const [display, setDisplay] = useState("none");
 
   useEffect(() => {
     setNodes((nodes) =>
@@ -206,8 +206,8 @@ export function Menu({ node, deselect }) {
 
       <div className="faq">
         <h4>Where do I start!?</h4>
-        <button type="button" onClick={(e) => setDisplay((display == "none" ? "block" : "none"))} className="collapsible">General guidance...</button>
-        <div style={{display: display}} className="content">
+        <button type="button" onClick={(e) => setDisplay((display == "none" ? "block" : "none"))}>General guidance...</button>
+        <div style={{display: display}}>
           <ul className="desc"> 
           <li>Begin by filling out the design brief (aka THE IDEA...) at the top left corner of the screen.</li>
           <li>Then, you may add some Surprise Notes to motivate your brainstorming. These notes will be in the context of your design brief. </li>
