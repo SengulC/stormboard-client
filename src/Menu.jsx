@@ -196,9 +196,9 @@ export function Menu({ node, deselect }) {
           <button title="find the semantic opposite of your idea!" name="opposite" onClick={e => artificial(e.target.name, brief, nodes, charTone)}> Make-Opposite </button>
           <button title="summarize your idea!" name="summarize" onClick={e => artificial(e.target.name, brief, nodes, charTone)}> Summarize </button>
           <button title="expand on your idea!" name="expand" onClick={e => artificial(e.target.name, brief, nodes, charTone)}> Expand </button>
-          <button title="merge two or more Post-its into a new one!" name="merge" onClick={e => artificial(e.target.name, brief, nodes, charTone)}> Merge </button>
+          <button title="merge two or more notes into a new one!" name="merge" onClick={e => artificial(e.target.name, brief, nodes, charTone)}> Merge </button>
           <button title="build off of your idea in a surprising way!" name="surprise" onClick={e => artificial(e.target.name, brief, nodes, charTone)}> Surprise Me! </button>
-          <button title="group selected Post-its semantically via their color!" name="group" onClick={e => artificial(e.target.name, brief, selectedNodes, charTone)}> Group Em'! </button>
+          <button title="group selected notes semantically via their color!" name="group" onClick={e => artificial(e.target.name, brief, selectedNodes, charTone)}> Group Em'! </button>
         </div>
       </div>
       

@@ -73,8 +73,8 @@ export default function App() {
       <Panel className='panel'>
       <Brief/>
         {/* <input name="brief" onChange={(e) => changeBrief(e.target.value)} value={brief} size="90" placeholder='  Write your design brief here '></input> */}
-        <button title="add a new blank Post-it note!" className="add-node-button" onClick={(e) => addNode(false, "", false)}>Add Note</button>
-        <button title="add an AI-filled Post-it note!" className="add-node-button" onClick={(e) => addNode(true, "", false)}>Add Surprise Note</button>
+        <button title="add a new blank note!" className="add-node-button" onClick={(e) => addNode(false, "", false)}>Add Note</button>
+        <button title="add an AI-filled note!" className="add-node-button" onClick={(e) => addNode(true, "", false)}>Add Surprise Note</button>
       </Panel>
       <Loader loadingState={loadingState}/>
       {/* <Background/> */}
