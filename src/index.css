@@ -263,7 +263,7 @@ a {
 .child {
   position: absolute;
   left: 10%;
-  bottom: -40%;
+  bottom: -80%;
   height: 120em;
   width: 120em;
   z-index: -1;
