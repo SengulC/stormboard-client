@@ -188,12 +188,12 @@ export const useStore = create((set, get) => ({
   setCharTone(charChange) {
     set({charTone: charChange});
     if (charChange!='off'){
-    let tonedStructure = {realistic: get().straightforwardStructures, abstract: get().abstractStructures}
-    let randomIndex = getRandomInt(0, 4);
-    set({briefStructure: tonedStructure[charChange][randomIndex]})
+      let tonedStructure = {realistic: get().straightforwardStructures, abstract: get().abstractStructures}
+      let randomIndex = getRandomInt(0, 4);
+      set({briefStructure: tonedStructure[charChange][randomIndex]})
+    }
     let personas = {off: 'hades', abstract: 'apollo', realistic: 'themis'}
     set({persona: personas[charChange]})
-  }
   },
 
   setUserTime(time) {
