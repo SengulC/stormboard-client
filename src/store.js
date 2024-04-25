@@ -107,9 +107,9 @@ function extractEdge(edgeId, edges, nodes) {
 
 export const useStore = create((set, get) => ({
   nodes: [
-    { id: 'a', type: 'postIt', data: { id: 'a', position: '200, 300', label: 'In-house classes', handleColor: '#f6edc3', color: '#ffb3ba' }, position: { x: 200, y: 300 } },
-    { id: 'b', type: 'postIt', data: { id: 'b', position: '390, 300', label: 'After school clubs', handleColor: '#f6edc3', color: '#ffdfba' }, position: { x: 390, y: 300 } },
-    { id: 'c', type: 'postIt', data: { id: 'c', position: '580, 300', label: 'House competitions', handleColor: '#f6edc3', color: '#ffffba' }, position: { x: 580, y: 300 } }
+    { id: 'a', type: 'postIt', data: { id: 'a', position: '200, 300', label: '', handleColor: '#f6edc3', color: '#ffb3ba' }, position: { x: 200, y: 300 } },
+    { id: 'b', type: 'postIt', data: { id: 'b', position: '390, 300', label: '', handleColor: '#f6edc3', color: '#ffdfba' }, position: { x: 390, y: 300 } },
+    { id: 'c', type: 'postIt', data: { id: 'c', position: '580, 300', label: '', handleColor: '#f6edc3', color: '#ffffba' }, position: { x: 580, y: 300 } }
   ],
   edges:  [],
   selectedNodes: [],
