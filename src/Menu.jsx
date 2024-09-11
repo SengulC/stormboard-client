@@ -144,7 +144,7 @@ export function Menu({ node, deselect }) {
     <aside className="menu">
       <h1>STORMBOARD</h1>
       <p className="desc"> STORMBOARD is an AI-enhanced brainstorming tool! You can use any of the tools below to 'supercharge' your notes with AI. </p>
-      <p className="descWarning"> Please note that Stormboard is currently unfunded and so any AI calls are unusable. </p>
+      <p className="descWarning"> Please note that Stormboard is currently unfunded and so AI credits may run out. </p>
       <p className="desc"> More information on how to start brainstorming can be found below! </p>
 
       <div className="faq">
