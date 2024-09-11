@@ -198,6 +198,11 @@ button {
   font-size: small;
 }
 
+.descWarning {
+  font-size: small;
+  color: rgb(134, 0, 0);
+}
+
 .personaImgs {
   width: 5em;
   height: 5em;
