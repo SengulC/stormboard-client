@@ -5,7 +5,7 @@
 // const key = import.meta.env.VITE_OPENAI_KEY;
 
 // const openai = new OpenAI({
-//   apiKey: key
+//   apiKey: keys
 // });
 
 // let prompt = "yellow basketball"
